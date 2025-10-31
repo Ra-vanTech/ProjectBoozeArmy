@@ -1,0 +1,14 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot 4.1+ (cachés y artefactos)
+.godot/
+*.translation
+
+# IDEs/OS (opcional)
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
