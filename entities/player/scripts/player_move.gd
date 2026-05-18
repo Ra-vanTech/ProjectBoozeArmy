@@ -9,7 +9,7 @@ extends CharacterBody3D
 var gravity: float = float(ProjectSettings.get_setting("physics/3d/default_gravity"))
 
 # Precargar la escena del proyectil
-const PROJECTILE_SCENE: PackedScene = preload("res://projectile.tscn")
+const PROJECTILE_SCENE: PackedScene = preload("res://scenes/weapons/projectile.tscn")
 
 @onready var camera: Camera3D = $Camera3D
 

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bojf7nmbcsf7o"]
+
+[ext_resource type="Script" uid="uid://oubus8lf1pvk" path="res://entities/props/scripts/crate.gd" id="1_ou5ok"]
+[ext_resource type="PackedScene" uid="uid://wv7x0423rhgm" path="res://entities/shared_components/hit_box_component.tscn" id="1_yyq4m"]
+[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_ou5ok"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yyq4m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyq4m"]
+albedo_color = Color(0.4916911, 0.36070696, 0.2097556, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yyq4m"]
+material = SubResource("StandardMaterial3D_yyq4m")
+
+[node name="Crate" type="RigidBody3D" unique_id=2094985712]
+script = ExtResource("1_ou5ok")
+
+[node name="HitBoxComponent" parent="." unique_id=1150852987 node_paths=PackedStringArray("health_component") instance=ExtResource("1_yyq4m")]
+unique_name_in_owner = true
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=227047944]
+shape = SubResource("BoxShape3D_yyq4m")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=577798038]
+unique_name_in_owner = true
+script = ExtResource("2_ou5ok")
+MAX_HEALTH = 25.0
+metadata/_custom_type_script = "uid://iin3yxgmowr1"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=66044631]
+mesh = SubResource("BoxMesh_yyq4m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=183048784]
+shape = SubResource("BoxShape3D_yyq4m")

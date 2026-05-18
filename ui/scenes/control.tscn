@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://db52cnumujfxf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uchyk"]
+font_color = Color(0.00069389754, 0.00069389766, 0.0006938976, 1)
+
+[node name="Control" type="Control" unique_id=1149432936]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=201551381]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "hola"
+label_settings = SubResource("LabelSettings_uchyk")
