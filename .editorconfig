@@ -1,4 +1,38 @@
+# EditorConfig — Booze Army
+# Documentación: https://editorconfig.org
+# Aplica a todos los editores compatibles: VS Code, Rider, Vim, Sublime, etc.
+
 root = true
 
+# ─── Reglas globales (todos los archivos) ────────────────────────────────────
 [*]
 charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# ─── GDScript ────────────────────────────────────────────────────────────────
+[*.gd]
+indent_style = space
+indent_size = 4
+
+# ─── Escenas y recursos de Godot (no modificar formato) ──────────────────────
+[*.{tscn,tres,godot}]
+indent_style = tab
+indent_size = 1
+trim_trailing_whitespace = false
+
+# ─── Shaders de Godot ────────────────────────────────────────────────────────
+[*.gdshader]
+indent_style = space
+indent_size = 4
+
+# ─── Markdown ────────────────────────────────────────────────────────────────
+[*.md]
+trim_trailing_whitespace = false
+insert_final_newline = true
+
+# ─── JSON y configuraciones ──────────────────────────────────────────────────
+[*.{json,cfg}]
+indent_style = space
+indent_size = 2
