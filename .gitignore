@@ -1,16 +1,35 @@
-# Godot 4+ specific ignores
-.godot/
-/android/
-
-# Godot 4.1+ (cachés y artefactos)
+# ─── Godot 4 — Motor ─────────────────────────────────────────────────────────
 .godot/
 *.translation
 
-# IDEs/OS (opcional)
+# ─── Godot 4 — Archivos generados automáticamente ───────────────────────────
+*.uid
+*.import
+
+# ─── Godot 4 — Exports y builds ──────────────────────────────────────────────
+/export/
+/build/
+/dist/
+*.apk
+*.aab
+*.ipa
+*.exe
+*.x86_64
+*.pck
+
+# ─── Android ─────────────────────────────────────────────────────────────────
+/android/
+
+# ─── Editores ─────────────────────────────────────────────────────────────────
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# ─── Sistema operativo ───────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+desktop.ini
 
-
+# ─── Proyecto ────────────────────────────────────────────────────────────────
 screenshots/
