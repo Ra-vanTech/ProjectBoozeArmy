@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b3d7yu5e0v6co"]
+
+[ext_resource type="Script" uid="uid://cmqoxxab3wdpt" path="res://entities/enemies/static_enemy/scripts/static_enemy.gd" id="1_d2yl7"]
+[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_d2yl7"]
+[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_wt7mu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5dnuu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfjyv"]
+albedo_color = Color(0.7770928, 0, 0.13049006, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7oa8i"]
+material = SubResource("StandardMaterial3D_rfjyv")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hsw27"]
+
+[node name="StaticEnemy" type="CharacterBody3D" unique_id=1940077389 groups=["enemy"]]
+script = ExtResource("1_d2yl7")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=360601107]
+unique_name_in_owner = true
+script = ExtResource("2_d2yl7")
+metadata/_custom_type_script = "uid://iin3yxgmowr1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=746149177]
+shape = SubResource("CapsuleShape3D_5dnuu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1147086914]
+mesh = SubResource("CapsuleMesh_7oa8i")
+
+[node name="HitBoxComponent" type="Area3D" parent="." unique_id=1225407337 node_paths=PackedStringArray("health_component")]
+unique_name_in_owner = true
+script = ExtResource("3_wt7mu")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=633838625]
+shape = SubResource("CapsuleShape3D_hsw27")
+
+[connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
