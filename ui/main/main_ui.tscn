@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bo4oxc3tixusn"]
 
-[ext_resource type="PackedScene" uid="uid://bbb43u8xyrjtb" path="res://ui/bank/scenes/bank.tscn" id="1_2w547"]
+[ext_resource type="PackedScene" uid="uid://bbb43u8xyrjtb" path="res://ui/bank/bank.tscn" id="1_2w547"]
 
 [node name="MainUi" type="MarginContainer" unique_id=1531797009]
 anchors_preset = 15
