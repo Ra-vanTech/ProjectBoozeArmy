@@ -1,0 +1,2 @@
+class_name EnemyBase
+extends CharacterBody3D
