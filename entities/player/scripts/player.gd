@@ -15,6 +15,7 @@ var current_state: s
 @onready var movement_component: MovementComponent = %MovementComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var death_screen: CanvasLayer = get_tree().get_first_node_in_group("death_screen")
+@onready var pause_screen = get_tree().get_first_node_in_group("pause_screen")
 
 
 func _ready() -> void:
@@ -36,7 +37,8 @@ func _physics_process(delta: float) -> void:
 		shoot()
 
 	if input_component.has_quit:
-		get_tree().quit()
+		Engine.time_scale = 0
+		pause_screen.visible = true
 
 
 func change_state(new_state: s):

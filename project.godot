@@ -27,6 +27,7 @@ bank=""
 player=""
 enemy=""
 spawner=""
+pause_screen=""
 
 [input]
 
