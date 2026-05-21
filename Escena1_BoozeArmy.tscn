@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://dbrcyi1sal6eg"]
 
 [ext_resource type="PackedScene" uid="uid://duugomh718por" path="res://entities/player/scenes/player_test.tscn" id="1_m2amp"]
-[ext_resource type="PackedScene" uid="uid://db52cnumujfxf" path="res://ui/scenes/control.tscn" id="2_gecc1"]
 [ext_resource type="PackedScene" uid="uid://bojf7nmbcsf7o" path="res://entities/props/scenes/crate.tscn" id="3_7d05b"]
-[ext_resource type="PackedScene" uid="uid://b3d7yu5e0v6co" path="res://entities/enemies/scenes/static_enemy.tscn" id="4_f7pk7"]
+[ext_resource type="PackedScene" uid="uid://boste4rk3c3ai" path="res://ui/deathScreen/scenes/death_screen_overlay.tscn" id="4_gecc1"]
+[ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/main/scenes/main_ui.tscn" id="5_7d05b"]
+[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/enemy_1/scenes/enemy_1.tscn" id="6_7d05b"]
+[ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/scenes/difficulty_manager.tscn" id="7_7120o"]
+[ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/scenes/enemy_spawner.tscn" id="7_f7pk7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -33,14 +36,22 @@ size = Vector3(50, 1, 50)
 [node name="Player_test" parent="." unique_id=54499108 instance=ExtResource("1_m2amp")]
 
 [node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397]
-transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 7, 3.5)
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 9, 4.5)
 current = true
 size = 7.015
-
-[node name="Control" parent="Player_test/Camera3D" unique_id=1149432936 instance=ExtResource("2_gecc1")]
 
 [node name="Crate" parent="." unique_id=2094985712 instance=ExtResource("3_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
-[node name="StaticEnemy" parent="." unique_id=1940077389 instance=ExtResource("4_f7pk7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.654849, 1, -4.6812162)
+[node name="DeathScreenOverlay" parent="." unique_id=618409675 instance=ExtResource("4_gecc1")]
+visible = false
+
+[node name="MainUi" parent="." unique_id=1531797009 instance=ExtResource("5_7d05b")]
+
+[node name="Enemy" parent="." unique_id=1268067690 instance=ExtResource("6_7d05b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.493926, 1, 0.25862312)
+
+[node name="EnemySpawner" parent="." unique_id=2036019453 instance=ExtResource("7_f7pk7")]
+enemy = ExtResource("6_7d05b")
+
+[node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
