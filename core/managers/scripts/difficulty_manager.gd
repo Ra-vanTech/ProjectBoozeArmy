@@ -24,8 +24,8 @@ func game_progress() -> float:
 	return 1.0 - (timer.time_left / game_time)
 
 
-func get_spawn_rate() -> float:
-	return spawn_rate_curve.sample(game_progress())
+func get_spawn_rate() -> int:
+	return floor(spawn_amount_curve.sample(game_progress()))
 
 
 func get_spawn_amount() -> float:
