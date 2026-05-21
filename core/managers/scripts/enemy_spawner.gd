@@ -5,7 +5,7 @@ extends Node3D
 @export var difficulty_manager: DifficultyManager
 
 var timer: Timer
-var spawn_cooldown: float = 1.0
+var spawn_cooldown: float = 3.0
 var spawn_amount: int = 1
 
 
