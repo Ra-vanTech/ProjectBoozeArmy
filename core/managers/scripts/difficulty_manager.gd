@@ -14,22 +14,23 @@ var timer: Timer
 
 func _ready() -> void:
 	timer = Timer.new()
+	add_child(timer)
 	timer.wait_time = game_time
 	timer.one_shot = true
-	add_child(timer)
 	timer.timeout.connect(on_game_ended)
+	timer.start()
 
 
 func game_progress() -> float:
 	return 1.0 - (timer.time_left / game_time)
 
 
-func get_spawn_rate() -> int:
+func get_spawn_rate() -> float:
+	return spawn_rate_curve.sample(game_progress())
+
+
+func get_spawn_amount() -> int:
 	return floor(spawn_amount_curve.sample(game_progress()))
-
-
-func get_spawn_amount() -> float:
-	return spawn_amount_curve.sample(game_progress())
 
 
 func get_health_mult() -> float:
