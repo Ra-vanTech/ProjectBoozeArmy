@@ -19,6 +19,11 @@ sky = SubResource("Sky_4w6e7")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_f7pk7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_f7pk7"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
 [node name="Node3D" type="Node3D" unique_id=1896586967]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=438880227]
@@ -28,10 +33,14 @@ environment = SubResource("Environment_d64gg")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=1217115380]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(50, 1, 50)
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1628345277]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_f7pk7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=1998836954]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=616073635]
+shape = SubResource("ConvexPolygonShape3D_f7pk7")
 
 [node name="Player_test" parent="." unique_id=54499108 instance=ExtResource("1_m2amp")]
 
@@ -47,9 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 visible = false
 
 [node name="MainUi" parent="." unique_id=1531797009 instance=ExtResource("5_7d05b")]
-
-[node name="Enemy" parent="." unique_id=1268067690 instance=ExtResource("6_7d05b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.493926, 1, 0.25862312)
 
 [node name="EnemySpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
