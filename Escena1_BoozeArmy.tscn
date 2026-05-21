@@ -51,7 +51,8 @@ visible = false
 [node name="Enemy" parent="." unique_id=1268067690 instance=ExtResource("6_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.493926, 1, 0.25862312)
 
-[node name="EnemySpawner" parent="." unique_id=2036019453 instance=ExtResource("7_f7pk7")]
+[node name="EnemySpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
+difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
