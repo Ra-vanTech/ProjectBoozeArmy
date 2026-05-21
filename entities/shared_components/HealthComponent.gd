@@ -3,9 +3,8 @@ extends Node
 
 signal has_died
 
-@export var STARTING_HEALTH: float = 100.0
-@export var COINS_DROPPED_DEFAULT: int = 25
-
+var STARTING_HEALTH: float = 100.0
+var COINS_DROPPED_DEFAULT: int = 25
 var health: float
 var coins_dropped: int
 

@@ -6,7 +6,8 @@ enum s { Floor, Jumping, Falling, Dead } # s de state
 # Precargar la escena del proyectil
 const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/projectile.tscn")
 
-@export var lol: int
+@export var STARTING_HEALTH := 100.0
+@export var COINS_DROPPED := 0
 
 var current_state: s
 
@@ -18,6 +19,8 @@ var current_state: s
 
 func _ready() -> void:
 	Engine.time_scale = 1
+	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
+	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
