@@ -26,6 +26,7 @@ death_screen=""
 bank=""
 player=""
 enemy=""
+spawner=""
 
 [input]
 

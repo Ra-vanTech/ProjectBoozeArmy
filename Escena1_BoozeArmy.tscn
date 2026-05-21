@@ -57,7 +57,7 @@ visible = false
 
 [node name="MainUi" parent="." unique_id=1531797009 instance=ExtResource("5_7d05b")]
 
-[node name="EnemySpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") instance=ExtResource("7_f7pk7")]
+[node name="EnemySpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
 difficulty_manager = NodePath("../DifficultyManager")
 
