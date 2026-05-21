@@ -1,12 +1,23 @@
 class_name Player
 extends CharacterBody3D
 
+enum s { Floor, Jumping, Falling, Dead } # s de state
+
 # Precargar la escena del proyectil
 const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/projectile.tscn")
 
+@export var lol: int
+
+var current_state: s
+
 @onready var input_component: InputComponent = %InputComponent
 @onready var movement_component: MovementComponent = %MovementComponent
-@onready var hit_box_component: HitBoxComponent = $HitBoxComponent
+@onready var hit_box_component: HitBoxComponent = %HitBoxComponent
+@onready var death_screen: CanvasLayer = get_tree().get_first_node_in_group("death_screen")
+
+
+func _ready() -> void:
+	Engine.time_scale = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +34,22 @@ func _physics_process(delta: float) -> void:
 
 	if input_component.has_quit:
 		get_tree().quit()
+
+
+func change_state(new_state: s):
+	current_state = new_state
+	match current_state:
+		s.Floor:
+			print("acción por hacer una sola vez al cambiar a este estado (floor)")
+		s.Jumping:
+			print("nuevo estado: salto")
+		s.Falling:
+			print("nuevo estado: cayendo")
+		s.Dead:
+			print("nuevo estado: muerto")
+			set_process(false)
+			death_screen.visible = true
+			Engine.time_scale = 0
 
 
 func shoot() -> void:
@@ -45,3 +72,7 @@ func shoot() -> void:
 
 func damage(attack: Attack):
 	hit_box_component.damage(attack)
+
+
+func _on_health_component_has_died() -> void:
+	change_state(s.Dead)
