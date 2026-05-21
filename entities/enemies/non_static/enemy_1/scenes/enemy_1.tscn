@@ -17,10 +17,10 @@ material = SubResource("StandardMaterial3D_klafe")
 top_radius = 0.2
 bottom_radius = 0.2
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pi1o2"]
-points = PackedVector3Array(-0.21418296, -0.94802845, -0.4511285, 0.022731654, 0.9521457, 0.49888662, 0.17148845, 0.9519953, 0.46901843, -0.12593445, 0.9526843, -0.48329136, 0.49966258, -0.95367396, -0.0068888306, -0.3876465, -0.9379602, 0.31565303, -0.48329246, 0.9526857, -0.12593003, 0.37509736, 0.9401282, -0.3298157, 0.17148845, -0.9519953, 0.46901843, 0.14078338, -0.9454848, -0.47957912, 0.4690145, 0.9520113, 0.17149934, -0.3876465, 0.9379602, 0.31565303, -0.48329246, -0.9526857, -0.12593003, -0.18351147, -0.9430759, 0.46469846, 0.40741244, -0.9469937, 0.2889825, 0.37509736, -0.9401282, -0.3298157, -0.39515373, 0.9557608, -0.3055234, -0.479555, 0.9454372, 0.1408799, 0.46469817, 0.94309926, -0.18351227, 0.14078338, 0.9454848, -0.47957912, -0.24320284, 0.9459547, 0.43649116, -0.479555, -0.9454372, 0.1408799, 0.2889712, 0.9469877, 0.4074208, -0.39515373, -0.9557608, -0.3055234, -0.006990604, -0.953641, 0.4996576, 0.49966258, 0.95367396, -0.0068888306, -0.27194828, 0.943071, -0.41921657, 0.46469817, -0.94309926, -0.18351227, -0.12593445, -0.9526843, -0.48329136, 0.31564754, 0.93797344, -0.38765055, 0.4690145, -0.9520113, 0.17149934, 0.40741244, 0.9469937, 0.2889825)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ddkwl"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1268067690 groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_fcrg4")
 metadata/_custom_type_script = "uid://cjwk06lnd3o6p"
 
@@ -33,8 +33,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 mesh = SubResource("CylinderMesh_fcrg4")
 skeleton = NodePath("../../HealthComponent")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=820898077]
-shape = SubResource("ConvexPolygonShape3D_pi1o2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1645972453]
+shape = SubResource("CylinderShape3D_ddkwl")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=636182245]
 unique_name_in_owner = true
@@ -47,15 +47,14 @@ script = ExtResource("3_xg3t2")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxComponent" unique_id=1111194744]
-shape = SubResource("ConvexPolygonShape3D_pi1o2")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=61894641]
+shape = SubResource("CylinderShape3D_ddkwl")
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1510550997 node_paths=PackedStringArray("BODY", "MODEL")]
 unique_name_in_owner = true
 script = ExtResource("4_ywnua")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
-MOVEMENT_SPEED = 150.0
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
 [node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]
