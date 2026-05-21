@@ -20,6 +20,13 @@ config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/image="uid://ceojmnsdgxhdl"
 config/icon="res://icon.svg"
 
+[global_group]
+
+death_screen=""
+bank=""
+player=""
+enemy=""
+
 [input]
 
 move_forward={
