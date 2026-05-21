@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gdpommu2v0so"]
 
-[ext_resource type="Script" uid="uid://ccks342nea7st" path="res://core/managers/scripts/difficulty_manager.gd" id="1_yq6q2"]
+[ext_resource type="Script" uid="uid://ccks342nea7st" path="res://core/managers/difficulty_manager/difficulty_manager.gd" id="1_yq6q2"]
 
 [sub_resource type="Curve" id="Curve_yq6q2"]
 _limits = [0.5, 4.0, 0.0, 1.0]
