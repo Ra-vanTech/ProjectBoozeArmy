@@ -1,7 +1,8 @@
-class_name HitBoxComponent extends Node
-
+class_name HitBoxComponent
+extends Area3D
 
 @export var health_component: HealthComponent
+
 
 func damage(attack: Attack):
 	if health_component:
