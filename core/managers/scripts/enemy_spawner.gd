@@ -2,6 +2,7 @@ class_name EnemySpawner
 extends Node3D
 
 @export var enemy: PackedScene
+@export var difficulty_manager: DifficultyManager
 
 var timer: Timer
 var spawn_cooldown: float = 1.0
@@ -18,4 +19,11 @@ func _ready() -> void:
 
 
 func spawn_enemy() -> void:
-	print("ola, soi un enemigo")
+	for i in range(spawn_amount):
+		var new_enemy = enemy.instantiate()
+		new_enemy.STARTING_HEALTH *= difficulty_manager.get_health_mult()
+		new_enemy.COINS_DROPPED *= difficulty_manager.get_money_mult()
+		new_enemy.position.y += 1.1
+		add_child(new_enemy)
+	spawn_cooldown = difficulty_manager.get_spawn_rate()
+	spawn_amount = difficulty_manager.get_spawn_amount()
