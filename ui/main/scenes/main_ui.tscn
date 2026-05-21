@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bo4oxc3tixusn"]
+
+[ext_resource type="PackedScene" uid="uid://bbb43u8xyrjtb" path="res://ui/bank/scenes/bank.tscn" id="1_2w547"]
+
+[node name="MainUi" type="MarginContainer" unique_id=1531797009]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Bank" parent="." unique_id=466702522 instance=ExtResource("1_2w547")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
