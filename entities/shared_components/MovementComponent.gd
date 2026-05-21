@@ -1,5 +1,5 @@
-class_name MovementComponent extends Node
-
+class_name MovementComponent
+extends Node
 
 @export var BODY: CharacterBody3D
 @export var MODEL: Node3D
@@ -9,6 +9,7 @@ class_name MovementComponent extends Node
 
 var direction: Vector2 = Vector2.ZERO
 var is_jumping: bool = false
+
 
 func tick(delta: float) -> void:
 	if not BODY:
