@@ -21,12 +21,12 @@ func tick(delta: float) -> void:
 	if not BODY.is_on_floor():
 		BODY.velocity += BODY.get_gravity() * delta * GRAVITY_MULTIPLIEAR
 
-	if is_jumping and BODY.is_on_floor():
-		BODY.velocity.y = JUMP_VELOCITY
-	is_jumping = false
-
 	BODY.move_and_slide()
 
 	if MODEL and direction.length_squared() > 0.001:
 		var look_direction: Vector3 = Vector3(direction.x, 0, direction.y).normalized()
 		MODEL.look_at(MODEL.global_position + look_direction, Vector3.UP)
+
+
+func jump() -> void:
+	BODY.velocity.y = JUMP_VELOCITY

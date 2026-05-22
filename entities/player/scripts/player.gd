@@ -8,11 +8,11 @@ const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/pro
 
 @export var STARTING_HEALTH := 100.0
 @export var COINS_DROPPED := 0
+@export var state_machine: StateMachine
 
 var current_state: s
 
 @onready var input_component: InputComponent = %InputComponent
-@onready var movement_component: MovementComponent = %MovementComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var death_screen: CanvasLayer = get_tree().get_first_node_in_group("death_screen")
 @onready var pause_screen = get_tree().get_first_node_in_group("pause_screen")
@@ -26,10 +26,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	input_component.update()
-	movement_component.direction = input_component.move_direction
-	movement_component.is_jumping = input_component.is_jumping
-	movement_component.tick(delta)
+	state_machine.tick(delta)
 
 	# all mish-mashed together just to see if it works, it sort of does, it doesnt work if not moving
 	# Sistema de disparo
