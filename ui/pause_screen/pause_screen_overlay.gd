@@ -1,14 +1,16 @@
 extends CanvasLayer
 
+signal game_resumed
+
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 
 func _on_continue_button_pressed() -> void:
-	Engine.time_scale = 1
-	visible = false
+	game_resumed.emit()
 
 
 func _visibility_changed():
 	pass
+	visible = false
