@@ -1,11 +1,57 @@
-extends Node
+class_name DwarfSystem
+extends Node3D
 
+const EnanoBase = preload("res://entities/player/dwarves/scripts/enano_base.gd")
+#Precargar la escena del enano para instanciarla en tiempo de ejecucion.
+const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
+
+#configuracion (enanos iniciales, maximo de enanos y radio de formacion)
+@export var initial_dwarves: int = 3
+@export var max_dwarves: int = 10
+@export var formation_radius: float = 2.5
+
+var dwarves: Array[Node3D] = []
+signal enano_eliminado(enanos_restantes: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	for i in range(initial_dwarves):
+		agregar_enano()
+
+func agregar_enano() -> void:
+	if dwarves.size() >= max_dwarves:
+		return
+	var enano: EnanoBase = ENANO_SCENE.instantiate()
+	add_child(enano)
+	dwarves.append(enano)
+	actualizar_formacion()
+
+func eliminar_enano() -> void:
+	# Elimina el último enano del array (llamar cuando el jugador recibe daño)
+	if dwarves.size() == 0:
+		return
+	var enano: Node3D = dwarves.pop_back()
+	enano.queue_free()
+	enano_eliminado.emit(dwarves.size())
+	actualizar_formacion()
+	if dwarves.size() == 0:
+		_sin_enanos()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func actualizar_formacion() -> void:
+	var count: int = dwarves.size()
+	if count == 0:
+		return
+	
+	#Dividir 360° (TAU = 2*PI) entre la cantidad de enanos vivos
+	var angle_step: float = TAU / float(count)
+	for i in range(count):
+		var angle: float = float(i) * angle_step
+		#posicion en el plano X/Z
+		var x: float = cos(angle) * formation_radius
+		var z: float = sin(angle) * formation_radius
+		dwarves[i].position = Vector3(x, 0, z)
+
+
+func _sin_enanos() -> void:
+	print("[DwarfSystem] Todos los enanos eliminados — pendiente conectar Game Over")
