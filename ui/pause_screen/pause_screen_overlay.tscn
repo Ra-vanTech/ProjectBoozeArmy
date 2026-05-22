@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gu5kxa188pwq"]
 
-[ext_resource type="Script" uid="uid://7ayribdk6ax1" path="res://ui/pause_screen/pause_screen_overlay.gd" id="1_ck31h"]
+[ext_resource type="Script" uid="uid://cejxt138hnfwg" path="res://ui/pause_screen/pause_screen_overlay.gd" id="1_ck31h"]
 
 [node name="PauseScreenOverlay" type="CanvasLayer" unique_id=1578907965 groups=["pause_screen"]]
 script = ExtResource("1_ck31h")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b7h3y5x8qv2oc"]
 
-[ext_resource type="Script" uid="uid://d4j81g076x2g4" path="res://entities/weapons/scripts/projectile.gd" id="1_m3h5k"]
+[ext_resource type="Script" uid="uid://d3puo3h5x3cpq" path="res://entities/weapons/scripts/projectile.gd" id="1_m3h5k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1"]
 radius = 0.15
