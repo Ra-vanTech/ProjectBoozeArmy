@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://doepf6b82py3q"]
 
-[ext_resource type="Script" uid="uid://gyagoqqfvott" path="res://entities/player/dwarves/scripts/enano_base.gd" id="1_oppef"]
+[ext_resource type="Script" uid="uid://mbu1djit71g7" path="res://entities/player/dwarves/scripts/enano_base.gd" id="1_oppef"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r00mm"]
 height = 1.55

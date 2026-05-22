@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/state/state_machine.gd" id="6_588vb"]
 [ext_resource type="Script" uid="uid://b16svw8u2q57y" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
 [ext_resource type="Script" uid="uid://c857k6v8my8eq" path="res://entities/player/states/paused.gd" id="8_2iik5"]
+[ext_resource type="Script" uid="uid://bpqlqwc8wc47i" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ucsmf"]
 
@@ -99,5 +100,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ucsmf")
 
 [node name="DwarfContainer" type="Node3D" parent="." unique_id=1641291794]
+script = ExtResource("13_46esb")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
