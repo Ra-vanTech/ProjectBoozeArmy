@@ -4,6 +4,8 @@ extends Node3D
 const EnanoBase = preload("res://entities/player/dwarves/scripts/enano_base.gd")
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
 const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
+#Referencia de HealtComponent del jugador para conexion provisional
+@onready var _player_health: HealthComponent = get_node("../HealthComponent")
 
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
 @export var initial_dwarves: int = 3
@@ -18,6 +20,14 @@ func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
+	#Conexion provisional: cada vez que el jugador recibe daño pierde un enano (aun se implementara la colision player-enemigo)
+	if is_instance_valid(_player_health):
+		_player_health.received_damage.connect(eliminar_enano)
+		print("[DEBUG] DwarfSystem conectado al daño del jugador")
+	else:
+		push_warning("[DwarfSystem] No se encontró HealthComponent en el jugador")
+
+
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
 		return
@@ -25,6 +35,8 @@ func agregar_enano() -> void:
 	add_child(enano)
 	dwarves.append(enano)
 	actualizar_formacion()
+	print("[DEBUG] Enano añadido. Total: %d" % dwarves.size())
+
 
 func eliminar_enano() -> void:
 	# Elimina el último enano del array (llamar cuando el jugador recibe daño)
@@ -34,6 +46,7 @@ func eliminar_enano() -> void:
 	enano.queue_free()
 	enano_eliminado.emit(dwarves.size())
 	actualizar_formacion()
+	print("[DEBUG] Enano eliminado. Restantes: %d" % dwarves.size())
 	if dwarves.size() == 0:
 		_sin_enanos()
 
@@ -51,6 +64,17 @@ func actualizar_formacion() -> void:
 		var x: float = cos(angle) * formation_radius
 		var z: float = sin(angle) * formation_radius
 		dwarves[i].position = Vector3(x, 0, z)
+
+#Debug keys(para testing)
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		match event.keycode:
+			KEY_Q:
+				print("[DEBUG KEY] Q presionada → agregar_enano()")
+				agregar_enano()
+			KEY_E:
+				print("[DEBUG KEY] E presionada → eliminar_enano()")
+				eliminar_enano()
 
 
 func _sin_enanos() -> void:
