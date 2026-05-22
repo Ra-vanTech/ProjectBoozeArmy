@@ -1,11 +1,9 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
-
 # Audio
 *.wav  filter=lfs diff=lfs merge=lfs -text
 *.ogg  filter=lfs diff=lfs merge=lfs -text
 *.mp3  filter=lfs diff=lfs merge=lfs -text
-
 # Images
 *.png  filter=lfs diff=lfs merge=lfs -text
 *.jpg  filter=lfs diff=lfs merge=lfs -text
@@ -15,7 +13,6 @@
 *.tga  filter=lfs diff=lfs merge=lfs -text
 *.hdr  filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
-
 # 3D Models
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.fbx   filter=lfs diff=lfs merge=lfs -text
@@ -23,18 +20,15 @@
 *.gltf  filter=lfs diff=lfs merge=lfs -text
 *.glb   filter=lfs diff=lfs merge=lfs -text
 *.dae   filter=lfs diff=lfs merge=lfs -text
-
 # Fonts
 *.ttf   filter=lfs diff=lfs merge=lfs -text
 *.otf   filter=lfs diff=lfs merge=lfs -text
 *.woff  filter=lfs diff=lfs merge=lfs -text
 *.woff2 filter=lfs diff=lfs merge=lfs -text
-
 # Video
 *.mp4  filter=lfs diff=lfs merge=lfs -text
 *.avi  filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
-
 # Archives / Executables / Other binaries
 *.zip   filter=lfs diff=lfs merge=lfs -text
 *.exe   filter=lfs diff=lfs merge=lfs -text
@@ -42,7 +36,6 @@
 *.so    filter=lfs diff=lfs merge=lfs -text
 *.a     filter=lfs diff=lfs merge=lfs -text
 *.dylib filter=lfs diff=lfs merge=lfs -text
-
 # Godot binary resources
 *.res  filter=lfs diff=lfs merge=lfs -text
 *.import filter=lfs diff=lfs merge=lfs -text
