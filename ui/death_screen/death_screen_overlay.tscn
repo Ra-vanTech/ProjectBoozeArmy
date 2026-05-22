@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://boste4rk3c3ai"]
 
-[ext_resource type="Script" uid="uid://drklkyspyef1v" path="res://ui/death_screen/death_screen_overlay.gd" id="1_fxgi5"]
+[ext_resource type="Script" uid="uid://ca856bnushfij" path="res://ui/death_screen/death_screen_overlay.gd" id="1_fxgi5"]
 
 [node name="DeathScreenOverlay" type="CanvasLayer" unique_id=618409675 groups=["death_screen"]]
 script = ExtResource("1_fxgi5")
