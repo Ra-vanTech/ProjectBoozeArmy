@@ -1,3 +1,4 @@
+#Esta clase es solamante para la herencia de métodos, no se debe de utilizar en el juego
 class_name State
 extends Node
 
