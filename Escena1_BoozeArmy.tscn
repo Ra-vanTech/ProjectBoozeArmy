@@ -66,3 +66,5 @@ enemy = ExtResource("6_7d05b")
 difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
+
+[connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
