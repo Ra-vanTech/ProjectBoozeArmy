@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://u6onrpfll0j8" path="res://entities/player/states/jumping.gd" id="5_f4mq5"]
 [ext_resource type="Script" uid="uid://bhibx0ldhclun" path="res://entities/player/states/falling.gd" id="6_147ks"]
 [ext_resource type="Script" uid="uid://dg58ii4f2iy6e" path="res://core/state/state_machine.gd" id="6_588vb"]
+[ext_resource type="Script" uid="uid://cgfuoili0prrh" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
+[ext_resource type="Script" uid="uid://ymu1ng0ex7uy" path="res://entities/player/states/paused.gd" id="8_2iik5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ucsmf"]
 
@@ -68,6 +70,14 @@ script = ExtResource("6_147ks")
 body = NodePath("../..")
 movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://bhibx0ldhclun"
+
+[node name="DeadState" type="Node" parent="StateMachine" unique_id=712203439]
+script = ExtResource("7_bnj5j")
+metadata/_custom_type_script = "uid://cgfuoili0prrh"
+
+[node name="PausedState" type="Node" parent="StateMachine" unique_id=358894995]
+script = ExtResource("8_2iik5")
+metadata/_custom_type_script = "uid://ymu1ng0ex7uy"
 
 [node name="InputComponent" type="Node" parent="." unique_id=740762571]
 unique_name_in_owner = true
