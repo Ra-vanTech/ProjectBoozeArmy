@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody3D
 
-enum s { Floor, Jumping, Falling, Dead } # s de state
-
 # Precargar la escena del proyectil
 const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/projectile.tscn")
 
@@ -10,12 +8,8 @@ const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/pro
 @export var COINS_DROPPED := 0
 @export var state_machine: StateMachine
 
-var current_state: s
-
 @onready var input_component: InputComponent = %InputComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
-@onready var death_screen: CanvasLayer = get_tree().get_first_node_in_group("death_screen")
-@onready var pause_screen = get_tree().get_first_node_in_group("pause_screen")
 
 
 func _ready() -> void:
@@ -34,24 +28,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 
 	if input_component.has_quit:
-		Engine.time_scale = 0
-		pause_screen.visible = true
-
-
-func change_state(new_state: s):
-	current_state = new_state
-	match current_state:
-		s.Floor:
-			print("acción por hacer una sola vez al cambiar a este estado (floor)")
-		s.Jumping:
-			print("nuevo estado: salto")
-		s.Falling:
-			print("nuevo estado: cayendo")
-		s.Dead:
-			print("nuevo estado: muerto")
-			set_process(false)
-			death_screen.visible = true
-			Engine.time_scale = 0
+		state_machine.change_state("PausedState")
 
 
 func shoot() -> void:
@@ -77,4 +54,8 @@ func damage(attack: Attack):
 
 
 func _on_health_component_has_died() -> void:
-	change_state(s.Dead)
+	state_machine.change_state("DeadState")
+
+
+func _on_pause_screen_overlay_game_resumed() -> void:
+	state_machine.change_state("IdleState")
