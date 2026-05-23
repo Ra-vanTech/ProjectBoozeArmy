@@ -9,8 +9,7 @@ var STARTING_HEALTH: float = 100.0
 var COINS_DROPPED_DEFAULT: int = 25
 var health: float
 var coins_dropped: int
-
-@onready var bank_label: Bank = get_tree().get_first_node_in_group("bank")
+var bank_label: Bank
 
 
 func _ready() -> void:
