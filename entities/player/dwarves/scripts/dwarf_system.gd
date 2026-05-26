@@ -3,7 +3,6 @@ extends Node3D
 
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
 const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
-#Referencia de HealtComponent del jugador para conexion provisional
 @onready var _player_health: HealthComponent = get_node("../HealthComponent")
 
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
@@ -24,7 +23,7 @@ func _ready() -> void:
 		_player_health.received_damage.connect(eliminar_enano)
 		print("[DEBUG] DwarfSystem conectado al daño del jugador")
 	else:
-		push_warning("[DwarfSystem] No se encontró HealthComponent en el jugador")
+		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
 
 
 func agregar_enano() -> void:

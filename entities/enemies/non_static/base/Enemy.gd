@@ -23,6 +23,7 @@ var player_in_range: Node3D = null
 func _ready() -> void:
 	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
+	hit_box_component.health_component.has_died.connect(_on_health_component_has_died)
 
     #funciones de ataque 
 	attack_cooldown.wait_time = attack_cooldown_time
@@ -39,10 +40,6 @@ func _process(delta: float) -> void:
 
 func damage(attack: Attack) -> void:
 	hit_box_component.damage(attack)
-
-
-func _on_health_component_has_died() -> void:
-	queue_free()
 
 
 #funcion de ataque 
@@ -76,3 +73,6 @@ func _on_attack_cooldown_timeout() -> void:
 	can_attack = true
 	if is_instance_valid(player_in_range):
 		_try_attack()
+
+func _on_health_component_has_died() -> void:
+	queue_free()
