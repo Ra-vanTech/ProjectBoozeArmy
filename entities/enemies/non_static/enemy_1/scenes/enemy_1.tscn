@@ -53,6 +53,8 @@ script = ExtResource("5_ddkwl")
 
 [node name="EnemyAttackRange" type="Area3D" parent="." unique_id=1231579690]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttackRange" unique_id=394272658]
 shape = SubResource("CylinderShape3D_xg3t2")
