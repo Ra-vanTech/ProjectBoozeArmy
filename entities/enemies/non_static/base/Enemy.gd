@@ -1,8 +1,8 @@
 class_name Enemy
 extends EnemyBase
 
-@export var STARTING_HEALTH := 100.0
-@export var COINS_DROPPED := 25
+@export var health: float = 100.0
+@export var COINS_DROPPED: int = 25
 
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var movement_component: MovementComponent = %MovementComponent
@@ -21,7 +21,7 @@ var can_attack: bool = true
 var player_in_range: Node3D = null
 
 func _ready() -> void:
-	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
+	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 	hit_box_component.health_component.has_died.connect(_on_health_component_has_died)
 
@@ -33,9 +33,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	seeking_component.tick()
-	movement_component.direction = seeking_component.direction
-	movement_component.tick(delta)
+	state_machine.tick(delta)
 
 
 func damage(attack: Attack) -> void:

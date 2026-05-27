@@ -1,13 +1,13 @@
 extends RigidBody3D
 
-@export var STARTING_HEALTH := 40.0
+@export var health := 40.0
 @export var COINS_DROPPED := 50
 
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 
 
 func _ready() -> void:
-	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
+	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 

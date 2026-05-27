@@ -1,6 +1,8 @@
 class_name DwarfSystem
 extends Node3D
 
+signal enano_eliminado(enanos_id: int)
+
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
 const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
 @onready var _player_health: HealthComponent = get_node("../HealthComponent")
@@ -11,7 +13,10 @@ const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/e
 @export var formation_radius: float = 2.5
 
 var dwarves: Array[Node3D] = []
-signal enano_eliminado(enanos_id: int)
+
+#Referencia de HealtComponent del jugador para conexion provisional
+@onready var _player_health: HealthComponent = %HealthComponent
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -44,9 +49,9 @@ func eliminar_enano() -> void:
 	var enano: Node3D = dwarves.pop_back()
 	enano.queue_free()
 	enano_eliminado.emit(enano_id)
-	
+
 	if is_instance_valid(_player_health):
-		_player_health.health = _player_health.STARTING_HEALTH
+		_player_health.health = _player_health.health
 
 	actualizar_formacion()
 	print("[DEBUG] Enano eliminado id=%d. Restantes: %d" % [enano_id, dwarves.size()])
@@ -59,7 +64,7 @@ func actualizar_formacion() -> void:
 	var count: int = dwarves.size()
 	if count == 0:
 		return
-	
+
 	#Dividir 360° (TAU = 2*PI) entre la cantidad de enanos vivos
 	var angle_step: float = TAU / float(count)
 	for i in range(count):
@@ -68,17 +73,6 @@ func actualizar_formacion() -> void:
 		var x: float = cos(angle) * formation_radius
 		var z: float = sin(angle) * formation_radius
 		dwarves[i].position = Vector3(x, 0, z)
-
-#Debug keys(para testing)
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		match event.keycode:
-			KEY_Q:
-				print("[DEBUG KEY] Q presionada → agregar_enano()")
-				agregar_enano()
-			KEY_E:
-				print("[DEBUG KEY] E presionada → eliminar_enano()")
-				eliminar_enano()
 
 
 func _sin_enanos() -> void:

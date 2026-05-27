@@ -2,7 +2,8 @@ class_name JumpingState
 extends State
 
 @export var body: CharacterBody3D
-@export var movement_component: MovementComponent
+
+@onready var movement_component: MovementComponent = %MovementComponent
 
 
 func tick(delta: float):

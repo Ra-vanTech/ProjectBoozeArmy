@@ -4,17 +4,19 @@ extends CharacterBody3D
 # Precargar la escena del proyectil
 const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/projectile.tscn")
 
-@export var STARTING_HEALTH := 100.0
+@export var health := 100.0
 @export var COINS_DROPPED := 0
 @export var state_machine: StateMachine
 
+@onready var state_machine: StateMachine = %StateMachine
 @onready var input_component: InputComponent = %InputComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
+@onready var dwarf_system: DwarfSystem = %DwarfContainer
 
 
 func _ready() -> void:
 	Engine.time_scale = 1
-	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
+	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 
@@ -26,6 +28,12 @@ func _physics_process(delta: float) -> void:
 	# Sistema de disparo
 	if input_component.is_shooting:
 		shoot()
+
+	if input_component.wants_spawn:
+		dwarf_system.agregar_enano()
+
+	if input_component.wants_despawn:
+		dwarf_system.eliminar_enano()
 
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
@@ -47,10 +55,6 @@ func shoot() -> void:
 
 	# Lanzar el proyectil
 	projectile.launch(shoot_direction)
-
-
-func damage(attack: Attack):
-	hit_box_component.damage(attack)
 
 
 func _on_health_component_has_died() -> void:
