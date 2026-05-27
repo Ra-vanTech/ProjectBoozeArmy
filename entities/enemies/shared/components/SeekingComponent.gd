@@ -1,3 +1,5 @@
+# Si tuviese que darle un nombre, sería seguimiento torpe
+# esto debido a que solamente proporciona la dirección del jugador y no toma en cuenta obstáculos
 class_name SeekingComponent
 extends Node3D
 
