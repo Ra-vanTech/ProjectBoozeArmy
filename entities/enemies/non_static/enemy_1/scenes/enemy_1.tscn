@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cblq8gdlr12ok"]
 
-[ext_resource type="Script" uid="uid://dso7l7had6r40" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
+[ext_resource type="Script" uid="uid://cjwk06lnd3o6p" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_ddkwl"]
+[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_xg3t2"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_xg3t2"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="4_ywnua"]
-[ext_resource type="Script" uid="uid://wgphewmxbhop" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
+[ext_resource type="Script" uid="uid://dqkntqlijjgaq" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.011437358, 0.39136255, 0.5628932, 1)
@@ -22,6 +23,12 @@ bottom_radius = 0.2
 [node name="Enemy" type="CharacterBody3D" unique_id=1268067690 groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_fcrg4")
+health = 10.0
+COINS_DROPPED = 100
+
+[node name="StateMachine" type="Node" parent="." unique_id=955776627]
+script = ExtResource("2_xg3t2")
+metadata/_custom_type_script = "uid://b6kx01a4fiy0q"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1757439371]
 mesh = SubResource("CylinderMesh_sryqm")
