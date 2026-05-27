@@ -14,32 +14,13 @@ const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/e
 var dwarves: Array[Node3D] = []
 
 #Referencia de HealtComponent del jugador para conexion provisional
-@onready var _player_health: HealthComponent = get_node("../HealthComponent")
+@onready var _player_health: HealthComponent = %HealthComponent
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
-
-	#Conexion provisional: cada vez que el jugador recibe daño pierde un enano (aun se implementara la colision player-enemigo)
-	if is_instance_valid(_player_health):
-		_player_health.received_damage.connect(eliminar_enano)
-		print("[DEBUG] DwarfSystem conectado al daño del jugador")
-	else:
-		push_warning("[DwarfSystem] No se encontró HealthComponent en el jugador")
-
-
-#Debug keys(para testing)
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		match event.keycode:
-			KEY_Q:
-				print("[DEBUG KEY] Q presionada → agregar_enano()")
-				agregar_enano()
-			KEY_E:
-				print("[DEBUG KEY] E presionada → eliminar_enano()")
-				eliminar_enano()
 
 
 func agregar_enano() -> void:
