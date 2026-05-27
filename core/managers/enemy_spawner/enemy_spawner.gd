@@ -20,10 +20,10 @@ func _ready() -> void:
 
 func spawn_enemy() -> void:
 	for i in range(spawn_amount):
-		var new_enemy = enemy.instantiate()
-		add_child(new_enemy)
-		new_enemy.STARTING_HEALTH *= difficulty_manager.get_health_mult()
+		var new_enemy = enemy.instantiate() as Enemy
+		new_enemy.health *= difficulty_manager.get_health_mult()
 		new_enemy.COINS_DROPPED *= difficulty_manager.get_money_mult()
-		new_enemy.global_position = global_position + Vector3(randi_range(-10, 10), 2, randi_range(-10, 10))
+		add_child(new_enemy)
+		new_enemy.global_position = global_position + Vector3(randi_range(-20, 20), 2, randi_range(-20, 20))
 	timer.wait_time = difficulty_manager.get_spawn_rate()
 	spawn_amount = difficulty_manager.get_spawn_amount()
