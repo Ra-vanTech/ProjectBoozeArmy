@@ -100,6 +100,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ucsmf")
 
 [node name="DwarfContainer" type="Node3D" parent="." unique_id=1641291794]
+unique_name_in_owner = true
 script = ExtResource("13_46esb")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
