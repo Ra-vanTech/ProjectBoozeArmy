@@ -23,7 +23,6 @@ var player_in_range: Node3D = null
 func _ready() -> void:
 	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
-	hit_box_component.health_component.has_died.connect(_on_health_component_has_died)
 
     #funciones de ataque 
 	attack_cooldown.wait_time = attack_cooldown_time
