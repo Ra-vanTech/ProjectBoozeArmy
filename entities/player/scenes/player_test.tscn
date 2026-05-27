@@ -7,12 +7,12 @@
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="4_20dgb"]
 [ext_resource type="Script" uid="uid://djr2hdyh2qthi" path="res://entities/player/states/moving.gd" id="4_621nv"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="5_7mveo"]
-[ext_resource type="Script" uid="uid://u6onrpfll0j8" path="res://entities/player/states/jumping.gd" id="5_f4mq5"]
-[ext_resource type="Script" uid="uid://bhibx0ldhclun" path="res://entities/player/states/falling.gd" id="6_147ks"]
-[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="6_588vb"]
-[ext_resource type="Script" uid="uid://cgfuoili0prrh" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
-[ext_resource type="Script" uid="uid://ymu1ng0ex7uy" path="res://entities/player/states/paused.gd" id="8_2iik5"]
-[ext_resource type="Script" uid="uid://dsp4rab7gvgcp" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
+[ext_resource type="Script" uid="uid://d3hig6nq3t464" path="res://entities/player/states/jumping.gd" id="5_f4mq5"]
+[ext_resource type="Script" uid="uid://bc7dpsynoh6fm" path="res://entities/player/states/falling.gd" id="6_147ks"]
+[ext_resource type="Script" uid="uid://cgxsu0ruf41p0" path="res://core/state/state_machine.gd" id="6_588vb"]
+[ext_resource type="Script" uid="uid://b16svw8u2q57y" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
+[ext_resource type="Script" uid="uid://c857k6v8my8eq" path="res://entities/player/states/paused.gd" id="8_2iik5"]
+[ext_resource type="Script" uid="uid://dffm562yue3y2" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ucsmf"]
 
@@ -27,7 +27,9 @@ height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ucsmf"]
 
-[node name="Player_test" type="CharacterBody3D" unique_id=54499108 groups=["player"]]
+[node name="Player_test" type="CharacterBody3D" unique_id=54499108 node_paths=PackedStringArray("state_machine") groups=["player"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_87kod")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=990134174]
