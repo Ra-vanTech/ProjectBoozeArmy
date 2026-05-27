@@ -4,7 +4,7 @@ extends CharacterBody3D
 # Precargar la escena del proyectil
 const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/projectile.tscn")
 
-@export var STARTING_HEALTH := 100.0
+@export var health := 100.0
 @export var COINS_DROPPED := 0
 @export var state_machine: StateMachine
 
@@ -14,7 +14,7 @@ const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/pro
 
 func _ready() -> void:
 	Engine.time_scale = 1
-	hit_box_component.health_component.STARTING_HEALTH = STARTING_HEALTH
+	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 
