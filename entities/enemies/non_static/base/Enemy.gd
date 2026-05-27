@@ -3,11 +3,11 @@ extends EnemyBase
 
 @export var health: float = 100.0
 @export var COINS_DROPPED: int = 25
-@export var state_machine: StateMachine
 
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var movement_component: MovementComponent = %MovementComponent
 @onready var seeking_component: SeekingComponent = %SeekingComponent
+@onready var state_machine: StateMachine = %StateMachine
 
 
 func _ready() -> void:
@@ -16,9 +16,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	seeking_component.tick()
-	movement_component.direction = seeking_component.direction
-	movement_component.tick(delta)
+	state_machine.tick(delta)
 
 
 func damage(attack: Attack) -> void:
