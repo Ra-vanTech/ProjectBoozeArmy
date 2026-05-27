@@ -1,8 +1,9 @@
 class_name FallingState
 extends State
 
-@export var body: CharacterBody3D
-@export var movement_component: MovementComponent
+@export var body: Player
+
+@onready var movement_component: MovementComponent = %MovementComponent
 
 
 func tick(delta: float):

@@ -27,9 +27,8 @@ height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ucsmf"]
 
-[node name="Player_test" type="CharacterBody3D" unique_id=54499108 node_paths=PackedStringArray("state_machine") groups=["player"]]
+[node name="Player_test" type="CharacterBody3D" unique_id=54499108 groups=["player"]]
 script = ExtResource("1_87kod")
-state_machine = NodePath("StateMachine")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=990134174]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -45,27 +44,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ucsmf")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1346876087 node_paths=PackedStringArray("initial_state")]
+unique_name_in_owner = true
 script = ExtResource("6_588vb")
 initial_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=1048653098 node_paths=PackedStringArray("input_component")]
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=1048653098 node_paths=PackedStringArray("body")]
 script = ExtResource("3_6tei6")
-input_component = NodePath("../../InputComponent")
+body = NodePath("../..")
 
-[node name="MovingState" type="Node" parent="StateMachine" unique_id=977842704 node_paths=PackedStringArray("input_component", "movement_component")]
+[node name="MovingState" type="Node" parent="StateMachine" unique_id=977842704]
 script = ExtResource("4_621nv")
-input_component = NodePath("../../InputComponent")
-movement_component = NodePath("../../MovementComponent")
 
-[node name="JumpingState" type="Node" parent="StateMachine" unique_id=437816381 node_paths=PackedStringArray("body", "movement_component")]
+[node name="JumpingState" type="Node" parent="StateMachine" unique_id=437816381 node_paths=PackedStringArray("body")]
 script = ExtResource("5_f4mq5")
 body = NodePath("../..")
-movement_component = NodePath("../../MovementComponent")
 
-[node name="FallingState" type="Node" parent="StateMachine" unique_id=1106573890 node_paths=PackedStringArray("body", "movement_component")]
+[node name="FallingState" type="Node" parent="StateMachine" unique_id=1106573890 node_paths=PackedStringArray("body")]
 script = ExtResource("6_147ks")
 body = NodePath("../..")
-movement_component = NodePath("../../MovementComponent")
 
 [node name="DeadState" type="Node" parent="StateMachine" unique_id=712203439]
 script = ExtResource("7_bnj5j")

@@ -1,8 +1,8 @@
 class_name MovingState
 extends State
 
-@export var input_component: InputComponent
-@export var movement_component: MovementComponent
+@onready var movement_component: MovementComponent = %MovementComponent
+@onready var input_component: InputComponent = %InputComponent
 
 
 func tick(delta: float):

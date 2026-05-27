@@ -6,8 +6,8 @@ const PROJECTILE_SCENE: PackedScene = preload("res://entities/weapons/scenes/pro
 
 @export var health := 100.0
 @export var COINS_DROPPED := 0
-@export var state_machine: StateMachine
 
+@onready var state_machine: StateMachine = %StateMachine
 @onready var input_component: InputComponent = %InputComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var dwarf_system: DwarfSystem = %DwarfContainer
