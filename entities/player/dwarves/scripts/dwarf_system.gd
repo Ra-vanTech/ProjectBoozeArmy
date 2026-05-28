@@ -42,9 +42,6 @@ func eliminar_enano() -> void:
 	enano.queue_free()
 	enano_eliminado.emit(enano_id)
 
-	if is_instance_valid(_player_health):
-		_player_health.health = _player_health.health
-
 	actualizar_formacion()
 	print("[DEBUG] Enano eliminado id=%d. Restantes: %d" % [enano_id, dwarves.size()])
 
