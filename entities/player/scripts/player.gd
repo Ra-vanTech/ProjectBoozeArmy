@@ -56,6 +56,10 @@ func shoot() -> void:
 	projectile.launch(shoot_direction)
 
 
+func damage():
+	dwarf_system.eliminar_enano()
+
+
 func _on_health_component_has_died() -> void:
 	state_machine.change_state("DeadState")
 

@@ -46,9 +46,7 @@ func _try_attack() -> void:
 	if not is_instance_valid(player_in_range):
 		player_in_range = null
 		return
-	var attack := Attack.new()
-	attack.damage = attack_damage
-	player_in_range.damage(attack)
+	player_in_range.damage()
 	can_attack = false
 	attack_cooldown.start()
 

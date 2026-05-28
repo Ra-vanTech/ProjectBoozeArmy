@@ -12,7 +12,6 @@ var bank_label: Bank
 
 func damage(attack: Attack) -> void:
 	health -= attack.damage
-	print(health)
 	#se emite cuando se aplica daño a los enanos
 	received_damage.emit()
 

@@ -10,7 +10,6 @@ var states: Dictionary = { }
 func _ready() -> void:
 	for state in get_children():
 		if state is State:
-			print(state.name)
 			states[state.name.to_lower()] = state
 			state.state_machine = self
 	if initial_state:
