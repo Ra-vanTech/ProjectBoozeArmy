@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://doepf6b82py3q"]
 
 [ext_resource type="Script" uid="uid://ds5nfvcmie7r6" path="res://entities/player/dwarves/scripts/enano_base.gd" id="1_oppef"]
+[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_t6xkj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r00mm"]
 height = 1.55
@@ -26,3 +27,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5264454, 0)
 shape = SubResource("SphereShape3D_oppef")
 
 [node name="AttackCooldown" type="Timer" parent="." unique_id=1674398328]
+
+[node name="StateMachine" type="Node" parent="." unique_id=1880243342]
+unique_name_in_owner = true
+script = ExtResource("2_t6xkj")
+metadata/_custom_type_script = "uid://u7hnmfdjwvy3"
+
+[node name="DwarfIdleState" type="Node" parent="StateMachine" unique_id=160891737]
+
+[node name="DwarfAttackState" type="Node" parent="StateMachine" unique_id=653698306]
