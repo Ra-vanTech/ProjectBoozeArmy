@@ -1,6 +1,42 @@
 class_name EnemyAttackingState
 extends State
 
+@export var attack_cooldown: float = 1.0
+@export var miss_cooldown: float = 0.5
+
+var target: Player = null
+var timer: Timer
+
+
+func _ready() -> void:
+	timer = Timer.new()
+	timer.one_shot = true
+	add_child(timer)
+	timer.timeout.connect(on_timer_timeout)
+
 
 func enter():
-	print("Estoy atacandoooooooo")
+	target = get_tree().get_first_node_in_group("player") as Player
+	if not attempt_attack():
+		print("ataque no exitoso")
+		timer.start(miss_cooldown)
+	else:
+		print("ataque exitoso")
+		timer.start(attack_cooldown)
+
+
+func attempt_attack() -> bool:
+	if not is_instance_valid(target):
+		target = null
+		return false
+	target.damage()
+	return true
+
+
+func on_timer_timeout():
+	state_machine.change_state("EnemyMovingState")
+
+
+func _on_enemy_attack_range_body_exited(body: Node3D) -> void:
+	print("jugador salió del área de ataque")
+	target = null
