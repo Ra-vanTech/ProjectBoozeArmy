@@ -22,13 +22,6 @@ func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
-	#Conexion provisional: cada vez que el jugador recibe daño pierde un enano (aun se implementara la colision player-enemigo)
-	if is_instance_valid(_player_health):
-		_player_health.received_damage.connect(eliminar_enano)
-		print("[DEBUG] DwarfSystem conectado al daño del jugador")
-	else:
-		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
-
 
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
