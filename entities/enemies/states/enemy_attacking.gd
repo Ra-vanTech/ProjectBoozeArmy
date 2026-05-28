@@ -15,6 +15,7 @@ func _ready() -> void:
 	timer.timeout.connect(on_timer_timeout)
 
 
+# Se quedan quietos por un momento después de atacar para que no se acerquen demasiado y terminen dentro del jugador
 func enter():
 	target = get_tree().get_first_node_in_group("player") as Player
 	if not attempt_attack():
