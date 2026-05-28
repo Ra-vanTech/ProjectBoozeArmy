@@ -84,6 +84,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttackRange" unique_id=394272658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027703285, -0.04476273, -0.0118716955)
 shape = SubResource("CylinderShape3D_xg3t2")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]

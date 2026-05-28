@@ -10,7 +10,6 @@ var player_in_range: Node3D = null
 @onready var seeking_component: SeekingComponent = %SeekingComponent
 #Nuevos nodos
 @onready var enemy_attack_range: Area3D = %EnemyAttackRange
-@onready var attack_cooldown: Timer = %AttackCooldown
 @onready var state_machine: StateMachine = %StateMachine
 
 
