@@ -14,9 +14,6 @@ albedo_color = Color(0.39968616, 0.7559482, 0.23679131, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_oppef"]
 radius = 1.5
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bs84x"]
-height = 1.55
-
 [node name="EnanoBase" type="CharacterBody3D" unique_id=1614007922]
 script = ExtResource("1_oppef")
 
@@ -44,7 +41,3 @@ script = ExtResource("3_ouxvj")
 
 [node name="DwarfAttackState" type="Node" parent="StateMachine" unique_id=653698306]
 script = ExtResource("4_bs84x")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=580256728]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55480134, 0)
-shape = SubResource("CapsuleShape3D_bs84x")
