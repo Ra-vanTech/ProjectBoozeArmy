@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://doepf6b82py3q"]
 
 [ext_resource type="Script" uid="uid://ds5nfvcmie7r6" path="res://entities/player/dwarves/scripts/enano_base.gd" id="1_oppef"]
-[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_t6xkj"]
+[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_t6xkj"]
 [ext_resource type="Script" uid="uid://d3j0t7xiu6inn" path="res://entities/player/dwarves/state/DwarfIdleState.gd" id="3_ouxvj"]
 [ext_resource type="Script" uid="uid://dc3dcpla013u2" path="res://entities/player/dwarves/state/DwarfAttackState.gd" id="4_bs84x"]
 
