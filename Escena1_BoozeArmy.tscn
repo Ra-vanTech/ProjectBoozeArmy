@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://gu5kxa188pwq" path="res://ui/pause_screen/pause_screen_overlay.tscn" id="4_7120o"]
 [ext_resource type="PackedScene" uid="uid://boste4rk3c3ai" path="res://ui/death_screen/death_screen_overlay.tscn" id="4_gecc1"]
 [ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/main/main_ui.tscn" id="5_7d05b"]
-[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/enemy_1/scenes/enemy_1.tscn" id="6_7d05b"]
+[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/scenes/skeleton.tscn" id="6_7d05b"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
 
