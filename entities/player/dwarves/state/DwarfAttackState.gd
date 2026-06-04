@@ -25,7 +25,8 @@ func tick(delta: float) -> void:
 	current_cooldown += delta
 	if current_cooldown >= dwarf.cooldown_base and is_instance_valid(current_target):
 		dwarf._attack(current_target)
-		current_cooldown = 0.0
+		#cambio: hacemos una variacion de tiempo entre los enanos para que ataquen en distinto tiempo 
+		current_cooldown = randf_range(0.0, 0.4)
 
 
 func _update_target() -> void:
