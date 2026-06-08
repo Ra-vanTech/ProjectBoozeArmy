@@ -1,0 +1,24 @@
+class_name DrunkenessMeter
+extends Label
+
+@export var starting_drunkeness: int = 50
+
+var drunkeness: int:
+	set(input):
+		drunkeness = max(input, 0)
+		text = "Ebriedad: " + str(drunkeness)
+var timer: Timer
+
+
+func _ready() -> void:
+	drunkeness = starting_drunkeness
+	timer = Timer.new()
+	timer.wait_time = 1.0
+	timer.one_shot = false
+	add_child(timer)
+	timer.timeout.connect(substract_drunkeness)
+	timer.start()
+
+
+func substract_drunkeness() -> void:
+	drunkeness -= 1

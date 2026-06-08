@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://db0wwfr5rtbup"]
+
+[ext_resource type="Script" uid="uid://dt8fudp6pgo0m" path="res://ui/drunkeness/drunkeness_meter.gd" id="1_ajc5c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ec4aj"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DrunkenessMeter" type="Label" unique_id=1008807262 groups=["drunkeness"]]
+text = "PLACEHOLDER TEXT (DRUNKENESS)"
+label_settings = SubResource("LabelSettings_ec4aj")
+script = ExtResource("1_ajc5c")
