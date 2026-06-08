@@ -35,7 +35,8 @@ func obtener_daño_final() -> float:
 	var mod_ebriedad: float = obtener_modificador_ebriedad()
 	var mod_upgrades: float = obtener_modificador_upgrades()
 	#retorna la formula de daño final
-	return damage * (1.0 + mod_ebriedad) * (1.0 + mod_upgrades)
+	#al dividir entre 50 el nivel de ebriedad se hace que su multiplicador más alto sea de x3
+	return damage * (1.0 + mod_ebriedad / 50) * (1.0 + mod_upgrades)
 
 
 # Acciones base (poliformismo)
