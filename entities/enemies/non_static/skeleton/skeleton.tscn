@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cblq8gdlr12ok"]
+
+[ext_resource type="Script" uid="uid://cjwk06lnd3o6p" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
+[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_ddkwl"]
+[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_xg3t2"]
+[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_xg3t2"]
+[ext_resource type="Script" uid="uid://8gukc77why1y" path="res://entities/enemies/states/enemy_idle.gd" id="3_ywnua"]
+[ext_resource type="Script" uid="uid://bwex8x03l64sl" path="res://entities/enemies/states/enemy_moving.gd" id="4_f4cja"]
+[ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="4_ywnua"]
+[ext_resource type="Script" uid="uid://c6ub3j2g3x37e" path="res://entities/enemies/states/enemy_attacking.gd" id="5_55j6w"]
+[ext_resource type="Script" uid="uid://dqkntqlijjgaq" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
+[ext_resource type="Script" uid="uid://782jxvlu2xc7" path="res://entities/enemies/states/enemy_dead.gd" id="6_tffy8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
+albedo_color = Color(0.011437358, 0.39136255, 0.5628932, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sryqm"]
+material = SubResource("StandardMaterial3D_klafe")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ddkwl"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xg3t2"]
+radius = 1.0
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1268067690 groups=["enemy"]]
+script = ExtResource("1_fcrg4")
+health = 30.0
+COINS_DROPPED = 100
+
+[node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
+unique_name_in_owner = true
+script = ExtResource("2_xg3t2")
+initial_state = NodePath("EnemyIdleState")
+
+[node name="EnemyIdleState" type="Node" parent="StateMachine" unique_id=1423566870 node_paths=PackedStringArray("body")]
+script = ExtResource("3_ywnua")
+body = NodePath("../..")
+
+[node name="EnemyMovingState" type="Node" parent="StateMachine" unique_id=1963339245]
+script = ExtResource("4_f4cja")
+
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1041609991]
+script = ExtResource("5_55j6w")
+
+[node name="EnemyDeadState" type="Node" parent="StateMachine" unique_id=450953433 node_paths=PackedStringArray("parent")]
+script = ExtResource("6_tffy8")
+parent = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1757439371]
+mesh = SubResource("CylinderMesh_sryqm")
+skeleton = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1645972453]
+shape = SubResource("CylinderShape3D_ddkwl")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=636182245]
+unique_name_in_owner = true
+script = ExtResource("2_ddkwl")
+metadata/_custom_type_script = "uid://iin3yxgmowr1"
+
+[node name="HitBoxComponent" type="Area3D" parent="." unique_id=305230394 node_paths=PackedStringArray("health_component")]
+unique_name_in_owner = true
+script = ExtResource("3_xg3t2")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=61894641]
+shape = SubResource("CylinderShape3D_ddkwl")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1510550997 node_paths=PackedStringArray("BODY", "MODEL")]
+unique_name_in_owner = true
+script = ExtResource("4_ywnua")
+BODY = NodePath("..")
+MODEL = NodePath("../MeshInstance3D")
+metadata/_custom_type_script = "uid://cet3rr2bu208v"
+
+[node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]
+unique_name_in_owner = true
+script = ExtResource("5_ddkwl")
+
+[node name="EnemyAttackRange" type="Area3D" parent="." unique_id=1231579690]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttackRange" unique_id=394272658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027703285, -0.04476273, -0.0118716955)
+shape = SubResource("CylinderShape3D_xg3t2")
+
+[connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
+[connection signal="body_entered" from="EnemyAttackRange" to="StateMachine/EnemyMovingState" method="_on_enemy_attack_range_body_entered"]
+[connection signal="body_exited" from="EnemyAttackRange" to="StateMachine/EnemyAttackingState" method="_on_enemy_attack_range_body_exited"]

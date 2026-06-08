@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://c8gc2l04piclc"]
+
+[ext_resource type="Script" uid="uid://biig7ms6tftlf" path="res://ui/settings/settings.gd" id="1_bjc66"]
+[ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_hrs25"]
+
+[node name="Settings" type="CanvasLayer" unique_id=1749118228]
+script = ExtResource("1_bjc66")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=496613460]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13532597, 0.37639323, 0.40221816, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1742709532]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=232129216]
+custom_minimum_size = Vector2(450, 450)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/VBoxContainer" unique_id=1864231622]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+current_tab = 0
+
+[node name="En progreso" type="MarginContainer" parent="CenterContainer/VBoxContainer/TabContainer" unique_id=512894117]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/TabContainer/En progreso" unique_id=1712292900]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/TabContainer/En progreso/VBoxContainer" unique_id=322459793]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Por el momento no hay opciones xd"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1828309355]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=2120831766]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Volver al menú"
+
+[node name="TransitionScreen" parent="." unique_id=2001532765 instance=ExtResource("2_hrs25")]
+
+[node name="Timer" type="Timer" parent="TransitionScreen" unique_id=863021184]
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="TransitionScreen/Timer" to="." method="_on_timer_timeout"]

@@ -1,49 +1,51 @@
-[gd_scene format=3 uid="uid://cblq8gdlr12ok"]
+[gd_scene format=3 uid="uid://cs7d4bolydibi"]
 
-[ext_resource type="Script" uid="uid://c1iu7dkwwyhav" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
-[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_ddkwl"]
-[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_xg3t2"]
-[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_xg3t2"]
-[ext_resource type="Script" uid="uid://kf7pxi2eewp6" path="res://entities/enemies/states/enemy_idle.gd" id="3_ywnua"]
-[ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_f4cja"]
-[ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="4_ywnua"]
-[ext_resource type="Script" uid="uid://c24hygkkn2shv" path="res://entities/enemies/states/enemy_attacking.gd" id="5_55j6w"]
-[ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
-[ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_tffy8"]
+[ext_resource type="Script" uid="uid://cjwk06lnd3o6p" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_olpvl"]
+[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_8ovst"]
+[ext_resource type="Script" uid="uid://8gukc77why1y" path="res://entities/enemies/states/enemy_idle.gd" id="3_xpigb"]
+[ext_resource type="Script" uid="uid://bwex8x03l64sl" path="res://entities/enemies/states/enemy_moving.gd" id="4_kvri0"]
+[ext_resource type="Script" uid="uid://c6ub3j2g3x37e" path="res://entities/enemies/states/enemy_attacking.gd" id="5_3x8g5"]
+[ext_resource type="Script" uid="uid://782jxvlu2xc7" path="res://entities/enemies/states/enemy_dead.gd" id="6_yb287"]
+[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="7_eqxyq"]
+[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_5j733"]
+[ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_eewvh"]
+[ext_resource type="Script" uid="uid://dqkntqlijjgaq" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_iqgmn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
-albedo_color = Color(0.011437358, 0.39136255, 0.5628932, 1)
+albedo_color = Color(0, 0.5441247, 0.22875264, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_sryqm"]
 material = SubResource("StandardMaterial3D_klafe")
+height = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ddkwl"]
+height = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_xg3t2"]
+height = 1.0
 radius = 1.0
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1268067690 groups=["enemy"]]
-script = ExtResource("1_fcrg4")
+script = ExtResource("1_olpvl")
 health = 10.0
-COINS_DROPPED = 100
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true
-script = ExtResource("2_xg3t2")
+script = ExtResource("2_8ovst")
 initial_state = NodePath("EnemyIdleState")
 
 [node name="EnemyIdleState" type="Node" parent="StateMachine" unique_id=1423566870 node_paths=PackedStringArray("body")]
-script = ExtResource("3_ywnua")
+script = ExtResource("3_xpigb")
 body = NodePath("../..")
 
 [node name="EnemyMovingState" type="Node" parent="StateMachine" unique_id=1963339245]
-script = ExtResource("4_f4cja")
+script = ExtResource("4_kvri0")
 
 [node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1041609991]
-script = ExtResource("5_55j6w")
+script = ExtResource("5_3x8g5")
 
 [node name="EnemyDeadState" type="Node" parent="StateMachine" unique_id=450953433 node_paths=PackedStringArray("parent")]
-script = ExtResource("6_tffy8")
+script = ExtResource("6_yb287")
 parent = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1757439371]
@@ -55,12 +57,12 @@ shape = SubResource("CylinderShape3D_ddkwl")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=636182245]
 unique_name_in_owner = true
-script = ExtResource("2_ddkwl")
+script = ExtResource("7_eqxyq")
 metadata/_custom_type_script = "uid://iin3yxgmowr1"
 
 [node name="HitBoxComponent" type="Area3D" parent="." unique_id=305230394 node_paths=PackedStringArray("health_component")]
 unique_name_in_owner = true
-script = ExtResource("3_xg3t2")
+script = ExtResource("8_5j733")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
 
@@ -69,14 +71,14 @@ shape = SubResource("CylinderShape3D_ddkwl")
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1510550997 node_paths=PackedStringArray("BODY", "MODEL")]
 unique_name_in_owner = true
-script = ExtResource("4_ywnua")
+script = ExtResource("9_eewvh")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
 [node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]
 unique_name_in_owner = true
-script = ExtResource("5_ddkwl")
+script = ExtResource("10_iqgmn")
 
 [node name="EnemyAttackRange" type="Area3D" parent="." unique_id=1231579690]
 unique_name_in_owner = true
