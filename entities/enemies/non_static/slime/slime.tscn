@@ -26,6 +26,8 @@ height = 1.0
 radius = 1.0
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1268067690 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_olpvl")
 health = 10.0
 
@@ -90,5 +92,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027703285, -0.04476273, -0.
 shape = SubResource("CylinderShape3D_xg3t2")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
-[connection signal="body_entered" from="EnemyAttackRange" to="StateMachine/EnemyMovingState" method="_on_enemy_attack_range_body_entered"]
-[connection signal="body_exited" from="EnemyAttackRange" to="StateMachine/EnemyAttackingState" method="_on_enemy_attack_range_body_exited"]
+[connection signal="body_entered" from="EnemyAttackRange" to="." method="_on_enemy_attack_range_body_entered"]
+[connection signal="body_exited" from="EnemyAttackRange" to="." method="_on_enemy_attack_range_body_exited"]
