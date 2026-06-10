@@ -14,17 +14,18 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(on_timer_timeout)
 
+@onready var enemy: Enemy = owner as Enemy
+
 
 # Se quedan quietos por un momento después de atacar para que no se acerquen demasiado y terminen dentro del jugador
 func enter():
-	target = get_tree().get_first_node_in_group("player") as Player
+	target = enemy.player_in_range as Player
 	if not attempt_attack():
 		print("ataque no exitoso")
 		timer.start(miss_cooldown)
 	else:
 		print("ataque exitoso")
 		timer.start(attack_cooldown)
-
 
 func attempt_attack() -> bool:
 	if not is_instance_valid(target):
@@ -36,8 +37,3 @@ func attempt_attack() -> bool:
 
 func on_timer_timeout():
 	state_machine.change_state("EnemyMovingState")
-
-
-func _on_enemy_attack_range_body_exited(body: Node3D) -> void:
-	print("jugador salió del área de ataque")
-	target = null
