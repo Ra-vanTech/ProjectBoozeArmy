@@ -7,6 +7,7 @@ var drunkeness: int:
 	set(input):
 		drunkeness = max(input, 0)
 		text = "Ebriedad: " + str(drunkeness)
+		modulate = Color.RED.lerp(Color.WHITE, float(drunkeness) / 100) # buuu numeros mágicos, despues se arregla
 var timer: Timer
 
 
