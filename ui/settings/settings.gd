@@ -1,22 +1,14 @@
 extends CanvasLayer
 
-signal game_resumed
+
+func _ready() -> void:
+	$TransitionScreen/AnimationPlayer.play("fade_out")
 
 
-func _on_quit_button_pressed() -> void:
-	Engine.time_scale = 1
+func _on_button_pressed() -> void:
 	$TransitionScreen.show()
 	$TransitionScreen/AnimationPlayer.play("fade_in")
 	$TransitionScreen/Timer.start()
-
-
-func _on_continue_button_pressed() -> void:
-	game_resumed.emit()
-
-
-func _visibility_changed():
-	pass
-	visible = false
 
 
 func _on_timer_timeout() -> void:

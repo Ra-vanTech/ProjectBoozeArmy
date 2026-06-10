@@ -4,10 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://bojf7nmbcsf7o" path="res://entities/props/scenes/crate.tscn" id="3_7d05b"]
 [ext_resource type="PackedScene" uid="uid://gu5kxa188pwq" path="res://ui/pause_screen/pause_screen_overlay.tscn" id="4_7120o"]
 [ext_resource type="PackedScene" uid="uid://boste4rk3c3ai" path="res://ui/death_screen/death_screen_overlay.tscn" id="4_gecc1"]
-[ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/main/main_ui.tscn" id="5_7d05b"]
-[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/enemy_1/scenes/enemy_1.tscn" id="6_7d05b"]
+[ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/game_ui/game_ui.tscn" id="5_7d05b"]
+[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="6_7d05b"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
+[ext_resource type="Script" uid="uid://dpqvt1fotn1il" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
+[ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
+[ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -53,19 +56,32 @@ size = 7.015
 [node name="Crate" parent="." unique_id=2094985712 instance=ExtResource("3_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
+[node name="BlurLayer" parent="." unique_id=179839882 instance=ExtResource("11_e78ft")]
+layer = 0
+
 [node name="DeathScreenOverlay" parent="." unique_id=618409675 instance=ExtResource("4_gecc1")]
+layer = 2
 visible = false
 
 [node name="PauseScreenOverlay" parent="." unique_id=1578907965 instance=ExtResource("4_7120o")]
+layer = 2
 visible = false
 
-[node name="MainUi" parent="." unique_id=1531797009 instance=ExtResource("5_7d05b")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=923662318]
 
-[node name="EnemySpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
-enemy = ExtResource("6_7d05b")
-difficulty_manager = NodePath("../DifficultyManager")
+[node name="MainUi" parent="CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
 game_time = 60.0
+
+[node name="SkeletonSpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
+enemy = ExtResource("6_7d05b")
+difficulty_manager = NodePath("../DifficultyManager")
+
+[node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589 node_paths=PackedStringArray("difficulty_manager")]
+script = ExtResource("9_3cxb1")
+enemy = ExtResource("10_vbyvm")
+difficulty_manager = NodePath("../DifficultyManager")
+metadata/_custom_type_script = "uid://dpqvt1fotn1il"
 
 [connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
