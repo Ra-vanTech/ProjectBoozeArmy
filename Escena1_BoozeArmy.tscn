@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
 [ext_resource type="Script" uid="uid://dpqvt1fotn1il" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
 [ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
+[ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -55,13 +56,20 @@ size = 7.015
 [node name="Crate" parent="." unique_id=2094985712 instance=ExtResource("3_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
+[node name="BlurLayer" parent="." unique_id=179839882 instance=ExtResource("11_e78ft")]
+layer = 0
+
 [node name="DeathScreenOverlay" parent="." unique_id=618409675 instance=ExtResource("4_gecc1")]
+layer = 2
 visible = false
 
 [node name="PauseScreenOverlay" parent="." unique_id=1578907965 instance=ExtResource("4_7120o")]
+layer = 2
 visible = false
 
-[node name="MainUi" parent="." unique_id=1531797009 instance=ExtResource("5_7d05b")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=923662318]
+
+[node name="MainUi" parent="CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
 game_time = 60.0

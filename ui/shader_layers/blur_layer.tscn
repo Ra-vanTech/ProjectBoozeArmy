@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b4hxxy1fv8mcj"]
+
+[ext_resource type="Shader" uid="uid://da4sk75baigmm" path="res://vfx/blur_y.gdshader" id="1_4uwl7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmrro"]
+shader = ExtResource("1_4uwl7")
+
+[node name="BlurLayer" type="CanvasLayer" unique_id=179839882]
+
+[node name="x_blur" type="ColorRect" parent="." unique_id=1931861726]
+material = SubResource("ShaderMaterial_vmrro")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="y_blur" type="ColorRect" parent="." unique_id=1985412922]
+material = SubResource("ShaderMaterial_vmrro")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
