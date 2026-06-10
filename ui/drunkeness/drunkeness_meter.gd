@@ -2,12 +2,13 @@ class_name DrunkenessMeter
 extends Label
 
 @export var starting_drunkeness: int = 50
+@export var max_drunkeness: int = 100
 
 var drunkeness: int:
 	set(input):
 		drunkeness = max(input, 0)
 		text = "Ebriedad: " + str(drunkeness)
-		modulate = Color.RED.lerp(Color.WHITE, float(drunkeness) / 100) # buuu numeros mágicos, despues se arregla
+		modulate = Color.RED.lerp(Color.WHITE, float(drunkeness) / max_drunkeness)
 var timer: Timer
 
 
