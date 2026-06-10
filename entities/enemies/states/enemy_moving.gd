@@ -6,14 +6,16 @@ extends State
 @onready var movement: MovementComponent = %MovementComponent
 @onready var input: SeekingComponent = %SeekingComponent
 
+@onready var enemy: Enemy = owner as Enemy
+
 
 func tick(delta: float):
+	if is_instance_valid(enemy.player_in_range):
+		state_machine.change_state("EnemyAttackingState")
+		return
+
 	input.tick()
 	if input.direction.length_squared() < 0.0001:
 		state_machine.change_state("EnemyIdleState")
 	movement.direction = input.direction
 	movement.tick(delta)
-
-
-func _on_enemy_attack_range_body_entered(body: Node3D) -> void:
-	state_machine.change_state("EnemyAttackingState")
