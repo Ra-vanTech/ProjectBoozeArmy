@@ -6,7 +6,7 @@ extends Label
 
 var drunkeness: int:
 	set(input):
-		drunkeness = max(input, 0)
+		drunkeness = clamp(input, 0, max_drunkeness)
 		text = "Ebriedad: " + str(drunkeness)
 		modulate = Color.RED.lerp(Color.WHITE, float(drunkeness) / max_drunkeness)
 var timer: Timer
