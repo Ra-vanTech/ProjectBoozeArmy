@@ -6,6 +6,7 @@ extends CharacterBody3D
 
 #estado dinamico
 var enemies_in_range: Array[Node3D] = []
+var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 
 @onready var attack_range: Area3D = %AttackRange
 @onready var state_machine: StateMachine = %StateMachine
@@ -22,7 +23,6 @@ func _physics_process(delta: float) -> void:
 
 # Metodos de calculo de daño
 func obtener_modificador_ebriedad() -> float:
-	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 	if not is_instance_valid(drunkeness_meter):
 		return 1.0 # siempre retorna 1 por defecto (seguro)
 	var level: int = drunkeness_meter.drunkeness
@@ -45,7 +45,7 @@ func obtener_daño_final() -> float:
 	return damage * mod_ebriedad * (1.0 + mod_upgrades)
 
 
-# Acciones base (poliformismo)
+# Acciones base 
 func _attack(target: Node3D) -> void:
 	if not is_instance_valid(target):
 		return
@@ -53,6 +53,17 @@ func _attack(target: Node3D) -> void:
 	attack.damage = obtener_daño_final()
 	target.damage(attack)
 
+
+#Obtener cooldown final, +20% de velocidad en rango ebrio 
+func obtener_cooldown_final() -> float:
+	if not is_instance_valid(drunkeness_meter):
+		return cooldown_base
+
+	if drunkeness_meter.drunkeness > 70:
+		return cooldown_base * 0.8
+		
+	return cooldown_base
+		
 
 # señales de deteccion
 func _on_attack_range_body_entered(body: Node3D) -> void:
