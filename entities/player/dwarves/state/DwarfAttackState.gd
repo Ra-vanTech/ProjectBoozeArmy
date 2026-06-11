@@ -8,7 +8,7 @@ var current_cooldown: float = 0.0
 
 # Forzamos el cooldwn al maximo para que el golpe sea inmediato 
 func enter() -> void:
-	current_cooldown = dwarf.cooldown_base
+	current_cooldown = dwarf.obtener_cooldown_final()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +23,7 @@ func tick(delta: float) -> void:
 
 	# gestionamos tiempo de ataque 
 	current_cooldown += delta
-	if current_cooldown >= dwarf.cooldown_base and is_instance_valid(current_target):
+	if current_cooldown >= dwarf.obtener_cooldown_final() and is_instance_valid(current_target):
 		dwarf._attack(current_target)
 		#cambio: hacemos una variacion de tiempo entre los enanos para que ataquen en distinto tiempo 
 		current_cooldown = randf_range(0.0, 0.4)
