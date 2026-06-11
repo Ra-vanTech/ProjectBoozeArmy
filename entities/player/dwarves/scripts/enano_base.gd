@@ -22,8 +22,14 @@ func _physics_process(delta: float) -> void:
 
 # Metodos de calculo de daño
 func obtener_modificador_ebriedad() -> float:
-	var drunkeness: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
-	return drunkeness.drunkeness
+	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
+	var level: int = drunkeness_meter.drunkeness
+	if level == 0 or level < 30:
+		return 0.7
+	elif level <= 70:
+		return 1.0
+	else:
+		return 1.3
 
 
 func obtener_modificador_upgrades() -> float:
