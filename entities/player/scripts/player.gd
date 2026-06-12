@@ -23,16 +23,13 @@ func _ready() -> void:
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
+	if is_instance_valid(drunkeness):
+		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
-
-	#probablemente esté HORRIBLEMENTE desoptimizado al hacer esto pero bueno
-	if drunkeness.drunkeness == 0:
-		drunkeness_reached_zero()
-	else:
-		drunkeness_above_zero()
 
 	if input_component.wants_spawn:
 		dwarf_system.agregar_enano()
@@ -44,19 +41,12 @@ func _physics_process(delta: float) -> void:
 		state_machine.change_state("PausedState")
 
 
-func drunkeness_reached_zero() -> void:
-	if timer.is_stopped():
+func _on_sobriety_critical_changed(is_critical: bool) -> void:
+	if is_critical:
 		timer.start()
 	else:
-		return
-
-
-func drunkeness_above_zero() -> void:
-	if not timer.is_stopped():
 		timer.stop()
-	else:
-		return
-
+		
 
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
