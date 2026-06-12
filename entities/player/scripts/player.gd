@@ -22,6 +22,7 @@ func _ready() -> void:
 	timer.timeout.connect(sobriety_damage)
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
+	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
 
 	if is_instance_valid(drunkeness):
 		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
@@ -40,13 +41,18 @@ func _physics_process(delta: float) -> void:
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
 
-
+#Cambia el estado del timer cuando la sobriedad del jugador es critica
 func _on_sobriety_critical_changed(is_critical: bool) -> void:
 	if is_critical:
 		timer.start()
 	else:
 		timer.stop()
+	print("El estado critico del jugador ha cambiado a: ", is_critical)
 		
+#estado de muerte 
+func _on_ejercito_derrotado() -> void:
+	print("El jugador ha perdido todos sus enanos")
+	state_machine.change_state("DeadState")
 
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
