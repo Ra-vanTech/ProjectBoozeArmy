@@ -4,7 +4,9 @@ extends CharacterBody3D
 @export var health := 100.0
 @export var COINS_DROPPED := 0
 
+
 var timer: Timer
+var _is_dead: bool = false
 
 @onready var drunkeness: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 @onready var state_machine: StateMachine = %StateMachine
@@ -51,6 +53,7 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 		
 #estado de muerte 
 func _on_ejercito_derrotado() -> void:
+	_is_dead = true
 	print("El jugador ha perdido todos sus enanos")
 	state_machine.change_state("DeadState")
 
@@ -62,6 +65,8 @@ func sobriety_damage() -> void:
 
 
 func damage():
+	if _is_dead:
+		return
 	dwarf_system.eliminar_enano()
 
 
