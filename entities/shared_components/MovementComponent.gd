@@ -14,6 +14,8 @@ var is_jumping: bool = false
 func tick(delta: float) -> void:
 	if not BODY:
 		return
+	if delta == 0.0:
+		return
 
 	BODY.velocity.x = direction.x * MOVEMENT_SPEED * delta
 	BODY.velocity.z = direction.y * MOVEMENT_SPEED * delta
