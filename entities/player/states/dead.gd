@@ -7,5 +7,5 @@ extends State
 func enter():
 	print("Cambiando a estado de muerto")
 	get_parent().get_parent().set_physics_process(false)
-	Engine.time_scale = 0
+	get_tree().paused = true
 	death_screen.visible = true
