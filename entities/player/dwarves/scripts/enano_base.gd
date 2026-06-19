@@ -45,16 +45,7 @@ func obtener_daño_final() -> float:
 	return damage * mod_ebriedad * (1.0 + mod_upgrades)
 
 
-# Acciones base 
-func _attack(target: Node3D) -> void:
-	if not is_instance_valid(target):
-		return
-	var attack := Attack.new()
-	attack.damage = obtener_daño_final()
-	target.damage(attack)
-
-
-#Obtener cooldown final, +20% de velocidad en rango ebrio 
+#Obtener cooldown final, +20% de velocidad en rango ebrio
 func obtener_cooldown_final() -> float:
 	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 	if not is_instance_valid(drunkeness_meter):
@@ -62,9 +53,18 @@ func obtener_cooldown_final() -> float:
 
 	if drunkeness_meter.drunkeness > 70:
 		return cooldown_base * 0.8
-		
+
 	return cooldown_base
-		
+
+
+# Acciones base
+func _attack(target: Node3D) -> void:
+	if not is_instance_valid(target):
+		return
+	var attack := Attack.new()
+	attack.damage = obtener_daño_final()
+	target.damage(attack)
+
 
 # señales de deteccion
 func _on_attack_range_body_entered(body: Node3D) -> void:

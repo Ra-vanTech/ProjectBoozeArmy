@@ -4,7 +4,7 @@ extends Node3D
 signal enano_eliminado(enanos_id: int)
 
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
-const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_cervecero.tscn")
+const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
 
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
 @export var initial_dwarves: int = 3
@@ -22,10 +22,9 @@ func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
-	#Conectar la señal de daño a los enanos 
+	#Conectar la señal de daño a los enanos
 	if is_instance_valid(_player_health):
 		_player_health.has_died.connect(eliminar_enano)
-		print("[DwarfSystem] Conectado a HealthComponent")
 	else:
 		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
 
