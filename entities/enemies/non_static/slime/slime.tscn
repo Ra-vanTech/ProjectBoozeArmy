@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://cs7d4bolydibi"]
 
-[ext_resource type="Script" uid="uid://cjwk06lnd3o6p" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_olpvl"]
-[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_8ovst"]
-[ext_resource type="Script" uid="uid://8gukc77why1y" path="res://entities/enemies/states/enemy_idle.gd" id="3_xpigb"]
-[ext_resource type="Script" uid="uid://bwex8x03l64sl" path="res://entities/enemies/states/enemy_moving.gd" id="4_kvri0"]
-[ext_resource type="Script" uid="uid://c6ub3j2g3x37e" path="res://entities/enemies/states/enemy_attacking.gd" id="5_3x8g5"]
-[ext_resource type="Script" uid="uid://782jxvlu2xc7" path="res://entities/enemies/states/enemy_dead.gd" id="6_yb287"]
+[ext_resource type="Script" uid="uid://c1iu7dkwwyhav" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_olpvl"]
+[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_8ovst"]
+[ext_resource type="Script" uid="uid://kf7pxi2eewp6" path="res://entities/enemies/states/enemy_idle.gd" id="3_xpigb"]
+[ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_kvri0"]
+[ext_resource type="Script" uid="uid://c24hygkkn2shv" path="res://entities/enemies/states/enemy_attacking.gd" id="5_3x8g5"]
+[ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_yb287"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="7_eqxyq"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_5j733"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_eewvh"]
-[ext_resource type="Script" uid="uid://dqkntqlijjgaq" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_iqgmn"]
+[ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_iqgmn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0, 0.5441247, 0.22875264, 1)
@@ -29,7 +29,7 @@ radius = 1.0
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_olpvl")
-health = 10.0
+health = 50.0
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true
