@@ -4,7 +4,9 @@ extends CharacterBody3D
 @export var health := 100.0
 @export var COINS_DROPPED := 0
 
+
 var timer: Timer
+var _is_dead: bool = false
 
 @onready var drunkeness: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 @onready var state_machine: StateMachine = %StateMachine
@@ -22,17 +24,15 @@ func _ready() -> void:
 	timer.timeout.connect(sobriety_damage)
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
+	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
+
+	if is_instance_valid(drunkeness):
+		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
-
-	#probablemente esté HORRIBLEMENTE desoptimizado al hacer esto pero bueno
-	if drunkeness.drunkeness == 0:
-		drunkeness_reached_zero()
-	else:
-		drunkeness_above_zero()
 
 	if input_component.wants_spawn:
 		dwarf_system.agregar_enano()
@@ -43,20 +43,19 @@ func _physics_process(delta: float) -> void:
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
 
-
-func drunkeness_reached_zero() -> void:
-	if timer.is_stopped():
+#Cambia el estado del timer cuando la sobriedad del jugador es critica
+func _on_sobriety_critical_changed(is_critical: bool) -> void:
+	if is_critical:
 		timer.start()
 	else:
-		return
-
-
-func drunkeness_above_zero() -> void:
-	if not timer.is_stopped():
 		timer.stop()
-	else:
-		return
-
+	print("El estado critico del jugador ha cambiado a: ", is_critical)
+		
+#estado de muerte 
+func _on_ejercito_derrotado() -> void:
+	_is_dead = true
+	print("El jugador ha perdido todos sus enanos")
+	state_machine.change_state("DeadState")
 
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
@@ -66,6 +65,8 @@ func sobriety_damage() -> void:
 
 
 func damage():
+	if _is_dead:
+		return
 	dwarf_system.eliminar_enano()
 
 

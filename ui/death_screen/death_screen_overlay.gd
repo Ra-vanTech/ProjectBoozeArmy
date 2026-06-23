@@ -1,14 +1,18 @@
 extends CanvasLayer
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
 
 func _on_quit_button_pressed() -> void:
-	Engine.time_scale = 1
+	get_tree().paused = false
 	$TransitionScreen.show()
 	$TransitionScreen/AnimationPlayer.play("fade_in")
 	$TransitionScreen/Timer.start()
 
 
 func _on_retry_button_pressed() -> void:
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 

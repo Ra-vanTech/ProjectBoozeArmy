@@ -2,9 +2,10 @@ class_name DwarfSystem
 extends Node3D
 
 signal enano_eliminado(enanos_id: int)
+signal ejercito_derrotado
 
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
-const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_base.tscn")
+const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_guerrero.tscn")
 
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
 @export var initial_dwarves: int = 3
@@ -71,5 +72,4 @@ func actualizar_formacion() -> void:
 
 func _sin_enanos() -> void:
 	print("[DwarfSystem] Todos los enanos eliminados — Game Over")
-	if is_instance_valid(_player_health):
-		_player_health.has_died.emit()
+	ejercito_derrotado.emit()

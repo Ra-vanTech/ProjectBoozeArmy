@@ -12,6 +12,9 @@ var distance_to_player: float
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func tick() -> void:
-	direction3D = (player.position - global_position).normalized()
+	var diff: Vector3 = player.position - global_position
+	if diff.length_squared() < 0.0001:
+		return
+	direction3D = diff.normalized()
 	direction = Vector2(direction3D.x, direction3D.z).normalized()
 	distance_to_player = global_position.distance_to(player.global_position)
