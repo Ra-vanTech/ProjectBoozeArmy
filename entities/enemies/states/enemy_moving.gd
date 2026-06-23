@@ -1,11 +1,8 @@
 class_name EnemyMovingState
 extends State
 
-@export var enemy_body: EnemyBase
-
 @onready var movement: MovementComponent = %MovementComponent
 @onready var input: SeekingComponent = %SeekingComponent
-
 @onready var enemy: Enemy = owner as Enemy
 
 

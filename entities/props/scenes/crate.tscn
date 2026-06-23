@@ -13,16 +13,11 @@ material = SubResource("StandardMaterial3D_yyq4m")
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyq4m"]
 
 [node name="Crate" type="RigidBody3D" unique_id=2094985712 groups=["enemy"]]
+collision_layer = 4
 script = ExtResource("1_ou5ok")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=577798038]
-unique_name_in_owner = true
-script = ExtResource("2_ou5ok")
-STARTING_HEALTH = 20.0
-COINS_DROPPED_DEFAULT = 50
-metadata/_custom_type_script = "uid://iin3yxgmowr1"
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=66044631]
+layers = 5
 mesh = SubResource("BoxMesh_yyq4m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=183048784]
@@ -36,5 +31,10 @@ metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=227047944]
 shape = SubResource("BoxShape3D_yyq4m")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=577798038]
+unique_name_in_owner = true
+script = ExtResource("2_ou5ok")
+metadata/_custom_type_script = "uid://iin3yxgmowr1"
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]

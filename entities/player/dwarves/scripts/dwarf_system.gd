@@ -23,10 +23,9 @@ func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
-	#Conectar la señal de daño a los enanos 
+	#Conectar la señal de daño a los enanos
 	if is_instance_valid(_player_health):
 		_player_health.has_died.connect(eliminar_enano)
-		print("[DwarfSystem] Conectado a HealthComponent")
 	else:
 		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
 
