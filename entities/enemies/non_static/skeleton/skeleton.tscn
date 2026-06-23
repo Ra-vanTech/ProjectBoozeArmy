@@ -74,6 +74,7 @@ unique_name_in_owner = true
 script = ExtResource("4_ywnua")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
+MOVEMENT_SPEED = 3.5
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
 [node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]
