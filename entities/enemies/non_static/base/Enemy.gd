@@ -16,6 +16,7 @@ var player_in_range: Node3D = null
 func _ready() -> void:
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
+	movement_component.MOVEMENT_SPEED = enemy_speed
 	print("[TEST-21] HP inicial de %s: %d (esperado: 20)" % [name, health])
 
 
