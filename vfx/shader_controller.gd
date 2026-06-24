@@ -10,6 +10,7 @@ var blur_size: Vector2
 
 
 func _process(delta: float) -> void:
+	fov = clamp(drunkeness_meter.drunkeness, 50, 120)
 	contrast = max(0.1, float(drunkeness_meter.drunkeness) / 100)
 	blur_size = Vector2(contrast / 1.3, contrast / 1.3)
 	blur_layer_x.set_shader_parameter("contrast", contrast)
