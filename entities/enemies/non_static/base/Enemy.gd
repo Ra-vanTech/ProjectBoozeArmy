@@ -14,11 +14,11 @@ var player_in_range: Node3D = null
 
 
 func _ready() -> void:
+	add_to_group("enemies")
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 	movement_component.MOVEMENT_SPEED = enemy_speed
-	print("[TEST-21] HP inicial de %s: %d (esperado: 20)" % [name, health])
-
+	print("[SPAWN] %s | HP: %.1f | speed: %.2f" % [name, health, movement_component.MOVEMENT_SPEED])
 
 func _process(delta: float) -> void:
 	state_machine.tick(delta)
