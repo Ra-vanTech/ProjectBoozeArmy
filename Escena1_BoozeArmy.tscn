@@ -72,7 +72,6 @@ visible = false
 [node name="MainUi" parent="CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
-game_time = 60.0
 
 [node name="SkeletonSpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
