@@ -4,7 +4,6 @@ extends CharacterBody3D
 @export var health := 100.0
 @export var COINS_DROPPED := 0
 
-
 var timer: Timer
 var _is_dead: bool = false
 
@@ -16,7 +15,7 @@ var _is_dead: bool = false
 
 
 func _ready() -> void:
-	Engine.time_scale = 1
+	get_tree().paused = false
 	timer = Timer.new()
 	timer.wait_time = 1.0
 	timer.one_shot = false
@@ -43,19 +42,6 @@ func _physics_process(delta: float) -> void:
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
 
-#Cambia el estado del timer cuando la sobriedad del jugador es critica
-func _on_sobriety_critical_changed(is_critical: bool) -> void:
-	if is_critical:
-		timer.start()
-	else:
-		timer.stop()
-	print("El estado critico del jugador ha cambiado a: ", is_critical)
-		
-#estado de muerte 
-func _on_ejercito_derrotado() -> void:
-	_is_dead = true
-	print("El jugador ha perdido todos sus enanos")
-	state_machine.change_state("DeadState")
 
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
@@ -68,6 +54,22 @@ func damage():
 	if _is_dead:
 		return
 	dwarf_system.eliminar_enano()
+
+
+#Cambia el estado del timer cuando la sobriedad del jugador es critica
+func _on_sobriety_critical_changed(is_critical: bool) -> void:
+	if is_critical:
+		timer.start()
+	else:
+		timer.stop()
+	print("El estado critico del jugador ha cambiado a: ", is_critical)
+
+
+#estado de muerte
+func _on_ejercito_derrotado() -> void:
+	_is_dead = true
+	print("El jugador ha perdido todos sus enanos")
+	state_machine.change_state("DeadState")
 
 
 func _on_health_component_has_died() -> void:
