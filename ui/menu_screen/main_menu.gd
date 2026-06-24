@@ -7,6 +7,7 @@ var selected_button = null
 
 
 func _ready() -> void:
+	get_tree().paused = false
 	$TransitionScreen/AnimationPlayer.play("fade_out")
 
 

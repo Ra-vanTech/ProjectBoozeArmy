@@ -8,11 +8,11 @@ func enter():
 	print("Entrando al estado de pausa")
 	pause_screen.visible = true
 	get_parent().get_parent().set_physics_process(false)
-	Engine.time_scale = 0
+	get_tree().paused = true
 
 
 func exit():
 	print("Saliendo del estado de pausa")
 	get_parent().get_parent().set_physics_process(true)
 	pause_screen.visible = false
-	Engine.time_scale = 1
+	get_tree().paused = false

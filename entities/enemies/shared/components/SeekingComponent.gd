@@ -7,11 +7,17 @@ var direction: Vector2 = Vector2.ZERO
 var direction3D: Vector3 # solamente se usa para la conversión de la dirección de Vector3 a Vector2
 var distance_to_player: float
 
-@onready var player: Player = get_tree().get_first_node_in_group("player")
-
+var player: Player = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func tick() -> void:
+	if not is_instance_valid(player):
+		player = get_tree().get_first_node_in_group("player") as Player
+	
+	if not is_instance_valid(player):
+		direction = Vector2.ZERO
+		return
+
 	var diff: Vector3 = player.position - global_position
 	if diff.length_squared() < 0.0001:
 		return
