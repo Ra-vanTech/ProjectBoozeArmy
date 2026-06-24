@@ -8,6 +8,7 @@ signal game_ended
 @export var health_multiplier_curve: Curve
 @export var money_multiplier_curve: Curve
 @export var game_time := 300.0
+@export var scaling_enabled: bool = true
 
 var timer: Timer
 
@@ -34,12 +35,28 @@ func get_spawn_amount() -> int:
 
 
 func get_health_mult() -> float:
+	if not scaling_enabled:
+		return 1.0
 	return health_multiplier_curve.sample(game_progress())
 
 
 func get_money_mult() -> float: # también es una posibilidad que el dinero ganado sea directamente proporcional a la salud, lo que haría que usen la misma curva
+	if not scaling_enabled:
+		return 1.0
 	return money_multiplier_curve.sample(game_progress())
 
+# +10% velocidad al minuto 2:00. Un unico evento 
+func get_speed_mult() -> float:
+	if not scaling_enabled:
+		return 1.0
+	var elapsed: float = game_time - timer.time_left
+	if elapsed >= 120.0:
+		return 1.1
+	return 1.0
+
+#Formula para el CAP de enemigos 
+func get_enemy_cap() -> int:
+	return 5 + int(game_progress() * 30)
 
 func on_game_ended() -> void:
 	game_ended.emit()
