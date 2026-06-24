@@ -10,11 +10,9 @@ func _ready() -> void:
 	super._ready()
 
 
-# MOCKUP para simular el estado de ebriedad en el enano
 func _generar_ebriedad() -> void:
 	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
 	if not is_instance_valid(drunkeness_meter):
 		push_error("[EnanoCervecero] No se encontro DrunkenessMeter en el árbol")
 		return
 	drunkeness_meter.drunkeness += EBRIEDAD_SEGUNDO
-	print("[EnanoCervecero] Se ha añadido ebriedad. Total %d" % drunkeness_meter.drunkeness)

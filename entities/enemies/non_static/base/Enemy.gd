@@ -8,7 +8,6 @@ var player_in_range: Node3D = null
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var movement_component: MovementComponent = %MovementComponent
 @onready var seeking_component: SeekingComponent = %SeekingComponent
-#Nuevos nodos
 @onready var enemy_attack_range: Area3D = %EnemyAttackRange
 @onready var state_machine: StateMachine = %StateMachine
 
@@ -17,8 +16,7 @@ func _ready() -> void:
 	add_to_group("enemies")
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
-	movement_component.MOVEMENT_SPEED = enemy_speed
-	print("[SPAWN] %s | HP: %.1f | speed: %.2f" % [name, health, movement_component.MOVEMENT_SPEED])
+
 
 func _process(delta: float) -> void:
 	state_machine.tick(delta)
@@ -31,7 +29,7 @@ func damage(attack: Attack) -> void:
 func _on_health_component_has_died() -> void:
 	state_machine.change_state("EnemyDeadState")
 
-# Funciones para detectar que el player aun se encuentra ensu rango de ataque 
+# Funciones para detectar que el player aun se encuentra en su rango de ataque 
 func _on_enemy_attack_range_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		player_in_range = body
