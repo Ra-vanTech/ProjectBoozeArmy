@@ -9,7 +9,6 @@ var current_cooldown: float = 0.0
 # Forzamos el cooldwn al maximo para que el golpe sea inmediato 
 func enter() -> void:
 	current_cooldown = dwarf.obtener_cooldown_final()
-	print("[%s] Cooldown activo: %.2f" % [dwarf.name, dwarf.obtener_cooldown_final()])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

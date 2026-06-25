@@ -51,12 +51,10 @@ func get_speed_mult() -> float:
 		return 1.0
 	var elapsed: float = game_time - timer.time_left
 	if elapsed >= 120.0:
+		print("aplicando multiplicador de velocidad")
 		return 1.1
 	return 1.0
 
-#Formula para el CAP de enemigos 
-func get_enemy_cap() -> int:
-	return 5 + int(game_progress() * 30)
 
 func on_game_ended() -> void:
 	game_ended.emit()

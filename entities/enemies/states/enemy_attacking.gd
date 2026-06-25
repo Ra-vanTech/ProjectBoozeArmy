@@ -21,10 +21,8 @@ func _ready() -> void:
 func enter():
 	target = enemy.player_in_range as Player
 	if not attempt_attack():
-		print("ataque no exitoso")
 		timer.start(miss_cooldown)
 	else:
-		print("ataque exitoso")
 		timer.start(attack_cooldown)
 
 func attempt_attack() -> bool:

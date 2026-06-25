@@ -49,7 +49,6 @@ func eliminar_enano() -> void:
 	enano_eliminado.emit(enano_id)
 
 	actualizar_formacion()
-	print("[DEBUG] Enano eliminado id=%d. Restantes: %d" % [enano_id, dwarves.size()])
 
 	if dwarves.size() == 0:
 		_sin_enanos()

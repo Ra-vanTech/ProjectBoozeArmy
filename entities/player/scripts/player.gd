@@ -68,7 +68,6 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 #estado de muerte
 func _on_ejercito_derrotado() -> void:
 	_is_dead = true
-	print("El jugador ha perdido todos sus enanos")
 	state_machine.change_state("DeadState")
 
 
