@@ -5,5 +5,6 @@ extends State
 
 
 func enter():
-	print("Enemigo eliminado")
+	print("Enemigo eliminado_xp: ", parent.xp_value)
+	parent.enemy_died.emit(parent.xp_value)
 	parent.queue_free()

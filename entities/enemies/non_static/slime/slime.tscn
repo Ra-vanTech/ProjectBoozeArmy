@@ -30,6 +30,7 @@ collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_olpvl")
 health = 50.0
+xp_value = 8
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true

@@ -28,6 +28,7 @@ collision_mask = 7
 script = ExtResource("1_fcrg4")
 health = 20.0
 COINS_DROPPED = 100
+xp_value = 5
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true
