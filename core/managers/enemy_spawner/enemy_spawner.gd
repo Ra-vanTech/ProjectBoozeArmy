@@ -28,6 +28,7 @@ func spawn_enemy() -> void:
 		add_child(new_enemy)
 		new_enemy.global_position = global_position + Vector3(randi_range(-20, 20), 2, randi_range(-20, 20))
 
+		# Conectar XP al morir, la señal pasa xp_value directamente a add_xp
 		if is_instance_valid(xp_system):
 			new_enemy.enemy_died.connect(xp_system.add_xp)
 		
