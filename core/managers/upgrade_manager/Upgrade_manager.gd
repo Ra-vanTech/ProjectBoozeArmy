@@ -38,7 +38,7 @@ func get_damage_modifier() -> float:
     return pow(1.2, stacks) - 1.0
 
 #aumento de velocidad en ataque  x 0.85^n, minimo 0.3s
-func get_cooldown_speed() -> void:
+func get_cooldown_speed() -> float:
     var stacks: int = _stacks[UpgradeType.ATTACK_SPEED]
     return pow(0.85, stacks)
 

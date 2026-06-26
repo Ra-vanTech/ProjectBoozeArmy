@@ -29,6 +29,7 @@ enemy=""
 spawner=""
 pause_screen=""
 drunkeness=""
+upgrade_manager=""
 
 [input]
 

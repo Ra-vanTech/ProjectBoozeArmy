@@ -62,7 +62,7 @@ func obtener_cooldown_final() -> float:
 
 	# Modificador de upgrade
 	if is_instance_valid(upgrade_manager):
-		cooldown *= upgrade_manager.get_cooldown_multiplier()
+		cooldown *= upgrade_manager.get_cooldown_speed()
 
 	#límite mínimo de cooldown
 	return max(cooldown, 0.3)

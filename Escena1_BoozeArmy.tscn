@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
 [ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
 [ext_resource type="Script" uid="uid://c467ht7uk2sqf" path="res://core/managers/xp_system/xp_system.gd" id="13_3nyjs"]
+[ext_resource type="Script" uid="uid://k3t5ryg08c4i" path="res://core/managers/upgrade_manager/Upgrade_manager.gd" id="14_v4ycj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -76,18 +77,23 @@ visible = false
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
 
-[node name="SkeletonSpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager", "xp_system") groups=["spawner"] instance=ExtResource("7_f7pk7")]
+[node name="SkeletonSpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager", "xp_system", "upgrade_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
 difficulty_manager = NodePath("../DifficultyManager")
 xp_system = NodePath("../XPSystem")
+upgrade_manager = NodePath("../Upgrades")
 
-[node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589 node_paths=PackedStringArray("difficulty_manager", "xp_system")]
+[node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589 node_paths=PackedStringArray("difficulty_manager", "xp_system", "upgrade_manager")]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
 difficulty_manager = NodePath("../DifficultyManager")
 xp_system = NodePath("../XPSystem")
+upgrade_manager = NodePath("../Upgrades")
 
 [node name="XPSystem" type="Node3D" parent="." unique_id=1877814603]
 script = ExtResource("13_3nyjs")
+
+[node name="Upgrades" type="Node3D" parent="." unique_id=1432564897 groups=["upgrade_manager"]]
+script = ExtResource("14_v4ycj")
 
 [connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]

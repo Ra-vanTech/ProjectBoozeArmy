@@ -4,6 +4,7 @@ extends Node3D
 @export var enemy: PackedScene
 @export var difficulty_manager: DifficultyManager
 @export var xp_system: XPSystem
+@export var upgrade_manager: UpgradeManager
 
 var timer: Timer
 var spawn_cooldown: float = 3.0
@@ -25,12 +26,19 @@ func spawn_enemy() -> void:
 		#new_enemy.health *= difficulty_manager.get_health_mult()
 		new_enemy.COINS_DROPPED *= difficulty_manager.get_money_mult()
 		new_enemy.speed_multiplier = difficulty_manager.get_speed_mult()
+
+		#Modificador de hp - enemigos -10% por stack 
+		if is_instance_valid(upgrade_manager):
+			new_enemy.health *= upgrade_manager.get_enemy_hp()
+			
+
 		add_child(new_enemy)
 		new_enemy.global_position = global_position + Vector3(randi_range(-20, 20), 2, randi_range(-20, 20))
 
 		# Conectar XP al morir, la señal pasa xp_value directamente a add_xp
 		if is_instance_valid(xp_system):
 			new_enemy.enemy_died.connect(xp_system.add_xp)
+		
 		
 	timer.wait_time = difficulty_manager.get_spawn_rate()
 	spawn_amount = difficulty_manager.get_spawn_amount()
