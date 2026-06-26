@@ -41,3 +41,8 @@ func get_damage_modifier() -> float:
 func get_cooldown_speed() -> void:
     var stacks: int = _stacks[UpgradeType.ATTACK_SPEED]
     return pow(0.85, stacks)
+
+
+func get_enemy_hp() -> float:
+    var stacks: int = _stacks[UpgradeType.ENEMY_HP]
+    return pow(0.9, stacks)
