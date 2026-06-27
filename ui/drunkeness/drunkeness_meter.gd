@@ -8,6 +8,9 @@ signal sobriety_critical_changed(is_critical: bool)
 @export var starting_drunkeness: int = 50
 @export var max_drunkeness: int = 100
 
+#acumula stacks de +1 de ebriedad/s [upgrades]
+var regen_per_second: int = 0
+
 
 var drunkeness: int:
 	set(input):
@@ -32,9 +35,17 @@ func _ready() -> void:
 	timer.wait_time = 1.0
 	timer.one_shot = false
 	add_child(timer)
-	timer.timeout.connect(substract_drunkeness)
+	timer.timeout.connect(_tick)
 	timer.start()
 
+	var upgrades_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	if is_instance_valid(upgrades_manager):
+		upgrades_manager.upgrade_applied.connect(_on_upgrade_applied)
 
-func substract_drunkeness() -> void:
-	drunkeness -= 1
+
+func _tick() -> void:
+	drunkeness = drunkeness - 1 + regen_per_second
+
+func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
+	if type == UpgradeManager.UpgradeType.SOBRIETY_REGEN:
+		regen_per_second += 1

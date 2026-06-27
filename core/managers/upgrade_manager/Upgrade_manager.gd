@@ -1,6 +1,8 @@
 class_name UpgradeManager
 extends Node
 
+signal upgrade_applied(type: UpgradeType)
+
 #tipos de mejoras disponibles 
 enum UpgradeType {
     DAMAGE,
@@ -23,6 +25,7 @@ var _stacks: Dictionary = {
 func apply_upgrade(type: UpgradeType) -> void:
     _stacks[type] += 1
     print("[UpgradeMnager] Upgradeaplicado", UpgradeType.keys()[type], "| stacks", _stacks[type])
+    upgrade_applied.emit(type)
 
 func get_stack(type: UpgradeType) -> int:
     return _stacks[type]

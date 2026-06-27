@@ -28,7 +28,18 @@ func _ready() -> void:
 		_player_health.has_died.connect(eliminar_enano)
 	else:
 		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
+	
+	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	if is_instance_valid(upgrade_manager):
+		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
+	else:
+		push_error("[DwarfSystem] No se encontró UpgradeManager en la escena")
+	
 
+func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
+	if type == UpgradeManager.UpgradeType.ADD_DWARF:
+		agregar_enano()
+	
 
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
