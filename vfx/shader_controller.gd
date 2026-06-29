@@ -1,7 +1,8 @@
 extends Camera3D
 
-@export var smoothing_speed: float = 5.0
+@export var smoothing_speed: float = 10.0
 @export var target_position: Node3D
+@export var target_look: Node3D
 
 var contrast: float
 var blur_size: Vector2
@@ -16,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	fov = clamp(drunkeness_meter.drunkeness, 70, 120)
 
 	global_transform.origin = global_transform.origin.lerp(target_position.global_transform.origin, smoothing_speed * delta)
-	# global_transform.basis = global_transform.basis.slerp(target_position.global_transform.basis, smoothing_speed * delta)
+	look_at(target_look.global_position)
 
 	contrast = max(0.1, float(drunkeness_meter.drunkeness) / 100)
 	blur_size = Vector2(contrast / 1.3, contrast / 1.3)

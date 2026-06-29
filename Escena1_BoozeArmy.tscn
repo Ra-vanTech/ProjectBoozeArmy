@@ -52,13 +52,14 @@ shape = SubResource("ConvexPolygonShape3D_f7pk7")
 
 [node name="Player_test" parent="." unique_id=54499108 instance=ExtResource("1_m2amp")]
 
-[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397 node_paths=PackedStringArray("target_position")]
+[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397 node_paths=PackedStringArray("target_position", "target_look")]
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 9, 4.5)
 top_level = true
 current = true
 size = 7.015
 script = ExtResource("2_64qs2")
 target_position = NodePath("../CameraPosition")
+target_look = NodePath("..")
 
 [node name="BlurLayer" parent="Player_test/Camera3D" unique_id=179839882 instance=ExtResource("11_e78ft")]
 layer = 0
