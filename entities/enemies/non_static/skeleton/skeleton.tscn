@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://cblq8gdlr12ok"]
 
-[ext_resource type="Script" uid="uid://c1iu7dkwwyhav" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
+[ext_resource type="Script" uid="uid://cjwk06lnd3o6p" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_fcrg4"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_ddkwl"]
-[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_xg3t2"]
+[ext_resource type="Script" uid="uid://b6kx01a4fiy0q" path="res://core/managers/state/state_machine.gd" id="2_xg3t2"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_xg3t2"]
-[ext_resource type="Script" uid="uid://kf7pxi2eewp6" path="res://entities/enemies/states/enemy_idle.gd" id="3_ywnua"]
-[ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_f4cja"]
+[ext_resource type="Script" uid="uid://8gukc77why1y" path="res://entities/enemies/states/enemy_idle.gd" id="3_ywnua"]
+[ext_resource type="Script" uid="uid://bwex8x03l64sl" path="res://entities/enemies/states/enemy_moving.gd" id="4_f4cja"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="4_ywnua"]
-[ext_resource type="Script" uid="uid://c24hygkkn2shv" path="res://entities/enemies/states/enemy_attacking.gd" id="5_55j6w"]
-[ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
-[ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_tffy8"]
+[ext_resource type="Script" uid="uid://c6ub3j2g3x37e" path="res://entities/enemies/states/enemy_attacking.gd" id="5_55j6w"]
+[ext_resource type="Script" uid="uid://dqkntqlijjgaq" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="5_ddkwl"]
+[ext_resource type="Script" uid="uid://782jxvlu2xc7" path="res://entities/enemies/states/enemy_dead.gd" id="6_tffy8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.011437358, 0.39136255, 0.5628932, 1)
