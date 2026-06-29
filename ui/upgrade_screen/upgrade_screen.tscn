@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://ce2x7hqu0d1e0"]
+[gd_scene format=3 uid="uid://drcu8m0gidsud"]
 
-[ext_resource type="Script" uid="uid://datya2c0gch81" path="res://ui/upgrade_screen/upgrade_screen_overlay.gd" id="1_2cyii"]
+[ext_resource type="Script" uid="uid://cyk038kfy26dm" path="res://ui/upgrade_screen/upgrade_screen_overlay.gd" id="1_2cyii"]
 
 [node name="UpgradeScreen" type="CanvasLayer" unique_id=1525150392]
 script = ExtResource("1_2cyii")
@@ -21,6 +21,8 @@ layout_mode = 2
 
 [node name="LevelLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1133229306]
 layout_mode = 2
+text = "¡Nuevo nivel!"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=2010322838]
 layout_mode = 2
@@ -36,3 +38,7 @@ size_flags_horizontal = 3
 [node name="Option3" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=978037201]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option1" to="." method="_on_option_1_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option2" to="." method="_on_option_2_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option3" to="." method="_on_option_3_pressed"]

@@ -2,11 +2,11 @@ class_name UpgradeScreenOverlay
 extends CanvasLayer
 
 const UPGRADE_DATA: Dictionary = {
-	UpgradeManager.UpgradeType.DAMAGE: { "nombre": "+20% Daño", "desc": "Los enanos atacan con más fuerza." },
-	UpgradeManager.UpgradeType.ATTACK_SPEED: { "nombre": "+15% Vel. Ataque", "desc": "Los enanos atacan más rápido." },
-	UpgradeManager.UpgradeType.ADD_DWARF: { "nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército." },
-	UpgradeManager.UpgradeType.SOBRIETY_REGEN: { "nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento." },
-	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida." },
+	UpgradeManager.UpgradeType.DAMAGE: {"nombre": "+20% Daño", "desc": "Los enanos atacan con más fuerza."},
+	UpgradeManager.UpgradeType.ATTACK_SPEED: {"nombre": "+15% Vel. Ataque", "desc": "Los enanos atacan más rápido."},
+	UpgradeManager.UpgradeType.ADD_DWARF: {"nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército."},
+	UpgradeManager.UpgradeType.SOBRIETY_REGEN: {"nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento."},
+	UpgradeManager.UpgradeType.ENEMY_HP: {"nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida."},
 }
 
 @export var xp_system: XPManager
@@ -42,3 +42,20 @@ func _on_level_up(new_level: int) -> void:
 
 	visible = true
 	get_tree().paused = true
+
+func _seleccionar(index: int) -> void:
+	upgrades_manager.apply_upgrade(_opciones_actuales[index])
+	visible = false
+	get_tree().paused = false
+
+
+func _on_option_1_pressed() -> void:
+	_seleccionar(0)
+
+
+func _on_option_2_pressed() -> void:
+	_seleccionar(1)
+
+
+func _on_option_3_pressed() -> void:
+	_seleccionar(2)

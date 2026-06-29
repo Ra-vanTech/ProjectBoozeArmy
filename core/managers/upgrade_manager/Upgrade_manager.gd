@@ -3,6 +3,7 @@ extends Node
 
 signal upgrade_applied(type: UpgradeType)
 
+
 #tipos de mejoras disponibles 
 enum UpgradeType {
     DAMAGE,
