@@ -75,7 +75,7 @@ visible = false
 [node name="UpgradeScreen" parent="." unique_id=1525150392 node_paths=PackedStringArray("xp_system", "upgrades_manager") instance=ExtResource("7_v1gp6")]
 layer = 2
 xp_system = NodePath("../XPManager")
-upgrades_manager = NodePath("../Upgrades")
+upgrades_manager = NodePath("../UpgradeManager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=923662318]
 
@@ -87,20 +87,21 @@ upgrades_manager = NodePath("../Upgrades")
 enemy = ExtResource("6_7d05b")
 difficulty_manager = NodePath("../DifficultyManager")
 xp_system = NodePath("../XPManager")
-upgrade_manager = NodePath("../Upgrades")
+upgrade_manager = NodePath("../UpgradeManager")
 
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589 node_paths=PackedStringArray("difficulty_manager", "xp_system", "upgrade_manager")]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
 difficulty_manager = NodePath("../DifficultyManager")
 xp_system = NodePath("../XPManager")
-upgrade_manager = NodePath("../Upgrades")
+upgrade_manager = NodePath("../UpgradeManager")
 
 [node name="XPManager" type="Node" parent="." unique_id=743928468]
 script = ExtResource("13_3nyjs")
 metadata/_custom_type_script = "uid://diwq4xmiburu5"
 
-[node name="Upgrades" type="Node3D" parent="." unique_id=1432564897 groups=["upgrade_manager"]]
+[node name="UpgradeManager" type="Node" parent="." unique_id=739830799]
 script = ExtResource("14_v4ycj")
+metadata/_custom_type_script = "uid://dhlceobndd05q"
 
 [connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
