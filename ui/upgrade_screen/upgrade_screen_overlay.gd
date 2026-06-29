@@ -9,15 +9,15 @@ const UPGRADE_DATA: Dictionary = {
 	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida." },
 }
 
-@export var xp_system: XPSystem
+@export var xp_system: XPManager
 @export var upgrades_manager: UpgradeManager
 
 var _opciones_actuales: Array = []
 
 @onready var _level_label: Label = $CenterContainer/PanelContainer/VBoxContainer/LevelLabel
-@onready var _button_1: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1
-@onready var _button_2: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2
-@onready var _button_3: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3
+@onready var _button_1: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option1
+@onready var _button_2: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option2
+@onready var _button_3: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option3
 
 
 func _ready() -> void:
@@ -40,5 +40,5 @@ func _on_level_up(new_level: int) -> void:
 		var data: Dictionary = UPGRADE_DATA[tipo]
 		botones[i].text = data["nombre"] + "\n" + data["desc"]
 
-	get_tree().paused = true
 	visible = true
+	get_tree().paused = true
