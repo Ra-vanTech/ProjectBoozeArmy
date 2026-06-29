@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="6_7d05b"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
-[ext_resource type="PackedScene" uid="uid://ce2x7hqu0d1e0" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
+[ext_resource type="PackedScene" uid="uid://drcu8m0gidsud" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
 [ext_resource type="Script" uid="uid://dpqvt1fotn1il" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
 [ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
 [ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
@@ -52,34 +52,39 @@ shape = SubResource("ConvexPolygonShape3D_f7pk7")
 
 [node name="Player_test" parent="." unique_id=54499108 instance=ExtResource("1_m2amp")]
 
-[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397]
+[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397 node_paths=PackedStringArray("target_position")]
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 9, 4.5)
+top_level = true
 current = true
 size = 7.015
 script = ExtResource("2_64qs2")
+target_position = NodePath("../CameraPosition")
 
 [node name="BlurLayer" parent="Player_test/Camera3D" unique_id=179839882 instance=ExtResource("11_e78ft")]
 layer = 0
 
+[node name="DeathScreenOverlay" parent="Player_test/Camera3D" unique_id=618409675 instance=ExtResource("4_gecc1")]
+layer = 2
+visible = false
+
+[node name="PauseScreenOverlay" parent="Player_test/Camera3D" unique_id=1578907965 instance=ExtResource("4_7120o")]
+layer = 2
+visible = false
+
+[node name="UpgradeScreen" parent="Player_test/Camera3D" unique_id=1525150392 node_paths=PackedStringArray("xp_system", "upgrades_manager") instance=ExtResource("7_v1gp6")]
+layer = 2
+xp_system = NodePath("../../../XPManager")
+upgrades_manager = NodePath("../../../UpgradeManager")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player_test/Camera3D" unique_id=923662318]
+
+[node name="MainUi" parent="Player_test/Camera3D/CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
+
+[node name="CameraPosition" type="Node3D" parent="Player_test" unique_id=843975097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.999999, 4.5)
+
 [node name="Crate" parent="." unique_id=2094985712 instance=ExtResource("3_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
-
-[node name="DeathScreenOverlay" parent="." unique_id=618409675 instance=ExtResource("4_gecc1")]
-layer = 2
-visible = false
-
-[node name="PauseScreenOverlay" parent="." unique_id=1578907965 instance=ExtResource("4_7120o")]
-layer = 2
-visible = false
-
-[node name="UpgradeScreen" parent="." unique_id=1525150392 node_paths=PackedStringArray("xp_system", "upgrades_manager") instance=ExtResource("7_v1gp6")]
-layer = 2
-xp_system = NodePath("../XPManager")
-upgrades_manager = NodePath("../UpgradeManager")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=923662318]
-
-[node name="MainUi" parent="CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
 
 [node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
 
@@ -102,4 +107,4 @@ script = ExtResource("13_3nyjs")
 [node name="UpgradeManager" type="Node" parent="." unique_id=739830799 groups=["upgrade_manager"]]
 script = ExtResource("14_v4ycj")
 
-[connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
+[connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
