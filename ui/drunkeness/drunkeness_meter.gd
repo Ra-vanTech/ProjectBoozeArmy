@@ -42,9 +42,9 @@ func _ready() -> void:
 	if is_instance_valid(upgrades_manager):
 		upgrades_manager.upgrade_applied.connect(_on_upgrade_applied)
 
-
+#Por ahora tiene -2 porque el upgrade modifica esto a 1 
 func _tick() -> void:
-	drunkeness = drunkeness - 1 + regen_per_second
+	drunkeness = drunkeness - 2 + regen_per_second
 
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 	if type == UpgradeManager.UpgradeType.SOBRIETY_REGEN:
