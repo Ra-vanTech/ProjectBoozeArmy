@@ -5,7 +5,7 @@ signal enano_eliminado(enanos_id: int)
 signal ejercito_derrotado
 
 #Precargar la escena del enano para instanciarla en tiempo de ejecucion.
-const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_cervecero.tscn")
+const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_guerrero.tscn")
 
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
 @export var initial_dwarves: int = 3
@@ -48,6 +48,7 @@ func agregar_enano() -> void:
 	add_child(enano)
 	dwarves.append(enano)
 	actualizar_formacion()
+	print("[DwarfSystem] Enanos activos: ", dwarves.size())
 
 
 func eliminar_enano() -> void:
