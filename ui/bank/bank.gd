@@ -7,7 +7,7 @@ extends Label
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_manager.money_manager.gold_changed.connect(on_gold_changed)
-	text = "Gold: 0"
+	game_manager.money_manager.add_gold(0)
 
 
 func on_gold_changed(new_gold: int) -> void:
