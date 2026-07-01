@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://dvse7fqc32hc2"]
 
+[ext_resource type="Script" uid="uid://cxxvwm3egt0l0" path="res://entities/drops/xp_drop/xp_drop.gd" id="1_slkh3"]
+
 [node name="Node" type="Node" unique_id=418991923]
+script = ExtResource("1_slkh3")
