@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://da4yqm0t74qhw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0p8s"]
+albedo_color = Color(0.52171624, 0.3207673, 0.1299232, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_d0p8s"]
+material = SubResource("StandardMaterial3D_d0p8s")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d0p8s"]
+height = 1.0
+
+[node name="BeerDrop" type="StaticBody3D" unique_id=1627016559]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=33569249]
+mesh = SubResource("CylinderMesh_d0p8s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=519372751]
+shape = SubResource("CylinderShape3D_d0p8s")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1608356687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+text = "PLACEHOLDER TEXT	"
+font_size = 48
+outline_size = 24
