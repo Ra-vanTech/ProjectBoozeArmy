@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/game_ui/game_ui.tscn" id="5_7d05b"]
 [ext_resource type="Script" uid="uid://dfiur4bem7b4t" path="res://core/managers/money_manager/MoneyManager.gd" id="5_ttbjd"]
 [ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="6_7d05b"]
+[ext_resource type="Script" uid="uid://c1b6nub1wygip" path="res://core/managers/drunkeness_manager/DrunkenessManager.gd" id="6_buh5o"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
 [ext_resource type="PackedScene" uid="uid://drcu8m0gidsud" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
@@ -36,9 +37,10 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 
 [node name="Node3D" type="Node3D" unique_id=1896586967]
 
-[node name="GameManager" type="Node" parent="." unique_id=1556023106 node_paths=PackedStringArray("xp_manager", "upgrade_manager", "difficulty_manager", "money_manager") groups=["game_manager"]]
+[node name="GameManager" type="Node" parent="." unique_id=1556023106 node_paths=PackedStringArray("xp_manager", "drunkeness_manager", "upgrade_manager", "difficulty_manager", "money_manager") groups=["game_manager"]]
 script = ExtResource("1_8ouxn")
 xp_manager = NodePath("XPManager")
+drunkeness_manager = NodePath("DrunkenessManager")
 upgrade_manager = NodePath("UpgradeManager")
 difficulty_manager = NodePath("DifficultyManager")
 money_manager = NodePath("MoneyManager")
@@ -55,6 +57,10 @@ script = ExtResource("14_v4ycj")
 [node name="MoneyManager" type="Node" parent="GameManager" unique_id=1253465866]
 script = ExtResource("5_ttbjd")
 metadata/_custom_type_script = "uid://dfiur4bem7b4t"
+
+[node name="DrunkenessManager" type="Node" parent="GameManager" unique_id=1139329582]
+script = ExtResource("6_buh5o")
+metadata/_custom_type_script = "uid://c1b6nub1wygip"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=438880227]
 environment = SubResource("Environment_d64gg")

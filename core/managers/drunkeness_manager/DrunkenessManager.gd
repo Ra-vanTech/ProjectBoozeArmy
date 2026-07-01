@@ -3,22 +3,24 @@ extends Node
 
 #señal para ebriedad
 signal sobriety_critical_changed(is_critical: bool)
+signal drunkeness_changes(change)
 
 @export var starting_drunkeness: int = 50
 @export var max_drunkeness: int = 100
 
 #acumula stacks de +1 de ebriedad/s [upgrades]
-var regen_per_second: int = 0
+var drunkeness_per_second: int = -1
 var drunkeness: int:
 	set(input):
-		var previous: int = drunkeness
+		var previous = drunkeness
 		drunkeness = clamp(input, 0, max_drunkeness)
+		drunkeness_changes.emit(drunkeness)
 
 		#Compara si el estado "critico" cambió respectoel frame anterior.
-		var was_critical: bool = previous == 0
-		var is_critical: bool = drunkeness == 0
-		if was_critical != is_critical:
-			sobriety_critical_changed.emit(is_critical)
+		if previous == 0 and drunkeness != 0:
+			sobriety_critical_changed.emit(false) # Deja de estar en estado crítico
+		elif previous != 0 and drunkeness == 0:
+			sobriety_critical_changed.emit(true) # Cambia a estado crítico
 var timer: Timer
 
 
@@ -37,9 +39,9 @@ func _ready() -> void:
 
 
 func _tick() -> void:
-	drunkeness = drunkeness - 1 + regen_per_second
+	drunkeness += drunkeness_per_second
 
 
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 	if type == UpgradeManager.UpgradeType.SOBRIETY_REGEN:
-		regen_per_second += 1
+		drunkeness_per_second += 1

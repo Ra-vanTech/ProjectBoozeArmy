@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 
 # Metodos de calculo de daño
 func obtener_modificador_ebriedad() -> float:
-	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
+	var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
 	if not is_instance_valid(drunkeness_meter):
 		return 1.0 # siempre retorna 1 por defecto (seguro)
 	var level: int = drunkeness_meter.drunkeness
@@ -39,7 +39,7 @@ func obtener_modificador_upgrades() -> float:
 	if not is_instance_valid(upgrade_manager):
 		return 0.0
 	return upgrade_manager.get_damage_modifier()
-	
+
 
 func obtener_daño_final() -> float:
 	var mod_ebriedad: float = obtener_modificador_ebriedad()
@@ -50,7 +50,7 @@ func obtener_daño_final() -> float:
 
 #Obtener cooldown final, +20% de velocidad en rango ebrio
 func obtener_cooldown_final() -> float:
-	var drunkeness_meter: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
+	var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
 	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
 
 	var cooldown: float = cooldown_base
