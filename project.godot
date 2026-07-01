@@ -30,6 +30,7 @@ spawner=""
 pause_screen=""
 drunkeness=""
 upgrade_manager=""
+game_manager=""
 
 [input]
 

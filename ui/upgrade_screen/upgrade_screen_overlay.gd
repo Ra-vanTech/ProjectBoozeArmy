@@ -2,18 +2,16 @@ class_name UpgradeScreenOverlay
 extends CanvasLayer
 
 const UPGRADE_DATA: Dictionary = {
-	UpgradeManager.UpgradeType.DAMAGE: {"nombre": "+20% Daño", "desc": "Los enanos atacan con más fuerza."},
-	UpgradeManager.UpgradeType.ATTACK_SPEED: {"nombre": "+15% Vel. Ataque", "desc": "Los enanos atacan más rápido."},
-	UpgradeManager.UpgradeType.ADD_DWARF: {"nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército."},
-	UpgradeManager.UpgradeType.SOBRIETY_REGEN: {"nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento."},
-	UpgradeManager.UpgradeType.ENEMY_HP: {"nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida."},
+	UpgradeManager.UpgradeType.DAMAGE: { "nombre": "+20% Daño", "desc": "Los enanos atacan con más fuerza." },
+	UpgradeManager.UpgradeType.ATTACK_SPEED: { "nombre": "+15% Vel. Ataque", "desc": "Los enanos atacan más rápido." },
+	UpgradeManager.UpgradeType.ADD_DWARF: { "nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército." },
+	UpgradeManager.UpgradeType.SOBRIETY_REGEN: { "nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento." },
+	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida." },
 }
-
-@export var xp_system: XPManager
-@export var upgrades_manager: UpgradeManager
 
 var _opciones_actuales: Array = []
 
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
 @onready var _level_label: Label = $CenterContainer/PanelContainer/VBoxContainer/LevelLabel
 @onready var _button_1: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option1
 @onready var _button_2: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option2
@@ -24,8 +22,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	visible = false
 
-	if is_instance_valid(xp_system):
-		xp_system.level_up.connect(_on_level_up)
+	game_manager.xp_manager.level_up.connect(_on_level_up)
 
 
 func _on_level_up(new_level: int) -> void:
@@ -43,8 +40,9 @@ func _on_level_up(new_level: int) -> void:
 	visible = true
 	get_tree().paused = true
 
+
 func _seleccionar(index: int) -> void:
-	upgrades_manager.apply_upgrade(_opciones_actuales[index])
+	game_manager.upgrade_manager.apply_upgrade(_opciones_actuales[index])
 	visible = false
 	get_tree().paused = false
 
