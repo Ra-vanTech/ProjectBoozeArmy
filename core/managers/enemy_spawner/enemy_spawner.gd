@@ -33,7 +33,7 @@ func spawn_enemy() -> void:
 		new_enemy.global_position = global_position + Vector3(randi_range(-20, 20), 2, randi_range(-20, 20))
 
 		# Conectar XP al morir, la señal pasa xp_value directamente a add_xp
-		new_enemy.enemy_died.connect(game_manager.xp_manager.add_xp)
+		new_enemy.enemy_died.connect(game_manager.add_xp)
 
 	timer.wait_time = game_manager.difficulty_manager.get_spawn_rate()
 	spawn_amount = game_manager.difficulty_manager.get_spawn_amount()

@@ -14,7 +14,3 @@ var gold: int:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gold = STARTING_GOLD
-
-
-func add_gold(new_gold: int) -> void:
-	gold += new_gold

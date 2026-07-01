@@ -19,5 +19,5 @@ func damage(attack: Attack) -> void:
 		#Se biusca en el banco en el momento de muerte, no en _ready
 		game_manager = get_tree().get_first_node_in_group("game_manager")
 		if is_instance_valid(game_manager):
-			game_manager.money_manager.add_gold(COINS_DROPPED_DEFAULT)
+			game_manager.add_gold(COINS_DROPPED_DEFAULT)
 		has_died.emit()
