@@ -13,8 +13,10 @@ func tick(delta: float):
 
 
 func enter():
-	print("cayendo")
+	# Implementación de animación de caída
+	pass
 
 
 func exit():
-	print("Saliendo del estado de caída")
+	# Efecto de sonido al caer
+	pass

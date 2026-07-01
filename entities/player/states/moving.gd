@@ -17,8 +17,10 @@ func tick(delta: float):
 
 
 func enter():
-	print("Entrando al estado de movimiento")
+	# Animación de movimiento
+	pass
 
 
 func exit():
-	print("Saliendo del estado de movimiento")
+	# Algo
+	pass

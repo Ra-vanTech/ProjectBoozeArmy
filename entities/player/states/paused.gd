@@ -5,14 +5,12 @@ extends State
 
 
 func enter():
-	print("Entrando al estado de pausa")
 	pause_screen.visible = true
 	get_parent().get_parent().set_physics_process(false)
 	get_tree().paused = true
 
 
 func exit():
-	print("Saliendo del estado de pausa")
 	get_parent().get_parent().set_physics_process(true)
 	pause_screen.visible = false
 	get_tree().paused = false
