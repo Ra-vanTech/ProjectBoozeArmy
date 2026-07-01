@@ -77,3 +77,8 @@ func _on_health_component_has_died() -> void:
 
 func _on_pause_screen_overlay_game_resumed() -> void:
 	state_machine.change_state("IdleState")
+
+
+func _on_pickup_radius_body_entered(body: Node3D) -> void:
+	if body.has_method("pickup"):
+		body.pickup()
