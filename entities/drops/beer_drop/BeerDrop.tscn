@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://da4yqm0t74qhw"]
 
-[ext_resource type="Script" uid="uid://dkpchxv4cxb8c" path="res://entities/drops/beer_drop/Beer.gd" id="1_gx6ve"]
+[ext_resource type="Script" uid="uid://cv230rva1qsr5" path="res://entities/drops/beer_drop/Beer.gd" id="1_gx6ve"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0p8s"]
 albedo_color = Color(0.52171624, 0.3207673, 0.1299232, 1)
@@ -13,6 +13,8 @@ height = 1.0
 height = 1.0
 
 [node name="BeerDrop" type="StaticBody3D" unique_id=1627016559]
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_gx6ve")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=33569249]
