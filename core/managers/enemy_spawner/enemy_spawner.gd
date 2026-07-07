@@ -2,6 +2,7 @@ class_name EnemySpawner
 extends Node3D
 
 @export var enemy: PackedScene
+@export var spawn_delay: float = 10.0 # Después de cuánto tiempo va a aparecer el enemigo
 
 var timer: Timer
 var spawn_cooldown: float = 3.0
@@ -20,6 +21,13 @@ func _ready() -> void:
 
 
 func spawn_enemy() -> void:
+	if game_manager.game_ended:
+		timer.stop()
+		return
+	if spawn_delay > 0.0:
+		var time_elapsed = game_manager.difficulty_manager.timer.wait_time - game_manager.difficulty_manager.timer.time_left
+		if time_elapsed < spawn_delay:
+			return
 	for i in range(spawn_amount):
 		var new_enemy = enemy.instantiate() as Enemy
 		#new_enemy.health *= difficulty_manager.get_health_mult()
