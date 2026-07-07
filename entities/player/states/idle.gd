@@ -17,8 +17,10 @@ func tick(delta: float):
 
 
 func exit():
-	print("Saliendo del estado inactivo")
+	# Algo
+	pass
 
 
 func enter():
-	print("Entrando al estado inactivo")
+	# Animación de inactividad
+	pass

@@ -1,3 +1,32 @@
 [gd_scene format=3 uid="uid://dvse7fqc32hc2"]
 
-[node name="Node" type="Node" unique_id=418991923]
+[ext_resource type="Script" uid="uid://cxxvwm3egt0l0" path="res://entities/drops/xp_drop/xp_drop.gd" id="1_slkh3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slkh3"]
+albedo_color = Color(0.441203, 0.9647786, 0.3351707, 1)
+emission_enabled = true
+emission = Color(0.3910204, 0.9734991, 0.2742744, 1)
+emission_energy_multiplier = 6.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_s0qg6"]
+material = SubResource("StandardMaterial3D_slkh3")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_slkh3"]
+
+[node name="Node" type="StaticBody3D" unique_id=1761822289]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_slkh3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1132359059]
+mesh = SubResource("SphereMesh_s0qg6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=398230522]
+shape = SubResource("SphereShape3D_slkh3")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=341001252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+text = "PLACEHOLDER TEXT	"
+font_size = 48
+outline_size = 24

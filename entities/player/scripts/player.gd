@@ -7,7 +7,7 @@ extends CharacterBody3D
 var timer: Timer
 var _is_dead: bool = false
 
-@onready var drunkeness: DrunkenessMeter = get_tree().get_first_node_in_group("drunkeness")
+@onready var drunkeness: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
 @onready var state_machine: StateMachine = %StateMachine
 @onready var input_component: InputComponent = %InputComponent
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
@@ -77,3 +77,8 @@ func _on_health_component_has_died() -> void:
 
 func _on_pause_screen_overlay_game_resumed() -> void:
 	state_machine.change_state("IdleState")
+
+
+func _on_pickup_radius_body_entered(body: Node3D) -> void:
+	if body.has_method("pickup"):
+		body.pickup()

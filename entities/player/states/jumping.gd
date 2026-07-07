@@ -14,9 +14,10 @@ func tick(delta: float):
 
 
 func enter():
+	# Animación de salto
 	movement_component.jump()
-	print("Entrando al estado de salto")
 
 
 func exit():
-	print("Saliendo del estado de salto")
+	# Algo
+	pass

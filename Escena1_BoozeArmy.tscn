@@ -1,20 +1,24 @@
 [gd_scene format=3 uid="uid://dbrcyi1sal6eg"]
 
+[ext_resource type="Script" uid="uid://ck0d0wqowngob" path="res://core/managers/game_manager/GameManager.gd" id="1_8ouxn"]
 [ext_resource type="PackedScene" uid="uid://duugomh718por" path="res://entities/player/scenes/player_test.tscn" id="1_m2amp"]
-[ext_resource type="Script" uid="uid://bj46smeqp56jt" path="res://vfx/shader_controller.gd" id="2_64qs2"]
+[ext_resource type="Script" uid="uid://in01pbn0qipw" path="res://vfx/shader_controller.gd" id="2_64qs2"]
 [ext_resource type="PackedScene" uid="uid://bojf7nmbcsf7o" path="res://entities/props/scenes/crate.tscn" id="3_7d05b"]
 [ext_resource type="PackedScene" uid="uid://gu5kxa188pwq" path="res://ui/pause_screen/pause_screen_overlay.tscn" id="4_7120o"]
 [ext_resource type="PackedScene" uid="uid://boste4rk3c3ai" path="res://ui/death_screen/death_screen_overlay.tscn" id="4_gecc1"]
 [ext_resource type="PackedScene" uid="uid://bo4oxc3tixusn" path="res://ui/game_ui/game_ui.tscn" id="5_7d05b"]
+[ext_resource type="Script" uid="uid://df3nl5gywuqun" path="res://core/managers/money_manager/MoneyManager.gd" id="5_ttbjd"]
 [ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="6_7d05b"]
+[ext_resource type="Script" uid="uid://dwa1eqc5ko5xo" path="res://core/managers/drunkeness_manager/DrunkenessManager.gd" id="6_buh5o"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
-[ext_resource type="PackedScene" uid="uid://ce2x7hqu0d1e0" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
-[ext_resource type="Script" uid="uid://dpqvt1fotn1il" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
+[ext_resource type="PackedScene" uid="uid://drcu8m0gidsud" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
+[ext_resource type="Script" uid="uid://o38olf5rwnvq" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
 [ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
 [ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
-[ext_resource type="Script" uid="uid://diwq4xmiburu5" path="res://core/managers/xp_system/xp_manager.gd" id="13_3nyjs"]
+[ext_resource type="Script" uid="uid://dr6nuuanp08y3" path="res://core/managers/xp_system/xp_manager.gd" id="13_3nyjs"]
 [ext_resource type="Script" uid="uid://dhlceobndd05q" path="res://core/managers/upgrade_manager/Upgrade_manager.gd" id="14_v4ycj"]
+[ext_resource type="PackedScene" uid="uid://bs036holnxkh0" path="res://entities/enemies/non_static/bat/bat.tscn" id="19_ynm0c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -34,6 +38,28 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 
 [node name="Node3D" type="Node3D" unique_id=1896586967]
 
+[node name="GameManager" type="Node" parent="." unique_id=1556023106 node_paths=PackedStringArray("xp_manager", "drunkeness_manager", "upgrade_manager", "difficulty_manager", "money_manager") groups=["game_manager"]]
+script = ExtResource("1_8ouxn")
+xp_manager = NodePath("XPManager")
+drunkeness_manager = NodePath("DrunkenessManager")
+upgrade_manager = NodePath("UpgradeManager")
+difficulty_manager = NodePath("DifficultyManager")
+money_manager = NodePath("MoneyManager")
+
+[node name="XPManager" type="Node" parent="GameManager" unique_id=743928468]
+script = ExtResource("13_3nyjs")
+
+[node name="UpgradeManager" type="Node" parent="GameManager" unique_id=739830799 groups=["upgrade_manager"]]
+script = ExtResource("14_v4ycj")
+
+[node name="DifficultyManager" parent="GameManager" unique_id=974227039 instance=ExtResource("7_7120o")]
+
+[node name="MoneyManager" type="Node" parent="GameManager" unique_id=1253465866]
+script = ExtResource("5_ttbjd")
+
+[node name="DrunkenessManager" type="Node" parent="GameManager" unique_id=1139329582]
+script = ExtResource("6_buh5o")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=438880227]
 environment = SubResource("Environment_d64gg")
 
@@ -52,54 +78,52 @@ shape = SubResource("ConvexPolygonShape3D_f7pk7")
 
 [node name="Player_test" parent="." unique_id=54499108 instance=ExtResource("1_m2amp")]
 
-[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397]
+[node name="Camera3D" type="Camera3D" parent="Player_test" unique_id=2102212397 node_paths=PackedStringArray("target_position", "target_look")]
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 9, 4.5)
+top_level = true
 current = true
 size = 7.015
 script = ExtResource("2_64qs2")
+target_position = NodePath("../CameraPosition")
+target_look = NodePath("..")
 
 [node name="BlurLayer" parent="Player_test/Camera3D" unique_id=179839882 instance=ExtResource("11_e78ft")]
 layer = 0
 
+[node name="DeathScreenOverlay" parent="Player_test/Camera3D" unique_id=618409675 instance=ExtResource("4_gecc1")]
+layer = 2
+visible = false
+
+[node name="PauseScreenOverlay" parent="Player_test/Camera3D" unique_id=1578907965 instance=ExtResource("4_7120o")]
+layer = 2
+visible = false
+
+[node name="UpgradeScreen" parent="Player_test/Camera3D" unique_id=1525150392 instance=ExtResource("7_v1gp6")]
+layer = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player_test/Camera3D" unique_id=923662318]
+
+[node name="MainUi" parent="Player_test/Camera3D/CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
+
+[node name="CameraPosition" type="Node3D" parent="Player_test" unique_id=843975097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.999999, 4.5)
+
 [node name="Crate" parent="." unique_id=2094985712 instance=ExtResource("3_7d05b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
-[node name="DeathScreenOverlay" parent="." unique_id=618409675 instance=ExtResource("4_gecc1")]
-layer = 2
-visible = false
-
-[node name="PauseScreenOverlay" parent="." unique_id=1578907965 instance=ExtResource("4_7120o")]
-layer = 2
-visible = false
-
-[node name="UpgradeScreen" parent="." unique_id=1525150392 node_paths=PackedStringArray("xp_system", "upgrades_manager") instance=ExtResource("7_v1gp6")]
-layer = 2
-xp_system = NodePath("../XPManager")
-upgrades_manager = NodePath("../UpgradeManager")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=923662318]
-
-[node name="MainUi" parent="CanvasLayer" unique_id=1531797009 instance=ExtResource("5_7d05b")]
-
-[node name="DifficultyManager" parent="." unique_id=974227039 instance=ExtResource("7_7120o")]
-
-[node name="SkeletonSpawner" parent="." unique_id=2036019453 node_paths=PackedStringArray("difficulty_manager", "xp_system", "upgrade_manager") groups=["spawner"] instance=ExtResource("7_f7pk7")]
+[node name="SkeletonSpawner" parent="." unique_id=2036019453 groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
-difficulty_manager = NodePath("../DifficultyManager")
-xp_system = NodePath("../XPManager")
-upgrade_manager = NodePath("../UpgradeManager")
+spawn_delay = 0.0
 
-[node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589 node_paths=PackedStringArray("difficulty_manager", "xp_system", "upgrade_manager")]
+[node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
-difficulty_manager = NodePath("../DifficultyManager")
-xp_system = NodePath("../XPManager")
-upgrade_manager = NodePath("../UpgradeManager")
 
-[node name="XPManager" type="Node" parent="." unique_id=743928468]
-script = ExtResource("13_3nyjs")
+[node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
+script = ExtResource("9_3cxb1")
+enemy = ExtResource("19_ynm0c")
+spawn_delay = 20.0
+metadata/_custom_type_script = "uid://o38olf5rwnvq"
 
-[node name="UpgradeManager" type="Node" parent="." unique_id=739830799 groups=["upgrade_manager"]]
-script = ExtResource("14_v4ycj")
-
-[connection signal="game_resumed" from="PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
+[connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]
+[connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
