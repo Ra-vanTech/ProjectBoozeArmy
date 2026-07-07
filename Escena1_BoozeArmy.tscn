@@ -12,12 +12,13 @@
 [ext_resource type="Script" uid="uid://dwa1eqc5ko5xo" path="res://core/managers/drunkeness_manager/DrunkenessManager.gd" id="6_buh5o"]
 [ext_resource type="PackedScene" uid="uid://gdpommu2v0so" path="res://core/managers/difficulty_manager/difficulty_manager.tscn" id="7_7120o"]
 [ext_resource type="PackedScene" uid="uid://cn5821b680m6u" path="res://core/managers/enemy_spawner/enemy_spawner.tscn" id="7_f7pk7"]
-[ext_resource type="PackedScene" uid="uid://ce2x7hqu0d1e0" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
+[ext_resource type="PackedScene" uid="uid://drcu8m0gidsud" path="res://ui/upgrade_screen/upgrade_screen.tscn" id="7_v1gp6"]
 [ext_resource type="Script" uid="uid://o38olf5rwnvq" path="res://core/managers/enemy_spawner/enemy_spawner.gd" id="9_3cxb1"]
 [ext_resource type="PackedScene" uid="uid://cs7d4bolydibi" path="res://entities/enemies/non_static/slime/slime.tscn" id="10_vbyvm"]
 [ext_resource type="PackedScene" uid="uid://b4hxxy1fv8mcj" path="res://ui/shader_layers/blur_layer.tscn" id="11_e78ft"]
 [ext_resource type="Script" uid="uid://dr6nuuanp08y3" path="res://core/managers/xp_system/xp_manager.gd" id="13_3nyjs"]
 [ext_resource type="Script" uid="uid://dhlceobndd05q" path="res://core/managers/upgrade_manager/Upgrade_manager.gd" id="14_v4ycj"]
+[ext_resource type="PackedScene" uid="uid://bs036holnxkh0" path="res://entities/enemies/non_static/bat/bat.tscn" id="19_ynm0c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -116,5 +117,10 @@ enemy = ExtResource("6_7d05b")
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
+
+[node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
+script = ExtResource("9_3cxb1")
+enemy = ExtResource("19_ynm0c")
+metadata/_custom_type_script = "uid://o38olf5rwnvq"
 
 [connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
