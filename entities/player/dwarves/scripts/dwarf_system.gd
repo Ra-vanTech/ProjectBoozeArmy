@@ -4,13 +4,12 @@ extends Node3D
 signal enano_eliminado(enanos_id: int)
 signal ejercito_derrotado
 
-#Precargar la escena del enano para instanciarla en tiempo de ejecucion.
-const ENANO_SCENE: PackedScene = preload("res://entities/player/dwarves/scenes/enano_cervecero.tscn")
-
 #configuracion (enanos iniciales, maximo de enanos y radio de formacion)
 @export var initial_dwarves: int = 3
 @export var max_dwarves: int = 10
 @export var formation_radius: float = 2.5
+#para agregar un nuevo tipo de enano, sin tocar el script 
+@export var enano_scenes: Array[PackedScene] = []
 
 var dwarves: Array[Node3D] = []
 
@@ -28,15 +27,24 @@ func _ready() -> void:
 		_player_health.has_died.connect(eliminar_enano)
 	else:
 		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
-
+	
+	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	if is_instance_valid(upgrade_manager):
+		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
+	else:
+		push_error("[DwarfSystem] No se encontró UpgradeManager en la escena")
+	
 
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
 		return
-	var enano: EnanoBase = ENANO_SCENE.instantiate()
+	var escena: PackedScene = enano_scenes[randi() % enano_scenes.size()]
+	var enano: EnanoBase = escena.instantiate()
 	add_child(enano)
 	dwarves.append(enano)
 	actualizar_formacion()
+	#print para probar upgrade +1 enano
+	print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
 
 
 func eliminar_enano() -> void:
@@ -68,6 +76,11 @@ func actualizar_formacion() -> void:
 		var z: float = sin(angle) * formation_radius
 		dwarves[i].position = Vector3(x, 0, z)
 
+
+func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
+	if type == UpgradeManager.UpgradeType.ADD_DWARF:
+		agregar_enano()
+	
 
 func _sin_enanos() -> void:
 	print("[DwarfSystem] Todos los enanos eliminados — Game Over")
