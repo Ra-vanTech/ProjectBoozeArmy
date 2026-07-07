@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://boste4rk3c3ai"]
+
+[ext_resource type="Script" uid="uid://drklkyspyef1v" path="res://ui/death_screen/death_screen_overlay.gd" id="1_fxgi5"]
+[ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_a3w8d"]
+
+[node name="DeathScreenOverlay" type="CanvasLayer" unique_id=618409675 groups=["death_screen"]]
+script = ExtResource("1_fxgi5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2125003277]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25882354)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1915903115]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1704721681]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=950196674]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=805246359]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "DERROTA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=803778361]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Reiniciar"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1877272323]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Volver al menú"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1579468399]
+layout_mode = 2
+
+[node name="TransitionScreen" parent="." unique_id=2001532765 instance=ExtResource("2_a3w8d")]
+visible = false
+
+[node name="Timer" type="Timer" parent="TransitionScreen" unique_id=2134109868]
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="TransitionScreen/Timer" to="." method="_on_timer_timeout"]

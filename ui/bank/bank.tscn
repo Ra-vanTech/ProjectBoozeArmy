@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bbb43u8xyrjtb"]
+
+[ext_resource type="Script" uid="uid://c3n7j6e46mvll" path="res://ui/bank/bank.gd" id="1_g8axo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g8axo"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Bank" type="Label" unique_id=466702522 groups=["bank"]]
+text = "PLACEHOLDER TEXT (BANK)"
+label_settings = SubResource("LabelSettings_g8axo")
+script = ExtResource("1_g8axo")

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b4hxxy1fv8mcj"]
+
+[ext_resource type="Shader" uid="uid://da4sk75baigmm" path="res://vfx/blur_y.gdshader" id="1_4uwl7"]
+[ext_resource type="Shader" uid="uid://d006d58wu7oy7" path="res://vfx/blur.gdshader" id="2_vmrro"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmrro"]
+shader = ExtResource("1_4uwl7")
+shader_parameter/contrast = 0.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nyp4j"]
+shader = ExtResource("2_vmrro")
+shader_parameter/blur_size = Vector2(0.5, 0.5)
+
+[node name="BlurLayer" type="CanvasLayer" unique_id=179839882]
+
+[node name="x_blur" type="ColorRect" parent="." unique_id=1931861726]
+material = SubResource("ShaderMaterial_vmrro")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="y_blur" type="ColorRect" parent="." unique_id=1985412922]
+material = SubResource("ShaderMaterial_vmrro")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="blur" type="ColorRect" parent="." unique_id=1451767672]
+material = SubResource("ShaderMaterial_nyp4j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

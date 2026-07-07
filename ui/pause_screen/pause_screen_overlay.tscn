@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://gu5kxa188pwq"]
+
+[ext_resource type="Script" uid="uid://7ayribdk6ax1" path="res://ui/pause_screen/pause_screen_overlay.gd" id="1_ck31h"]
+[ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_5ls14"]
+
+[node name="PauseScreenOverlay" type="CanvasLayer" unique_id=1578907965 groups=["pause_screen"]]
+script = ExtResource("1_ck31h")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1762548889]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25882354)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=280314894]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=2117758359]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1207668889]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=565428208]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "PAUSA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1381139591]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Continuar"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1520677710]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Volver al menú"
+
+[node name="TransitionScreen" parent="." unique_id=2001532765 instance=ExtResource("2_5ls14")]
+visible = false
+
+[node name="Timer" type="Timer" parent="TransitionScreen" unique_id=431745424]
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="TransitionScreen/Timer" to="." method="_on_timer_timeout"]

@@ -13,7 +13,7 @@ trim_trailing_whitespace = true
 
 # ─── GDScript ────────────────────────────────────────────────────────────────
 [*.gd]
-indent_style = space
+indent_style = tab
 indent_size = 4
 
 # ─── Escenas y recursos de Godot (no modificar formato) ──────────────────────

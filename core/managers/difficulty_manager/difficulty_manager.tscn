@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://gdpommu2v0so"]
+
+[ext_resource type="Script" uid="uid://ccks342nea7st" path="res://core/managers/difficulty_manager/difficulty_manager.gd" id="1_yq6q2"]
+
+[sub_resource type="Curve" id="Curve_yq6q2"]
+_limits = [0.5, 4.0, 0.0, 1.0]
+_data = [Vector2(0, 4), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_a48ao"]
+_limits = [1.0, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 5.0, 0, 1, Vector2(1, 6), 5.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_74atq"]
+_limits = [1.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_6tsxw"]
+_limits = [1.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 10), 25.660152, 0.0, 0, 0]
+point_count = 2
+
+[node name="DifficultyManager" type="Node" unique_id=974227039]
+script = ExtResource("1_yq6q2")
+spawn_rate_curve = SubResource("Curve_yq6q2")
+spawn_amount_curve = SubResource("Curve_a48ao")
+health_multiplier_curve = SubResource("Curve_74atq")
+money_multiplier_curve = SubResource("Curve_6tsxw")

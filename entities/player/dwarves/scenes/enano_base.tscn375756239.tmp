@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://doepf6b82py3q"]
+
+[ext_resource type="Script" uid="uid://ds5nfvcmie7r6" path="res://entities/player/dwarves/scripts/enano_base.gd" id="1_oppef"]
+[ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_t6xkj"]
+[ext_resource type="Script" uid="uid://cg70vm4fe8s42" path="res://entities/player/dwarves/state/DwarfIdleState.gd" id="3_ouxvj"]
+[ext_resource type="Script" uid="uid://cwa6itw6aco3y" path="res://entities/player/dwarves/state/DwarfAttackState.gd" id="4_bs84x"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_r00mm"]
+height = 1.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r00mm"]
+albedo_color = Color(0.39968616, 0.7559482, 0.23679131, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oppef"]
+radius = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bs84x"]
+height = 1.55
+
+[node name="EnanoBase" type="CharacterBody3D" unique_id=1614007922]
+script = ExtResource("1_oppef")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=741214329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56944263, 0)
+mesh = SubResource("CapsuleMesh_r00mm")
+surface_material_override/0 = SubResource("StandardMaterial3D_r00mm")
+
+[node name="AttackRange" type="Area3D" parent="." unique_id=1304574090]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange" unique_id=44920273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5264454, 0)
+shape = SubResource("SphereShape3D_oppef")
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=1674398328]
+
+[node name="StateMachine" type="Node" parent="." unique_id=1880243342]
+unique_name_in_owner = true
+script = ExtResource("2_t6xkj")
+metadata/_custom_type_script = "uid://u7hnmfdjwvy3"
+
+[node name="DwarfIdleState" type="Node" parent="StateMachine" unique_id=160891737]
+script = ExtResource("3_ouxvj")
+
+[node name="DwarfAttackState" type="Node" parent="StateMachine" unique_id=653698306]
+script = ExtResource("4_bs84x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=580256728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55480134, 0)
+shape = SubResource("CapsuleShape3D_bs84x")
