@@ -38,6 +38,16 @@ func _ready() -> void:
 		upgrades_manager.upgrade_applied.connect(_on_upgrade_applied)
 
 
+func calculate_damage_multiplier() -> float:
+	print("hello everybody my name is multiplier")
+	if drunkeness <= 30:
+		return 0.7
+	elif drunkeness <= 70:
+		return 1.0
+	else:
+		return 1.3
+
+
 func _tick() -> void:
 	drunkeness += drunkeness_per_second
 
@@ -45,3 +55,7 @@ func _tick() -> void:
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 	if type == UpgradeManager.UpgradeType.SOBRIETY_REGEN:
 		drunkeness_per_second += 1
+
+
+func _on_request_drunkenness_multiplier() -> float:
+	return calculate_damage_multiplier()
