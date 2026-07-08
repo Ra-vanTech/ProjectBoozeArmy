@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dr6nuuanp08y3" path="res://core/managers/xp_system/xp_manager.gd" id="13_3nyjs"]
 [ext_resource type="Script" uid="uid://dhlceobndd05q" path="res://core/managers/upgrade_manager/Upgrade_manager.gd" id="14_v4ycj"]
 [ext_resource type="PackedScene" uid="uid://bs036holnxkh0" path="res://entities/enemies/non_static/bat/bat.tscn" id="19_ynm0c"]
+[ext_resource type="PackedScene" uid="uid://chtst8xv3mcmx" path="res://entities/enemies/non_static/summoner/summoner.tscn" id="20_ibn0d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -113,7 +114,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
 [node name="SkeletonSpawner" parent="." unique_id=2036019453 groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
-spawn_delay = 0.0
 
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
@@ -124,6 +124,9 @@ script = ExtResource("9_3cxb1")
 enemy = ExtResource("19_ynm0c")
 spawn_delay = 20.0
 metadata/_custom_type_script = "uid://o38olf5rwnvq"
+
+[node name="Summoner" parent="." unique_id=1268067690 instance=ExtResource("20_ibn0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8702555, 0.9999995, -7.082053)
 
 [connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]
 [connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
