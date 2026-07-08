@@ -1,8 +1,6 @@
 class_name EnanoBase
 extends CharacterBody3D
 
-signal request_drunkenness_multiplier
-
 @export var damage: float = 10.0
 @export var cooldown_base: float = 1.0
 
