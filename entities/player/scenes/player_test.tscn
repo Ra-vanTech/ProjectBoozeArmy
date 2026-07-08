@@ -5,9 +5,7 @@
 [ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_46esb"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="2_ucsmf"]
 [ext_resource type="Script" uid="uid://commxfx76fc77" path="res://entities/player/states/idle.gd" id="3_6tei6"]
-[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="4_20dgb"]
 [ext_resource type="Script" uid="uid://ckovydehy8kym" path="res://entities/player/states/moving.gd" id="4_621nv"]
-[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="5_7mveo"]
 [ext_resource type="Script" uid="uid://y2oyyur5manj" path="res://entities/player/states/falling.gd" id="6_147ks"]
 [ext_resource type="Script" uid="uid://bosh31tt74i1m" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
 [ext_resource type="Script" uid="uid://caow7e0eh426e" path="res://entities/player/states/paused.gd" id="8_2iik5"]
@@ -84,21 +82,6 @@ BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=583010885]
-unique_name_in_owner = true
-script = ExtResource("4_20dgb")
-metadata/_custom_type_script = "uid://iin3yxgmowr1"
-
-[node name="HitBoxComponent" type="Area3D" parent="." unique_id=2125891360 node_paths=PackedStringArray("health_component")]
-unique_name_in_owner = true
-script = ExtResource("5_7mveo")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=1898540528]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_ucsmf")
-
 [node name="DwarfContainer" type="Node3D" parent="." unique_id=1641291794]
 unique_name_in_owner = true
 script = ExtResource("13_46esb")
@@ -112,5 +95,4 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 shape = SubResource("CylinderShape3D_46esb")
 
-[connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
 [connection signal="body_entered" from="PickupRadius" to="." method="_on_pickup_radius_body_entered"]
