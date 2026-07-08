@@ -4,7 +4,7 @@ extends Node
 signal xp_gained(current_xp: int, required_xp: int)
 signal level_up(new_level: int)
 
-const MAX_LEVEL: int = 10
+@export_range(1, 1000) var MAX_LEVEL = 10
 
 var current_xp: int:
 	set(input):
