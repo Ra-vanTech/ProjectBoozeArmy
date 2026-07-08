@@ -19,8 +19,16 @@ func add_xp(input: int) -> void:
 	xp_manager.current_xp += input
 
 
+func get_drunkenness() -> int:
+	return drunkeness_manager.drunkeness
+
+
 func add_drunkeness(input: int) -> void:
 	drunkeness_manager.drunkeness += input
+
+
+func get_drunkenness_multiplier() -> float:
+	return drunkeness_manager.calculate_damage_multiplier()
 
 
 func _on_difficulty_manager_game_ended() -> void:

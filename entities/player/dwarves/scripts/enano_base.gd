@@ -22,10 +22,10 @@ func _physics_process(delta: float) -> void:
 
 # Metodos de calculo de daño
 func obtener_modificador_ebriedad() -> float:
-	var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
-	if not is_instance_valid(drunkeness_meter):
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	if not is_instance_valid(game_manager):
 		return 1.0 # siempre retorna 1 por defecto (seguro)
-	return drunkeness_meter.calculate_damage_multiplier()
+	return game_manager.get_drunkenness_multiplier()
 
 
 func obtener_modificador_upgrades() -> float:
@@ -44,19 +44,18 @@ func obtener_daño_final() -> float:
 
 #Obtener cooldown final, +20% de velocidad en rango ebrio
 func obtener_cooldown_final() -> float:
-	var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
 
 	var cooldown: float = cooldown_base
-	if not is_instance_valid(drunkeness_meter):
+	if not is_instance_valid(game_manager):
 		return cooldown
 
-	if is_instance_valid(drunkeness_meter) and drunkeness_meter.drunkeness > 70:
+	if is_instance_valid(game_manager) and game_manager.get_drunkenness() > 70:
 		cooldown *= 0.8
 
 	# Modificador de upgrade
-	if is_instance_valid(upgrade_manager):
-		cooldown *= upgrade_manager.get_cooldown_speed()
+	if is_instance_valid(game_manager):
+		cooldown *= game_manager.upgrade_manager.get_cooldown_speed()
 
 	#límite mínimo de cooldown
 	return max(cooldown, 0.3)
