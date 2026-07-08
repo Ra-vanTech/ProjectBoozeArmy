@@ -8,11 +8,9 @@
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="4_20dgb"]
 [ext_resource type="Script" uid="uid://ckovydehy8kym" path="res://entities/player/states/moving.gd" id="4_621nv"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="5_7mveo"]
-[ext_resource type="Script" uid="uid://4vo1bxha0iws" path="res://entities/player/states/jumping.gd" id="5_f4mq5"]
-[ext_resource type="Script" uid="uid://dpng1trkyqaup" path="res://entities/player/states/falling.gd" id="6_147ks"]
-[ext_resource type="Script" uid="uid://b16svw8u2q57y" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
-[ext_resource type="Script" uid="uid://c857k6v8my8eq" path="res://entities/player/states/paused.gd" id="8_2iik5"]
-[ext_resource type="Script" uid="uid://bcoxl3cpw4a14" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
+[ext_resource type="Script" uid="uid://bosh31tt74i1m" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
+[ext_resource type="Script" uid="uid://caow7e0eh426e" path="res://entities/player/states/paused.gd" id="8_2iik5"]
+[ext_resource type="Script" uid="uid://cw8esn2n7uhug" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
 [ext_resource type="PackedScene" uid="uid://dm5vvemdw14ff" path="res://entities/player/dwarves/scenes/enano_guerrero.tscn" id="14_6i5mt"]
 [ext_resource type="PackedScene" uid="uid://muuepog8h6pe" path="res://entities/player/dwarves/scenes/enano_cervecero.tscn" id="15_7saof"]
 
@@ -62,14 +60,6 @@ body = NodePath("../..")
 
 [node name="MovingState" type="Node" parent="StateMachine" unique_id=977842704]
 script = ExtResource("4_621nv")
-
-[node name="JumpingState" type="Node" parent="StateMachine" unique_id=437816381 node_paths=PackedStringArray("body")]
-script = ExtResource("5_f4mq5")
-body = NodePath("../..")
-
-[node name="FallingState" type="Node" parent="StateMachine" unique_id=1106573890 node_paths=PackedStringArray("body")]
-script = ExtResource("6_147ks")
-body = NodePath("../..")
 
 [node name="DeadState" type="Node" parent="StateMachine" unique_id=712203439]
 script = ExtResource("7_bnj5j")
