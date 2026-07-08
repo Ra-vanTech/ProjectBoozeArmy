@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="4_20dgb"]
 [ext_resource type="Script" uid="uid://ckovydehy8kym" path="res://entities/player/states/moving.gd" id="4_621nv"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="5_7mveo"]
+[ext_resource type="Script" uid="uid://y2oyyur5manj" path="res://entities/player/states/falling.gd" id="6_147ks"]
 [ext_resource type="Script" uid="uid://bosh31tt74i1m" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
 [ext_resource type="Script" uid="uid://caow7e0eh426e" path="res://entities/player/states/paused.gd" id="8_2iik5"]
 [ext_resource type="Script" uid="uid://cw8esn2n7uhug" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
@@ -66,6 +67,11 @@ script = ExtResource("7_bnj5j")
 
 [node name="PausedState" type="Node" parent="StateMachine" unique_id=358894995]
 script = ExtResource("8_2iik5")
+
+[node name="FallingState" type="Node" parent="StateMachine" unique_id=1660691181 node_paths=PackedStringArray("body")]
+script = ExtResource("6_147ks")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://y2oyyur5manj"
 
 [node name="InputComponent" type="Node" parent="." unique_id=740762571]
 unique_name_in_owner = true
