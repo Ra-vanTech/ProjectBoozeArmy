@@ -26,11 +26,6 @@ func phys_tick(delta: float):
 		current_state.phys_tick(delta)
 
 
-func handle_input() -> void:
-	if current_state:
-		current_state.handle_input()
-
-
 func change_state(new_state: String) -> void:
 	if current_state:
 		current_state.exit()
