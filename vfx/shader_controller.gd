@@ -14,12 +14,12 @@ var blur_size: Vector2
 
 
 func _physics_process(delta: float) -> void:
-	fov = clamp(game_manager.get_drunkenness(), 70, 120)
+	fov = clamp(game_manager.get_drunkenness(), 70, 100)
 
 	global_transform.origin = global_transform.origin.lerp(target_position.global_transform.origin, smoothing_speed * delta)
 	look_at(target_look.global_position)
 
-	contrast = max(0.1, float(game_manager.get_drunkenness()) / 100)
+	contrast = clamp(game_manager.get_drunkenness() / 100.0, 0.1, 1) # con límites más altos se empieza a ver desagradable
 	blur_size = Vector2(contrast / 1.3, contrast / 1.3)
 	blur_layer_x.set_shader_parameter("contrast", contrast)
 	blur_layer_y.set_shader_parameter("contrast", contrast)
