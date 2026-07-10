@@ -2,28 +2,34 @@ class_name XPManager
 extends Node
 
 signal xp_gained(current_xp: int, required_xp: int)
+signal max_level_reached
 signal level_up(new_level: int)
 
 @export_range(1, 1000) var MAX_LEVEL = 10
 
+var max_level_signal_emitted := false
 var current_xp: int:
 	set(input):
 		if current_level >= MAX_LEVEL:
+			if not max_level_signal_emitted: # Evita que se reenvie la señal cada vez que se obtiene experiencia
+				max_level_reached.emit()
+				max_level_signal_emitted = true
 			return
 		current_xp = input
 
 		var required: int = _xp_for_level(current_level)
 
 		# Capturamos XP ganada en el HUD
-		xp_gained.emit(current_xp, required)
-		print("[XPSystem] XP : ", current_xp, " / ", required, " | Nivel: ", current_level)
+		# xp_gained.emit(current_xp, required) # no veo por que se emitía 2 veces pero bueno
 
 		#Verificar si se paso el nivel
 		if current_xp >= required:
 			current_xp -= required
 			current_level += 1
-			print("[XPSystem] Lvel up - nivel :", current_level)
 			level_up.emit(current_level)
+			if current_level >= MAX_LEVEL: # Si no se hace esto no se actualiza al momento
+				max_level_reached.emit()
+				max_level_signal_emitted = true
 
 		# Actualizamos XP en HUD de nuevo
 		if current_level < MAX_LEVEL:

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbb43u8xyrjtb" path="res://ui/bank/bank.tscn" id="1_2w547"]
 [ext_resource type="PackedScene" uid="uid://db0wwfr5rtbup" path="res://ui/drunkeness/drunkeness_meter.tscn" id="1_6u1yh"]
+[ext_resource type="PackedScene" uid="uid://cth0133lbrqbn" path="res://ui/xp_bar/xp_bar.tscn" id="3_xlhta"]
 
 [node name="GameUi" type="MarginContainer" unique_id=1531797009]
 anchors_preset = 15
@@ -22,3 +23,7 @@ size_flags_horizontal = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+
+[node name="Xp_bar" parent="." unique_id=750495254 instance=ExtResource("3_xlhta")]
+layout_mode = 2
+size_flags_vertical = 0
