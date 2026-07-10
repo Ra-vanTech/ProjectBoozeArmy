@@ -6,6 +6,7 @@ signal max_level_reached
 signal level_up(new_level: int)
 
 @export_range(1, 1000) var MAX_LEVEL = 10
+@export_range(10, 1000) var starting_xp_requirement = 10
 
 var max_level_signal_emitted := false
 var current_xp: int:
@@ -39,4 +40,4 @@ var current_level: int = 1
 
 #formula para la experiencia
 func _xp_for_level(level: int) -> int:
-	return roundi(10.0 * pow(1.2, level - 1))
+	return roundi(starting_xp_requirement * pow(1.2, level - 1))
