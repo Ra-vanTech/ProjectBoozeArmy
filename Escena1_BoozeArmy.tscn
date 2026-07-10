@@ -48,6 +48,7 @@ money_manager = NodePath("MoneyManager")
 
 [node name="XPManager" type="Node" parent="GameManager" unique_id=743928468]
 script = ExtResource("13_3nyjs")
+MAX_LEVEL = 100
 
 [node name="UpgradeManager" type="Node" parent="GameManager" unique_id=739830799 groups=["upgrade_manager"]]
 script = ExtResource("14_v4ycj")
