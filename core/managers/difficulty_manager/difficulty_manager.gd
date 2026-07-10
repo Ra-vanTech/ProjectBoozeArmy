@@ -45,13 +45,14 @@ func get_money_mult() -> float: # también es una posibilidad que el dinero gana
 		return 1.0
 	return money_multiplier_curve.sample(game_progress())
 
-# +10% velocidad al minuto 2:00. Un unico evento 
+
+# +10% velocidad al minuto 2:00. Un unico evento
 func get_speed_mult() -> float:
 	if not scaling_enabled:
 		return 1.0
 	var elapsed: float = game_time - timer.time_left
 	if elapsed >= 120.0:
-		print("aplicando multiplicador de velocidad")
+		# Aplicar multiplicador de velocidad
 		return 1.1
 	return 1.0
 

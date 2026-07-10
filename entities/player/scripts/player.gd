@@ -40,7 +40,6 @@ func _physics_process(delta: float) -> void:
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
 	if chance == 1:
-		print("Enano muere por sobrio")
 		damage()
 
 

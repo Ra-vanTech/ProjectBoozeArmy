@@ -7,6 +7,5 @@ func _ready() -> void:
 
 
 func pickup() -> void:
-	print("[XP Orb]: Orbe recogida, se obtuvo ", bonus_amount, " experiencia")
 	game_manager.add_xp(bonus_amount)
 	queue_free()

@@ -14,5 +14,4 @@ func damage(attack: Attack):
 
 
 func _on_health_component_has_died() -> void:
-	print("petatiado")
 	queue_free()

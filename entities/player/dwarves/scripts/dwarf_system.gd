@@ -35,7 +35,7 @@ func agregar_enano() -> void:
 	dwarves.append(enano)
 	actualizar_formacion()
 	#print para probar upgrade +1 enano
-	print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
+	# print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
 
 
 func eliminar_enano() -> void:
@@ -74,5 +74,5 @@ func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 
 
 func _sin_enanos() -> void:
-	print("[DwarfSystem] Todos los enanos eliminados — Game Over")
+	# print("[DwarfSystem] Todos los enanos eliminados — Game Over")
 	ejercito_derrotado.emit()
