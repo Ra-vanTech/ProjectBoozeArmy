@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbb43u8xyrjtb" path="res://ui/bank/bank.tscn" id="1_2w547"]
 [ext_resource type="PackedScene" uid="uid://db0wwfr5rtbup" path="res://ui/drunkeness/drunkeness_meter.tscn" id="1_6u1yh"]
+[ext_resource type="PackedScene" uid="uid://c6okpqn5fwbqt" path="res://ui/timer/timerUI.tscn" id="1_adpq5"]
 [ext_resource type="PackedScene" uid="uid://cth0133lbrqbn" path="res://ui/xp_bar/xp_bar.tscn" id="3_xlhta"]
 
 [node name="GameUi" type="MarginContainer" unique_id=1531797009]
@@ -14,6 +15,11 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+
+[node name="TimerUi" parent="." unique_id=1492255672 instance=ExtResource("1_adpq5")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
 [node name="DrunkenessMeter" parent="." unique_id=1008807262 instance=ExtResource("1_6u1yh")]
 layout_mode = 2

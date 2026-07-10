@@ -31,5 +31,16 @@ func get_drunkenness_multiplier() -> float:
 	return drunkeness_manager.calculate_damage_multiplier()
 
 
+# Toma el tiempo trancurrido y le da formato
+func get_time_elapsed() -> String:
+	var minutes = difficulty_manager.time_elapsed / 60
+	var seconds = difficulty_manager.time_elapsed % 60
+	if minutes == 0:
+		minutes = "00"
+	if seconds < 10:
+		seconds = "0" + str(seconds)
+	return str(minutes) + ":" + str(seconds)
+
+
 func _on_difficulty_manager_game_ended() -> void:
 	game_ended = true
