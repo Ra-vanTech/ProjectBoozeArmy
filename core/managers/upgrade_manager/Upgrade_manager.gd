@@ -12,6 +12,17 @@ enum UpgradeType {
 	ENEMY_HP,
 }
 
+# Aparecen como lista del 0 al 4 en orden
+## Permite limitar la cantidad de veces que una mejora se puede seleccionar.
+## Colocar 0 como límite hace que la mejora se pueda seleccionar infinitas veces
+@export var upgrade_limits: Dictionary = {
+	UpgradeType.DAMAGE: 10,
+	UpgradeType.ATTACK_SPEED: 10,
+	UpgradeType.ADD_DWARF: 0,
+	UpgradeType.SOBRIETY_REGEN: 1,
+	UpgradeType.ENEMY_HP: 9,
+}
+
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
 	UpgradeType.ATTACK_SPEED: 0,
@@ -30,6 +41,22 @@ func apply_upgrade(type: UpgradeType) -> void:
 
 func get_stack(type: UpgradeType) -> int:
 	return _stacks[type]
+
+
+func is_below_limit(i: int) -> bool:
+	if upgrade_limits[i] <= 0:
+		return true
+	return _stacks[i] < upgrade_limits[i]
+
+
+## Retorna las mejoras filtradas para no traer las que ya llegaron a su nivel máximo
+func get_upgrade_list() -> Array:
+	var filtered: Array = _stacks.keys().filter(is_below_limit)
+	if len(filtered) < 3:
+		# Repite mejoras para asegurar que siempre hayan 3 elementos, si esto no se hace da error de fuera del límite
+		for i in range(3 - len(filtered)):
+			filtered.push_back(filtered.pick_random())
+	return filtered
 
 
 # +20% de daño
