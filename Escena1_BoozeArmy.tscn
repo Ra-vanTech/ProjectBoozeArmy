@@ -59,7 +59,6 @@ script = ExtResource("5_ttbjd")
 
 [node name="DrunkenessManager" type="Node" parent="GameManager" unique_id=1139329582]
 script = ExtResource("6_buh5o")
-max_drunkeness = 1000
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=438880227]
 environment = SubResource("Environment_d64gg")
