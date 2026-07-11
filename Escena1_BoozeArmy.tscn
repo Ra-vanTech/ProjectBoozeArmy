@@ -48,7 +48,6 @@ money_manager = NodePath("MoneyManager")
 
 [node name="XPManager" type="Node" parent="GameManager" unique_id=743928468]
 script = ExtResource("13_3nyjs")
-MAX_LEVEL = 100
 
 [node name="UpgradeManager" type="Node" parent="GameManager" unique_id=739830799 groups=["upgrade_manager"]]
 script = ExtResource("14_v4ycj")
@@ -60,6 +59,7 @@ script = ExtResource("5_ttbjd")
 
 [node name="DrunkenessManager" type="Node" parent="GameManager" unique_id=1139329582]
 script = ExtResource("6_buh5o")
+max_drunkeness = 1000
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=438880227]
 environment = SubResource("Environment_d64gg")
@@ -119,11 +119,12 @@ spawn_delay = 0.0
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
+spawn_delay = 60.0
 
 [node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("19_ynm0c")
-spawn_delay = 20.0
+spawn_delay = 120.0
 metadata/_custom_type_script = "uid://o38olf5rwnvq"
 
 [connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]
