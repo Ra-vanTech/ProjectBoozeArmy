@@ -54,6 +54,7 @@ func get_upgrade_list() -> Array:
 	var filtered: Array = _stacks.keys().filter(is_below_limit)
 	if len(filtered) < 3:
 		# Repite mejoras para asegurar que siempre hayan 3 elementos, si esto no se hace da error de fuera del límite
+		# También es posible añadir otro diccionario de mejoras más débiles pero sin límite
 		for i in range(3 - len(filtered)):
 			filtered.push_back(filtered.pick_random())
 	filtered.shuffle()
