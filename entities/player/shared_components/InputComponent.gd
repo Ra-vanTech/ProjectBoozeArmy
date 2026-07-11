@@ -2,7 +2,6 @@ class_name InputComponent
 extends Node
 
 var move_direction: Vector2 = Vector2.ZERO
-var is_jumping: bool = false
 var is_shooting: bool = false
 var has_quit: bool = false
 var wants_spawn: bool = false
