@@ -26,9 +26,7 @@ func _ready() -> void:
 
 
 func _on_level_up(new_level: int) -> void:
-	var todos: Array = game_manager.upgrade_manager.get_upgrade_list()
-	todos.shuffle()
-	_opciones_actuales = todos.slice(0, 3)
+	_opciones_actuales = game_manager.upgrade_manager.get_upgrade_list()
 
 	_level_label.text = "Nivel " + str(new_level) + "!"
 	var botones: Array = [_button_1, _button_2, _button_3]

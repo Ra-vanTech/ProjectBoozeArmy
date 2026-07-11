@@ -56,7 +56,8 @@ func get_upgrade_list() -> Array:
 		# Repite mejoras para asegurar que siempre hayan 3 elementos, si esto no se hace da error de fuera del límite
 		for i in range(3 - len(filtered)):
 			filtered.push_back(filtered.pick_random())
-	return filtered
+	filtered.shuffle()
+	return filtered.slice(0, 3)
 
 
 # +20% de daño
