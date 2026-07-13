@@ -18,12 +18,13 @@ var current_xp: int:
 		xp_gained.emit(current_xp, required)
 		print("[XPSystem] XP : ", current_xp, " / ", required, " | Nivel: ", current_level)
 
-		#Verificar si se paso el nivel
-		if current_xp >= required:
+		#Verificar si se pasó uno o varios niveles con una sola recogida
+		while current_xp >= required and current_level < MAX_LEVEL:
 			current_xp -= required
 			current_level += 1
 			print("[XPSystem] Lvel up - nivel :", current_level)
 			level_up.emit(current_level)
+			required = _xp_for_level(current_level)
 
 		# Actualizamos XP en HUD de nuevo
 		if current_level < MAX_LEVEL:

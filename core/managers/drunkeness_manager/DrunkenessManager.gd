@@ -44,4 +44,7 @@ func _tick() -> void:
 
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 	if type == UpgradeManager.UpgradeType.SOBRIETY_REGEN:
-		drunkeness_per_second += 1
+		# La mejora "reduce la caída de ebriedad", como máximo la detiene (0).
+		# Sin el tope, 2+ stacks volvían la tasa positiva y la ebriedad subía
+		# sola al máximo para siempre, anulando el sistema de riesgo.
+		drunkeness_per_second = mini(drunkeness_per_second + 1, 0)

@@ -13,14 +13,16 @@ var player_in_range: Node3D = null
 
 
 func _ready() -> void:
-	add_to_group("enemies")
 	if movement_component:
 		movement_component.MOVEMENT_SPEED *= speed_multiplier
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 
-func _process(delta: float) -> void:
+# La lógica termina en move_and_slide(), por lo que debe correr en el paso
+# de física (igual que el jugador y los enanos) para evitar jitter y
+# lecturas poco fiables de is_on_floor()
+func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
 
 
