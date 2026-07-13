@@ -15,9 +15,3 @@ func exit():
 
 func tick(delta: float):
 	pass
-
-
-#func phys_tick(delta: float):
-#	pass
-func handle_input():
-	pass

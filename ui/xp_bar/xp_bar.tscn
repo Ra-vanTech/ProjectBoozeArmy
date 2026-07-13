@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cth0133lbrqbn"]
+
+[ext_resource type="Script" uid="uid://cgy72u5i4tdp0" path="res://ui/xp_bar/xp_bar.gd" id="1_fvosr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g8axo"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Xp_bar" type="Label" unique_id=466702522]
+text = "PLACEHOLDER TEXT (XP)"
+label_settings = SubResource("LabelSettings_g8axo")
+script = ExtResource("1_fvosr")

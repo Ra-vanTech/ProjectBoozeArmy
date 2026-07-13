@@ -1,16 +1,12 @@
 class_name Player
 extends CharacterBody3D
 
-@export var health := 100.0
-@export var COINS_DROPPED := 0
-
 var timer: Timer
 var _is_dead: bool = false
 
-@onready var drunkeness: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
+@onready var drunkeness: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager # aquí también es más fácil acceder solo al gestor de estado
 @onready var state_machine: StateMachine = %StateMachine
 @onready var input_component: InputComponent = %InputComponent
-@onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var dwarf_system: DwarfSystem = %DwarfContainer
 
 
@@ -21,8 +17,6 @@ func _ready() -> void:
 	timer.one_shot = false
 	add_child(timer)
 	timer.timeout.connect(sobriety_damage)
-	hit_box_component.health_component.health = health
-	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
 
 	if is_instance_valid(drunkeness):
@@ -46,7 +40,6 @@ func _physics_process(delta: float) -> void:
 func sobriety_damage() -> void:
 	var chance = randi_range(0, 2)
 	if chance == 1:
-		print("Enano muere por sobrio")
 		damage()
 
 
@@ -68,10 +61,6 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 #estado de muerte
 func _on_ejercito_derrotado() -> void:
 	_is_dead = true
-	state_machine.change_state("DeadState")
-
-
-func _on_health_component_has_died() -> void:
 	state_machine.change_state("DeadState")
 
 

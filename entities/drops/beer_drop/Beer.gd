@@ -7,6 +7,5 @@ func _ready() -> void:
 
 
 func pickup() -> void:
-	print("[Beer]: Se recogió cerveza, la ebriedad aumentó en ", bonus_amount)
 	game_manager.add_drunkeness(bonus_amount)
 	queue_free()
