@@ -38,6 +38,9 @@ func _ready() -> void:
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
 		return
+	if enano_scenes.is_empty():
+		push_error("[DwarfSystem] No hay escenas de enano asignadas en enano_scenes")
+		return
 	var escena: PackedScene = enano_scenes[randi() % enano_scenes.size()]
 	var enano: EnanoBase = escena.instantiate()
 	add_child(enano)

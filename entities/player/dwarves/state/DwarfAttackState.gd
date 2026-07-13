@@ -6,9 +6,10 @@ extends State
 var current_target: Node3D = null
 var current_cooldown: float = 0.0
 
-# Forzamos el cooldwn al maximo para que el golpe sea inmediato 
+# Fase inicial aleatoria para desincronizar a los enanos entre sí sin
+# acortar el cooldown real (antes se restaba tiempo en cada golpe)
 func enter() -> void:
-	current_cooldown = dwarf.obtener_cooldown_final()
+	current_cooldown = randf_range(0.0, dwarf.obtener_cooldown_final())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,8 +26,9 @@ func tick(delta: float) -> void:
 	current_cooldown += delta
 	if current_cooldown >= dwarf.obtener_cooldown_final() and is_instance_valid(current_target):
 		dwarf._attack(current_target)
-		#cambio: hacemos una variacion de tiempo entre los enanos para que ataquen en distinto tiempo 
-		current_cooldown = randf_range(0.0, 0.4)
+		# Cooldown completo hasta el siguiente golpe (la desincronización ya se
+		# aplicó en enter(), aquí se respeta el periodo real)
+		current_cooldown = 0.0
 
 
 func _update_target() -> void:
