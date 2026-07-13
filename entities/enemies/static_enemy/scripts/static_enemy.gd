@@ -5,7 +5,7 @@ extends EnemyBase
 
 
 func _ready() -> void:
-	hit_box_component.health_component.STARTING_HEALTH = health
+	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
 
 

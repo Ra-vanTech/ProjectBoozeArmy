@@ -23,6 +23,8 @@ func enter():
 func create_drop(drop: PackedScene, bonus: int) -> void:
 	var new_drop = drop.instantiate() as DropBase
 	new_drop.name += str(randi_range(0, 100)) # Evitar duplicación de nombres, no sé si realmente es un problema pero bueno
-	new_drop.global_position = parent.global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))
+	# bonus_amount antes de entrar al árbol para que _ready (etiqueta) lo lea
 	new_drop.bonus_amount = bonus
 	parent.add_sibling(new_drop)
+	# global_position después de add_sibling: fuera del árbol no es fiable
+	new_drop.global_position = parent.global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))

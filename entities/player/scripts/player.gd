@@ -21,6 +21,9 @@ func _ready() -> void:
 
 	if is_instance_valid(drunkeness):
 		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
+		# Establece el estado inicial del timer sin depender del orden de emisión
+		# de señales (p. ej. si la ebriedad inicial es 0, arranca en crítico)
+		_on_sobriety_critical_changed(drunkeness.drunkeness == 0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -26,7 +26,8 @@ func _on_body_entered(body: Node) -> void:
 	if body is RigidBody3D:
 		var push_dir: Vector3 = linear_velocity.normalized()
 		body.apply_central_impulse(push_dir * push_force)
-	if body.has_method("damage") and body is EnemyBase or body is RigidBody3D:
+	# Cualquier cuerpo con método damage() recibe daño (evita llamadas inválidas)
+	if body.has_method("damage"):
 		var attack = Attack.new()
 		attack.damage = damage
 		attack.knockback_force = push_force

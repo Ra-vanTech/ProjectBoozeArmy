@@ -35,24 +35,25 @@ func game_progress() -> float:
 	return 1.0 - (timer.time_left / game_time)
 
 
+# Con el escalado desactivado, todas las curvas se congelan en su valor inicial
+func _progress() -> float:
+	return game_progress() if scaling_enabled else 0.0
+
+
 func get_spawn_rate() -> float:
-	return spawn_rate_curve.sample(game_progress())
+	return spawn_rate_curve.sample(_progress())
 
 
 func get_spawn_amount() -> int:
-	return floor(spawn_amount_curve.sample(game_progress()))
+	return floori(spawn_amount_curve.sample(_progress()))
 
 
 func get_health_mult() -> float:
-	if not scaling_enabled:
-		return 1.0
-	return health_multiplier_curve.sample(game_progress())
+	return health_multiplier_curve.sample(_progress())
 
 
 func get_money_mult() -> float: # también es una posibilidad que el dinero ganado sea directamente proporcional a la salud, lo que haría que usen la misma curva
-	if not scaling_enabled:
-		return 1.0
-	return money_multiplier_curve.sample(game_progress())
+	return money_multiplier_curve.sample(_progress())
 
 
 # +10% velocidad al minuto 2:00. Un unico evento

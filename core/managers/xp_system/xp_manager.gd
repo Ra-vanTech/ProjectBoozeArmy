@@ -23,14 +23,15 @@ var current_xp: int:
 		# Capturamos XP ganada en el HUD
 		# xp_gained.emit(current_xp, required) # no veo por que se emitía 2 veces pero bueno
 
-		#Verificar si se paso el nivel
-		if current_xp >= required:
+		#Verificar si se pasó uno o varios niveles con una sola recogida
+		while current_xp >= required and current_level < MAX_LEVEL:
 			current_xp -= required
 			current_level += 1
 			level_up.emit(current_level)
 			if current_level >= MAX_LEVEL: # Si no se hace esto no se actualiza al momento
 				max_level_reached.emit()
 				max_level_signal_emitted = true
+			required = _xp_for_level(current_level)
 
 		# Actualizamos XP en HUD de nuevo
 		if current_level < MAX_LEVEL:
