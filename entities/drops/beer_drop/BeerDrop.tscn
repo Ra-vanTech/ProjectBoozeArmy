@@ -12,7 +12,7 @@ height = 1.0
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_d0p8s"]
 height = 1.0
 
-[node name="BeerDrop" type="StaticBody3D" unique_id=1627016559]
+[node name="BeerDrop" type="StaticBody3D" unique_id=1627016559 groups=["world_wrapped"]]
 collision_layer = 8
 collision_mask = 8
 script = ExtResource("1_gx6ve")

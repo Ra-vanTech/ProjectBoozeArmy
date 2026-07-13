@@ -1,9 +1,15 @@
 class_name Enemy
 extends EnemyBase
 
+# Con el mapa toroidal los enemigos que quedan atrás no deben acumularse:
+# más allá de esta distancia se eliminan silenciosamente (sin drops)
+const DESPAWN_DISTANCE: float = 60.0
+
 #variables de referencia mientras el jugador esta en contacto
 var can_attack: bool = true
 var player_in_range: Node3D = null
+
+var _despawn_frames: int = 0
 
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var movement_component: MovementComponent = %MovementComponent
@@ -24,6 +30,14 @@ func _ready() -> void:
 # lecturas poco fiables de is_on_floor()
 func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
+
+	# Despawn por distancia (chequeo barato: cada 30 frames)
+	_despawn_frames += 1
+	if _despawn_frames >= 30:
+		_despawn_frames = 0
+		var player := get_tree().get_first_node_in_group("player") as Node3D
+		if is_instance_valid(player) and global_position.distance_to(player.global_position) > DESPAWN_DISTANCE:
+			queue_free()
 
 
 func damage(attack: Attack) -> void:

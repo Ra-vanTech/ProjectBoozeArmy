@@ -7,9 +7,6 @@ extends Node3D
 @export_range(1, 19) var MIN_SPAWN_DISTANCE: float = 12.0 # distancia mínima al jugador
 @export_range(19, 50) var MAX_SPAWN_DISTANCE: float = 22.0 # distancia máxima al jugador
 
-# El piso es 50x50 centrado en el origen; dejamos 1u de margen para que los
-# enemigos no aparezcan sobre el borde y se caigan del mapa
-const MAP_LIMIT: float = 24.0
 # Altura de aparición ligeramente elevada: una caída corta es inofensiva,
 # aparecer incrustado en el piso provoca lanzamientos al cielo
 const SPAWN_HEIGHT: float = 1.5
@@ -64,10 +61,9 @@ func spawn_enemy() -> void:
 	spawn_amount = game_manager.difficulty_manager.get_spawn_amount()
 
 
-# Devuelve un punto en un anillo alrededor del origen, recortado a los límites del mapa
+# Devuelve un punto en un anillo alrededor del origen. Con el mapa toroidal
+# (piso treadmill + WorldWrap) no hay bordes, así que no hace falta recortar.
 func _random_spawn_position(origin: Vector3) -> Vector3:
 	var angle: float = randf() * TAU
 	var distance: float = randf_range(MIN_SPAWN_DISTANCE, MAX_SPAWN_DISTANCE)
-	var x: float = clampf(origin.x + cos(angle) * distance, -MAP_LIMIT, MAP_LIMIT)
-	var z: float = clampf(origin.z + sin(angle) * distance, -MAP_LIMIT, MAP_LIMIT)
-	return Vector3(x, SPAWN_HEIGHT, z)
+	return Vector3(origin.x + cos(angle) * distance, SPAWN_HEIGHT, origin.z + sin(angle) * distance)
