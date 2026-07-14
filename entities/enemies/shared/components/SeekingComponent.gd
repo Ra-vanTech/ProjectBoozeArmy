@@ -18,7 +18,7 @@ func tick() -> void:
 		direction = Vector2.ZERO
 		return
 
-	var diff: Vector3 = player.position - global_position
+	var diff: Vector3 = player.global_position - global_position
 	if diff.length_squared() < 0.0001:
 		return
 	direction3D = diff.normalized()
