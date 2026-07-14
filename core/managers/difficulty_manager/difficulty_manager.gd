@@ -6,7 +6,7 @@ signal game_ended
 #trigger de tiempo [es para el boss]
 signal boss_spawned
 
-@export var boss_spawn_time: float = 600.0
+@export var boss_spawn_time: float = 10.0
 var _boss_spawn_emitted: bool = false
 
 @export var spawn_rate_curve: Curve
