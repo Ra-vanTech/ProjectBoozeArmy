@@ -136,7 +136,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.049745, 0.5, -4.8812857)
 
 [node name="SkeletonSpawner" parent="." unique_id=2036019453 groups=["spawner"] instance=ExtResource("7_f7pk7")]
 enemy = ExtResource("6_7d05b")
-spawn_delay = 0.0
+spawn_delay = 60.0
 
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
@@ -146,7 +146,7 @@ spawn_delay = 60.0
 [node name="SummonerSpawner" type="Node3D" parent="." unique_id=725232269]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("21_v6ffw")
-spawn_delay = 420.0
+spawn_delay = 0.0
 
 [node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
 script = ExtResource("9_3cxb1")
