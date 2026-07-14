@@ -45,3 +45,5 @@ func on_timer_timeout():
 func exit():
 	print("[Summoner]: Saliendo de estado de invocación")
 
+#El codigo esta repetido, lo deje aqui tambien por que ya estaba este script antes y supongo quieren 
+#cambiar el ataque de cuerpo a cuerpo por solo invocacion. 
