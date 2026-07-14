@@ -29,27 +29,18 @@ signal ejercito_derrotado
 
 var dwarves: Array[Node3D] = []
 
-#Referencia de HealtComponent del jugador para conexion provisional
-@onready var _player_health: HealthComponent = %HealthComponent
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
-	#Conectar la señal de daño a los enanos
-	if is_instance_valid(_player_health):
-		_player_health.has_died.connect(eliminar_enano)
-	else:
-		push_error("[DwarfSystem] No se encontró HealthComponent en el jugador")
-	
 	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
 	if is_instance_valid(upgrade_manager):
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 	else:
 		push_error("[DwarfSystem] No se encontró UpgradeManager en la escena")
-	
+
 
 func agregar_enano() -> void:
 	if dwarves.size() >= max_dwarves:
@@ -65,7 +56,7 @@ func agregar_enano() -> void:
 	enano.position = Vector3(cos(angle), 0, sin(angle)) * formation_radius
 	dwarves.append(enano)
 	#print para probar upgrade +1 enano
-	print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
+	# print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
 
 
 func eliminar_enano() -> void:
@@ -126,8 +117,8 @@ func _physics_process(delta: float) -> void:
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 	if type == UpgradeManager.UpgradeType.ADD_DWARF:
 		agregar_enano()
-	
+
 
 func _sin_enanos() -> void:
-	print("[DwarfSystem] Todos los enanos eliminados — Game Over")
+	# print("[DwarfSystem] Todos los enanos eliminados — Game Over")
 	ejercito_derrotado.emit()

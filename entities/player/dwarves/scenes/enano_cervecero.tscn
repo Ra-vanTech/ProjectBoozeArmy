@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://muuepog8h6pe"]
 
-[ext_resource type="Script" uid="uid://d4feice2eaxt6" path="res://entities/player/dwarves/scripts/enano_cervecero.gd" id="1_8275o"]
+[ext_resource type="Script" uid="uid://b8iwvluqlg6hn" path="res://entities/player/dwarves/scripts/enano_cervecero.gd" id="1_8275o"]
 [ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_wpo0u"]
 [ext_resource type="Script" uid="uid://d3j0t7xiu6inn" path="res://entities/player/dwarves/state/DwarfIdleState.gd" id="3_d0xrb"]
-[ext_resource type="Script" uid="uid://dc3dcpla013u2" path="res://entities/player/dwarves/state/DwarfAttackState.gd" id="4_yqryp"]
+[ext_resource type="Script" uid="uid://buc5mc6vhfdhb" path="res://entities/player/dwarves/state/DwarfAttackState.gd" id="4_yqryp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r00mm"]
 height = 1.55

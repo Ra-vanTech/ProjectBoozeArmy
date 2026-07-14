@@ -43,6 +43,19 @@ func _ready() -> void:
 		upgrades_manager.upgrade_applied.connect(_on_upgrade_applied)
 
 
+func calculate_damage_multiplier() -> float:
+	if drunkeness <= 30:
+		return 0.7
+	elif drunkeness <= 70:
+		return 1.0
+	elif drunkeness <= 100:
+		return 1.3
+	else:
+		# permite crecimiento de daño adicional
+		# no es un bono tan grande, según mi calculadora una ebriedad de 1000 solo daría un bono adicional de 0.54
+		return 1.3 + pow(drunkeness - 100, 0.25) / 10.0
+
+
 func _tick() -> void:
 	drunkeness += drunkeness_per_second
 

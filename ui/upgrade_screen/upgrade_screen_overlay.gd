@@ -6,7 +6,9 @@ const UPGRADE_DATA: Dictionary = {
 	UpgradeManager.UpgradeType.ATTACK_SPEED: { "nombre": "+15% Vel. Ataque", "desc": "Los enanos atacan más rápido." },
 	UpgradeManager.UpgradeType.ADD_DWARF: { "nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército." },
 	UpgradeManager.UpgradeType.SOBRIETY_REGEN: { "nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento." },
-	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida." },
+	# Esta es engañosa, dice que le reduce la vida por 10% pero al ser 0.9^n, el decremento no es exactamente de 10%
+	# Tener 9 de estas mejoras no reduciría su vida por 90%, sino por 61.25% (si lo calculé bien)
+	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos aparecen con menos vida." },
 	UpgradeManager.UpgradeType.ATTACK_RANGE: { "nombre": "+15% Alcance", "desc": "Los ataques cubren más área." },
 }
 
@@ -27,13 +29,11 @@ func _ready() -> void:
 
 
 func _on_level_up(new_level: int) -> void:
-	var todos: Array = UpgradeManager.UpgradeType.values()
-	todos.shuffle()
-	_opciones_actuales = todos.slice(0, 3)
+	_opciones_actuales = game_manager.upgrade_manager.get_upgrade_list()
 
 	_level_label.text = "Nivel " + str(new_level) + "!"
 	var botones: Array = [_button_1, _button_2, _button_3]
-	for i in range(3):
+	for i in range(len(_opciones_actuales)):
 		var tipo = _opciones_actuales[i]
 		var data: Dictionary = UPGRADE_DATA[tipo]
 		botones[i].text = data["nombre"] + "\n" + data["desc"]

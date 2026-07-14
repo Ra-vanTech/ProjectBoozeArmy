@@ -5,14 +5,11 @@
 [ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_46esb"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="2_ucsmf"]
 [ext_resource type="Script" uid="uid://commxfx76fc77" path="res://entities/player/states/idle.gd" id="3_6tei6"]
-[ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="4_20dgb"]
 [ext_resource type="Script" uid="uid://ckovydehy8kym" path="res://entities/player/states/moving.gd" id="4_621nv"]
-[ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="5_7mveo"]
-[ext_resource type="Script" uid="uid://4vo1bxha0iws" path="res://entities/player/states/jumping.gd" id="5_f4mq5"]
-[ext_resource type="Script" uid="uid://dpng1trkyqaup" path="res://entities/player/states/falling.gd" id="6_147ks"]
-[ext_resource type="Script" uid="uid://b16svw8u2q57y" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
-[ext_resource type="Script" uid="uid://c857k6v8my8eq" path="res://entities/player/states/paused.gd" id="8_2iik5"]
-[ext_resource type="Script" uid="uid://bcoxl3cpw4a14" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
+[ext_resource type="Script" uid="uid://y2oyyur5manj" path="res://entities/player/states/falling.gd" id="6_147ks"]
+[ext_resource type="Script" uid="uid://bosh31tt74i1m" path="res://entities/player/states/dead.gd" id="7_bnj5j"]
+[ext_resource type="Script" uid="uid://caow7e0eh426e" path="res://entities/player/states/paused.gd" id="8_2iik5"]
+[ext_resource type="Script" uid="uid://cw8esn2n7uhug" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
 [ext_resource type="PackedScene" uid="uid://dm5vvemdw14ff" path="res://entities/player/dwarves/scenes/enano_guerrero.tscn" id="14_6i5mt"]
 [ext_resource type="PackedScene" uid="uid://muuepog8h6pe" path="res://entities/player/dwarves/scenes/enano_cervecero.tscn" id="15_7saof"]
 [ext_resource type="Script" path="res://entities/shared_components/AttackComponent.gd" id="16_atkcp"]
@@ -67,19 +64,16 @@ body = NodePath("../..")
 [node name="MovingState" type="Node" parent="StateMachine" unique_id=977842704]
 script = ExtResource("4_621nv")
 
-[node name="JumpingState" type="Node" parent="StateMachine" unique_id=437816381 node_paths=PackedStringArray("body")]
-script = ExtResource("5_f4mq5")
-body = NodePath("../..")
-
-[node name="FallingState" type="Node" parent="StateMachine" unique_id=1106573890 node_paths=PackedStringArray("body")]
-script = ExtResource("6_147ks")
-body = NodePath("../..")
-
 [node name="DeadState" type="Node" parent="StateMachine" unique_id=712203439]
 script = ExtResource("7_bnj5j")
 
 [node name="PausedState" type="Node" parent="StateMachine" unique_id=358894995]
 script = ExtResource("8_2iik5")
+
+[node name="FallingState" type="Node" parent="StateMachine" unique_id=1660691181 node_paths=PackedStringArray("body")]
+script = ExtResource("6_147ks")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://y2oyyur5manj"
 
 [node name="InputComponent" type="Node" parent="." unique_id=740762571]
 unique_name_in_owner = true
@@ -91,21 +85,6 @@ script = ExtResource("2_ucsmf")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
-
-[node name="HealthComponent" type="Node" parent="." unique_id=583010885]
-unique_name_in_owner = true
-script = ExtResource("4_20dgb")
-metadata/_custom_type_script = "uid://iin3yxgmowr1"
-
-[node name="HitBoxComponent" type="Area3D" parent="." unique_id=2125891360 node_paths=PackedStringArray("health_component")]
-unique_name_in_owner = true
-script = ExtResource("5_7mveo")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://ccuyrq1cbmgww"
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBoxComponent" unique_id=1898540528]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_ucsmf")
 
 [node name="DwarfContainer" type="Node3D" parent="." unique_id=1641291794]
 unique_name_in_owner = true
@@ -134,5 +113,4 @@ unique_name_in_owner = true
 script = ExtResource("16_atkcp")
 attack_area = NodePath("../AttackRange")
 
-[connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
 [connection signal="body_entered" from="PickupRadius" to="." method="_on_pickup_radius_body_entered"]

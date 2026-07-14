@@ -12,19 +12,11 @@ var attack_direction: Vector2 = Vector2.ZERO
 # `context` es cualquier nodo dentro del árbol (para acceder a los managers).
 
 static func modificador_ebriedad(context: Node) -> float:
-	var game_manager: Node = context.get_tree().get_first_node_in_group("game_manager")
+	var game_manager: GameManager = context.get_tree().get_first_node_in_group("game_manager")
 	if not is_instance_valid(game_manager):
 		return 1.0 # siempre retorna 1 por defecto (seguro)
-	var drunkeness_meter: DrunkenessManager = game_manager.drunkeness_manager
-	if not is_instance_valid(drunkeness_meter):
-		return 1.0
-	var level: int = drunkeness_meter.drunkeness
-	if level < DrunkenessManager.ZONA_SOBRIA:
-		return 0.7 # sobrio /critico (-%30)
-	elif level <= DrunkenessManager.ZONA_EBRIA:
-		return 1.0 # moderado (normal)
-	else:
-		return 1.3 # ebrio (%30)
+	# La fórmula por zonas (y el bono por encima de 100) vive en DrunkenessManager
+	return game_manager.get_drunkenness_multiplier()
 
 
 static func modificador_upgrades(context: Node) -> float:
@@ -41,11 +33,9 @@ static func danio_final(context: Node, base: float) -> float:
 #Cooldown final, +20% de velocidad en rango ebrio, límite mínimo 0.3s
 static func cooldown_final(context: Node, base: float) -> float:
 	var cooldown: float = base
-	var game_manager: Node = context.get_tree().get_first_node_in_group("game_manager")
-	if is_instance_valid(game_manager):
-		var drunkeness_meter: DrunkenessManager = game_manager.drunkeness_manager
-		if is_instance_valid(drunkeness_meter) and drunkeness_meter.drunkeness > DrunkenessManager.ZONA_EBRIA:
-			cooldown *= 0.8
+	var game_manager: GameManager = context.get_tree().get_first_node_in_group("game_manager")
+	if is_instance_valid(game_manager) and game_manager.get_drunkenness() > DrunkenessManager.ZONA_EBRIA:
+		cooldown *= 0.8
 
 	var upgrade_manager: UpgradeManager = context.get_tree().get_first_node_in_group("upgrade_manager")
 	if is_instance_valid(upgrade_manager):

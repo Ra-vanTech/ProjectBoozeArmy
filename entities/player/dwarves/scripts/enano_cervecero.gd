@@ -13,10 +13,10 @@ func _ready() -> void:
 
 
 func _generar_ebriedad() -> void:
-	var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
-	if not is_instance_valid(drunkeness_meter):
-		push_error("[EnanoCervecero] No se encontro DrunkenessMeter en el árbol")
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	if not is_instance_valid(game_manager):
+		push_error("[EnanoCervecero] No se encontro el gestor de juego en el árbol")
 		return
-	drunkeness_meter.drunkeness += EBRIEDAD_SEGUNDO
+	game_manager.add_drunkeness(EBRIEDAD_SEGUNDO)
 	# Texto pequeño sobre el cervecero para que se vea de dónde sale la ebriedad
 	CombatVFX.floating_text(self, global_position, "+%d" % EBRIEDAD_SEGUNDO, Color(0.4, 0.9, 0.3), 72)

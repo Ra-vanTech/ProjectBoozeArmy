@@ -19,7 +19,7 @@ var blur_size: Vector2
 @onready var blur_layer_x: ShaderMaterial = $BlurLayer/x_blur.material
 @onready var blur_layer_y: ShaderMaterial = $BlurLayer/y_blur.material
 @onready var blur_layer: ShaderMaterial = $BlurLayer/blur.material
-@onready var drunkeness_meter: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
+@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
 
 
 func _physics_process(delta: float) -> void:
@@ -27,9 +27,10 @@ func _physics_process(delta: float) -> void:
 	look_at(target_look.global_position)
 
 	# 0 en zona normal/sobria, sube linealmente hasta 1 con ebriedad máxima
+	var max_drunk: int = game_manager.drunkeness_manager.max_drunkeness
 	var drunk_excess: float = clampf(
-		float(drunkeness_meter.drunkeness - DrunkenessManager.ZONA_EBRIA)
-		/ float(drunkeness_meter.max_drunkeness - DrunkenessManager.ZONA_EBRIA),
+		float(game_manager.get_drunkenness() - DrunkenessManager.ZONA_EBRIA)
+		/ float(max_drunk - DrunkenessManager.ZONA_EBRIA),
 		0.0, 1.0)
 
 	fov = lerpf(fov, base_fov + drunk_fov_extra * drunk_excess, fov_smoothing * delta)

@@ -131,11 +131,12 @@ spawn_delay = 0.0
 [node name="SlimeSpawner" type="Node3D" parent="." unique_id=811020589]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("10_vbyvm")
+spawn_delay = 60.0
 
 [node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("19_ynm0c")
-spawn_delay = 20.0
+spawn_delay = 120.0
 metadata/_custom_type_script = "uid://o38olf5rwnvq"
 
 [node name="WorldWrap" type="Node" parent="."]

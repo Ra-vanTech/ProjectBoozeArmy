@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c6okpqn5fwbqt"]
+
+[ext_resource type="Script" uid="uid://dcwudnqj3goyq" path="res://ui/timer/timer_ui.gd" id="1_uovwi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jv3tn"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="TimerUi" type="Label" unique_id=1492255672]
+text = "PLACEHOLDER TEXT (TIMER)"
+label_settings = SubResource("LabelSettings_jv3tn")
+script = ExtResource("1_uovwi")
