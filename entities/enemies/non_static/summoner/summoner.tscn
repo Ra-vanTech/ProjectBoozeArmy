@@ -3,14 +3,13 @@
 [ext_resource type="Script" uid="uid://c1iu7dkwwyhav" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_f0b37"]
 [ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_70o0h"]
 [ext_resource type="Script" uid="uid://kf7pxi2eewp6" path="res://entities/enemies/states/enemy_idle.gd" id="3_j4k8q"]
-[ext_resource type="Script" uid="uid://c24hygkkn2shv" path="res://entities/enemies/states/enemy_attacking.gd" id="4_70o0h"]
+[ext_resource type="Script" uid="uid://bx1x5sor0p4x8" path="res://entities/enemies/non_static/summoner/states/EnemySummoningState.gd" id="4_70o0h"]
 [ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_d54wy"]
 [ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_5778g"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="7_hvugo"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_qbgsr"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_deqgg"]
 [ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_b1grh"]
-[ext_resource type="Script" uid="uid://c7aajt11skgwh" path="res://entities/enemies/shared/components/SummonComponent.gd" id="11_d54wy"]
 [ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="12_i7twq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
@@ -44,8 +43,12 @@ initial_state = NodePath("EnemyIdleState")
 script = ExtResource("3_j4k8q")
 body = NodePath("../..")
 
-[node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1700853998]
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1700853998 node_paths=PackedStringArray("owner_body")]
 script = ExtResource("4_70o0h")
+summoned_enemy = ExtResource("12_i7twq")
+spawn_radius = 2.5
+summon_cooldown = 3.0
+owner_body = NodePath("../..")
 
 [node name="EnemyMovingState" type="Node" parent="StateMachine" unique_id=1963339245]
 script = ExtResource("4_d54wy")
@@ -95,12 +98,6 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttackRange" unique_id=394272658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027703285, -0.04476273, -0.0118716955)
 shape = SubResource("CylinderShape3D_xg3t2")
-
-[node name="SummonComponent" type="Node3D" parent="." unique_id=1221836307 node_paths=PackedStringArray("owner_body")]
-script = ExtResource("11_d54wy")
-summoned_enemy = ExtResource("12_i7twq")
-spawn_radius = 2.5
-owner_body = NodePath("..")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
 [connection signal="body_entered" from="EnemyAttackRange" to="." method="_on_enemy_attack_range_body_entered"]

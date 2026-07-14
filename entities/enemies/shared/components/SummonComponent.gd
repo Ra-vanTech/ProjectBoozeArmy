@@ -38,4 +38,4 @@ func _random_position(origin: Vector3) -> Vector3:
 
 
 #Se trata de un invocador que no toma en cuenta el terreno 
-#simplemente genera un punto alrededor del invocador y crea al enemigo, va aparte del FSM del boos 
+#simplemente genera un punto alrededor del invocador y crea al enemigo, va aparte del FSM 

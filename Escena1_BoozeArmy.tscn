@@ -146,7 +146,7 @@ spawn_delay = 60.0
 [node name="SummonerSpawner" type="Node3D" parent="." unique_id=725232269]
 script = ExtResource("9_3cxb1")
 enemy = ExtResource("21_v6ffw")
-spawn_delay = 0.0
+spawn_delay = 420.0
 
 [node name="BatSpawner" type="Node3D" parent="." unique_id=544117413]
 script = ExtResource("9_3cxb1")
