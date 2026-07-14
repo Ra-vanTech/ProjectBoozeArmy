@@ -12,10 +12,10 @@ height = 1.55
 albedo_color = Color(0.16078432, 0.41960785, 0.76862746, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oppef"]
-radius = 1.5
+radius = 3.75
 
 [node name="EnanoGuerrero" type="CharacterBody3D" unique_id=1614007922]
-collision_layer = 3
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_50uwi")
 cooldown_base = 1.2

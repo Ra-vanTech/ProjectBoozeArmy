@@ -18,3 +18,5 @@ func _generar_ebriedad() -> void:
 		push_error("[EnanoCervecero] No se encontro DrunkenessMeter en el árbol")
 		return
 	drunkeness_meter.drunkeness += EBRIEDAD_SEGUNDO
+	# Texto pequeño sobre el cervecero para que se vea de dónde sale la ebriedad
+	CombatVFX.floating_text(self, global_position, "+%d" % EBRIEDAD_SEGUNDO, Color(0.4, 0.9, 0.3), 72)

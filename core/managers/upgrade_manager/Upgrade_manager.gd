@@ -10,7 +10,8 @@ enum UpgradeType {
     ATTACK_SPEED,
     ADD_DWARF,
     SOBRIETY_REGEN,
-    ENEMY_HP
+    ENEMY_HP,
+    ATTACK_RANGE
 }
 
 var _stacks: Dictionary = {
@@ -18,7 +19,8 @@ var _stacks: Dictionary = {
  UpgradeType.ATTACK_SPEED: 0,
  UpgradeType.ADD_DWARF: 0,
  UpgradeType.SOBRIETY_REGEN: 0,
- UpgradeType.ENEMY_HP: 0
+ UpgradeType.ENEMY_HP: 0,
+ UpgradeType.ATTACK_RANGE: 0
 }
 
 #aqui viviran todos las formulas de las mejoras 
@@ -50,3 +52,9 @@ func get_cooldown_speed() -> float:
 func get_enemy_hp() -> float:
     var stacks: int = _stacks[UpgradeType.ENEMY_HP]
     return pow(0.9, stacks)
+
+
+# +15% de alcance de ataque por stack (multiplica el radio base)
+func get_range_multiplier() -> float:
+    var stacks: int = _stacks[UpgradeType.ATTACK_RANGE]
+    return pow(1.15, stacks)

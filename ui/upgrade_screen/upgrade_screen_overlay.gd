@@ -7,6 +7,7 @@ const UPGRADE_DATA: Dictionary = {
 	UpgradeManager.UpgradeType.ADD_DWARF: { "nombre": "+1 Enano", "desc": "Un nuevo enano se une al ejército." },
 	UpgradeManager.UpgradeType.SOBRIETY_REGEN: { "nombre": "+1 Ebriedad/s", "desc": "La ebriedad cae más lento." },
 	UpgradeManager.UpgradeType.ENEMY_HP: { "nombre": "-10% HP Enemigos", "desc": "Los enemigos spawnean con menos vida." },
+	UpgradeManager.UpgradeType.ATTACK_RANGE: { "nombre": "+15% Alcance", "desc": "Los ataques cubren más área." },
 }
 
 var _opciones_actuales: Array = []
