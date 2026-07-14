@@ -7,8 +7,12 @@ extends Node3D
 var _boss_spawned: bool = false
 
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
-#detector de la posicion del player para el spawn del bosss 
+
 func _ready() -> void:
+    game_manager.difficulty_manager.boss_spawned.connect(_spawn_boss)
+
+#detector de la posicion del player para el spawn del bosss 
+func _spawn_boss() -> void:
     if _boss_spawned:
         return
     _boss_spawned = true

@@ -18,8 +18,10 @@ albedo_color = Color(0.21568628, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_bqnfe"]
 material = SubResource("StandardMaterial3D_klafe")
+height = 3.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c3qij"]
+height = 3.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ddkwl"]
 height = 1.0
@@ -99,7 +101,7 @@ shape = SubResource("CylinderShape3D_xg3t2")
 [node name="summonComponent" type="Node" parent="." unique_id=656036518 node_paths=PackedStringArray("owner_body")]
 script = ExtResource("11_6yna0")
 summoned_enemy = ExtResource("12_ngm65")
-interval = 3.0
+interval = 10.0
 amount = 2
 spawn_radius = 3.5
 owner_body = NodePath("..")

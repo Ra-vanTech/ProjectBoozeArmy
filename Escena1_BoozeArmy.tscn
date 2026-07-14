@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://chtst8xv3mcmx" path="res://entities/enemies/non_static/summoner/summoner.tscn" id="21_v6ffw"]
 [ext_resource type="Script" uid="uid://b148tbx00kcfk" path="res://core/world/world_wrap.gd" id="22_wwrap"]
 [ext_resource type="PackedScene" path="res://core/world/landmark_house.tscn" id="23_house"]
+[ext_resource type="Script" uid="uid://10v2swu3xs5s" path="res://core/managers/boss_manager/boss_spawner.gd" id="25_27eqb"]
+[ext_resource type="PackedScene" uid="uid://bt0pd0816x7hp" path="res://entities/enemies/non_static/boss_skeleton/boss_skeleton.tscn" id="26_xd26j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -172,6 +174,10 @@ label_text = "CASA AZUL"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 55)
 color = Color(0.85, 0.65, 0.2, 1)
 label_text = "TABERNA"
+
+[node name="BossSpawner" type="Node3D" parent="." unique_id=615860575]
+script = ExtResource("25_27eqb")
+boss_scene = ExtResource("26_xd26j")
 
 [connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]
 [connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
