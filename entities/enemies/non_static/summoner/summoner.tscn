@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_qbgsr"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_deqgg"]
 [ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_b1grh"]
+[ext_resource type="Script" uid="uid://c7aajt11skgwh" path="res://entities/enemies/shared/components/SummonComponent.gd" id="11_d54wy"]
+[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="12_i7twq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.63815874, 0.64392173, 0.21630475, 1)
@@ -93,6 +95,12 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttackRange" unique_id=394272658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027703285, -0.04476273, -0.0118716955)
 shape = SubResource("CylinderShape3D_xg3t2")
+
+[node name="SummonComponent" type="Node3D" parent="." unique_id=1221836307 node_paths=PackedStringArray("owner_body")]
+script = ExtResource("11_d54wy")
+summoned_enemy = ExtResource("12_i7twq")
+spawn_radius = 2.5
+owner_body = NodePath("..")
 
 [connection signal="has_died" from="HealthComponent" to="." method="_on_health_component_has_died"]
 [connection signal="body_entered" from="EnemyAttackRange" to="." method="_on_enemy_attack_range_body_entered"]
