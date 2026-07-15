@@ -20,6 +20,10 @@ config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/image="uid://ceojmnsdgxhdl"
 config/icon="res://icon.svg"
 
+[autoload]
+
+PersistenceManager="*uid://gys5x2ma4qa8"
+
 [global_group]
 
 death_screen=""
