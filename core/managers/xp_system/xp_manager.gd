@@ -37,7 +37,7 @@ var current_xp: int:
 			xp_gained.emit(current_xp, _xp_for_level(current_level))
 var current_level: int = 1
 
-@onready var MAX_LEVEL = PersistenceManager.data["max_level"]
+@onready var MAX_LEVEL = Store.save[Store.DATA.MAX_LVL]
 
 
 #formula para la experiencia

@@ -64,6 +64,9 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 #estado de muerte
 func _on_ejercito_derrotado() -> void:
 	_is_dead = true
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	Store.save[Store.DATA.GOLD] += game_manager.money_manager.gold
+	Store.save_data()
 	state_machine.change_state("DeadState")
 
 

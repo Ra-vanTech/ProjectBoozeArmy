@@ -9,6 +9,9 @@ func _ready() -> void:
 
 func _on_quit_button_pressed() -> void:
 	# get_tree().paused = false
+	var money_manager: MoneyManager = get_tree().get_first_node_in_group("game_manager").money_manager
+	Store.save[Store.DATA.GOLD] += money_manager.gold
+	Store.save_data()
 	$TransitionScreen.show()
 	$TransitionScreen/AnimationPlayer.play("fade_in")
 	$TransitionScreen/Timer.start()

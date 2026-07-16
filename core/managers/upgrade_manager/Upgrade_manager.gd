@@ -15,14 +15,13 @@ enum UpgradeType {
 # Aparecen como lista del 0 al 4 en orden
 ## Permite limitar la cantidad de veces que una mejora se puede seleccionar.
 ## Colocar 0 como límite hace que la mejora se pueda seleccionar infinitas veces
-@export var upgrade_limits: Dictionary = {
-	UpgradeType.DAMAGE: 10,
-	UpgradeType.ATTACK_SPEED: 10,
-	UpgradeType.ADD_DWARF: 0,
-	UpgradeType.SOBRIETY_REGEN: 1,
-	UpgradeType.ENEMY_HP: 9,
+var upgrade_limits: Dictionary = {
+	UpgradeType.DAMAGE: Store.save[Store.DATA.DMG_MAX_LVL],
+	UpgradeType.ATTACK_SPEED: Store.save[Store.DATA.ATK_SPEED_MAX_LVL],
+	UpgradeType.ADD_DWARF: Store.save[Store.DATA.DWARF_LIMIT_MAX_LVL],
+	UpgradeType.SOBRIETY_REGEN: Store.save[Store.DATA.DRUNKENNESS_MAX_LVL],
+	UpgradeType.ENEMY_HP: Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL],
 }
-
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
 	UpgradeType.ATTACK_SPEED: 0,
