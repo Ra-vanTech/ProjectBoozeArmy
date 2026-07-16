@@ -1,8 +1,8 @@
+# Llamado Store en el cargado automático
 extends Node
 
 enum DATA {
 	GOLD,
-	MAX_LVL,
 
 	# Cosas del gestor de mejoras
 	# No está el de enanos pq en mi opinión debería de ser ilimitada
@@ -11,6 +11,10 @@ enum DATA {
 	DWARF_LIMIT_MAX_LVL,
 	DRUNKENNESS_MAX_LVL,
 	ENEMY_HP_REDUCTION_MAX_LVL,
+
+	# Cosas del jugador (o los enanos)
+	STARTING_DWARVES,
+	MAX_LVL,
 }
 
 const DATA_PATH: String = "user://data.json"
@@ -18,11 +22,12 @@ const DATA_PATH: String = "user://data.json"
 var save: Dictionary = {
 	DATA.GOLD: 0,
 	DATA.MAX_LVL: 10,
-	DATA.DMG_MAX_LVL: 10,
-	DATA.ATK_SPEED_MAX_LVL: 10,
+	DATA.DMG_MAX_LVL: 5,
+	DATA.ATK_SPEED_MAX_LVL: 5,
 	DATA.DWARF_LIMIT_MAX_LVL: 5,
 	DATA.DRUNKENNESS_MAX_LVL: 1,
 	DATA.ENEMY_HP_REDUCTION_MAX_LVL: 5,
+	DATA.STARTING_DWARVES: 3,
 }
 
 
@@ -51,5 +56,4 @@ func load_data() -> void:
 		for i in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
 			if save.has(i):
 				save[i] = extracted_data[i]
-				print(save, " (loop)")
 		file.close()
