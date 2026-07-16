@@ -12,6 +12,13 @@ enum UpgradeType {
 	ENEMY_HP,
 }
 
+var upgrade_descriptions: Dictionary = {
+	UpgradeType.DAMAGE: item("+20% Daño", "Los enanos atacan con más fuerza.", Store.save[Store.DATA.DMG_MAX_LVL]),
+	UpgradeType.ATTACK_SPEED: item("+15% Vel. ataque", "Los enanos atacan más rápido", Store.save[Store.DATA.ATK_SPEED_MAX_LVL]),
+	UpgradeType.ADD_DWARF: item("+1 Enano", "Un enano se une al ejercito", Store.save[Store.DATA.DWARF_LIMIT_MAX_LVL]),
+	UpgradeType.SOBRIETY_REGEN: item("+1 Ebriedad/s", "La ebriedad cae más lento", Store.save[Store.DATA.DRUNKENNESS_MAX_LVL]),
+	UpgradeType.ENEMY_HP: item("-10% HP de Enemigo", "Los enemigos se debilitan", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
+}
 # Aparecen como lista del 0 al 4 en orden
 ## Permite limitar la cantidad de veces que una mejora se puede seleccionar.
 ## Colocar 0 como límite hace que la mejora se pueda seleccionar infinitas veces
@@ -29,6 +36,10 @@ var _stacks: Dictionary = {
 	UpgradeType.SOBRIETY_REGEN: 0,
 	UpgradeType.ENEMY_HP: 0,
 }
+
+
+func item(upgrade_name: String, description: String, max_lvl: int) -> Dictionary:
+	return { "name": upgrade_name, "desc": description, "max_lvl": max_lvl }
 
 
 #aqui viviran todos las formulas de las mejoras
@@ -58,6 +69,13 @@ func get_upgrade_list() -> Array:
 			filtered.push_back(filtered.pick_random())
 	filtered.shuffle()
 	return filtered.slice(0, 3)
+
+
+func get_level(i: UpgradeType) -> String:
+	if _stacks[i] + 1 == upgrade_limits[i]:
+		return "MAX"
+	else:
+		return "Nivel " + str(_stacks[i] + 1)
 
 
 # +20% de daño
