@@ -8,17 +8,17 @@ extends CanvasLayer
 func _ready() -> void:
 	$TransitionScreen/AnimationPlayer.play("fade_out")
 	gold_container.text = "Oro: " + str(Store.save[Store.DATA.GOLD])
-	create_card(player_anchor, 1, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500)
-	create_card(player_anchor, 2, "Enanos iniciales", "Incrementa los enanos que se tienen al iniciar la partida", 2000)
+	create_card(player_anchor, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500, 1)
+	create_card(player_anchor, "Enanos iniciales", "Incrementa los enanos que se tienen al iniciar la partida", 2000, 1.5)
 	for thingy in UpgradeManager.UpgradeType:
 		print(thingy)
 	pass
 
 
-func create_card(anchor: HBoxContainer, card_idx: int, _title: String, _description: String, _cost: int) -> void:
-	var test = func something() -> void:
-		print(_cost)
-
+# es como hacer html desde js puro, me cae mal
+# se me hace más fácil que hacer cada cuadro individualmente
+func create_card(anchor: HBoxContainer, _title: String, _description: String, _cost: int, cost_increase: float) -> void:
+	var cost_stored: int = _cost
 	var bg: PanelContainer = PanelContainer.new()
 	bg.custom_minimum_size = Vector2(200, -1)
 
@@ -38,7 +38,12 @@ func create_card(anchor: HBoxContainer, card_idx: int, _title: String, _descript
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD
 
 	var cost: Button = Button.new()
-	cost.text = "Comprar: " + str(_cost)
+	# Por alguna razón el precio solo se actualiza una vez
+	var test = func something() -> void:
+		cost_stored *= cost_increase
+		cost.text = "Comprar: " + str(cost_stored)
+		print(cost_stored)
+	cost.text = "Comprar: " + str(cost_stored)
 	cost.pressed.connect(test)
 
 	container.add_child(title)
