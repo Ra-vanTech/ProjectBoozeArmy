@@ -63,8 +63,13 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 			cost.text = "MAX"
 
 	var purchase = func() -> void:
+		Store.save[Store.DATA.GOLD] -= cost_stored.cost
+		Store.save_data()
+		gold_container.text = str(Store.save[Store.DATA.GOLD])
+		Store.save[store_idx] += 1
 		cost_stored.cost *= cost_increase
 		cost.text = "Comprar: " + _format_price(cost_stored.cost)
+		level_display.text = "Nivel actual: " + str(Store.save[store_idx])
 		check_availability.call()
 
 	cost.text = "Comprar: " + _format_price(cost_stored.cost)
