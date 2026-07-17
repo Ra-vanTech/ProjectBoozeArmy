@@ -39,7 +39,10 @@ func obtener_daño_final() -> float:
 	var mod_ebriedad: float = obtener_modificador_ebriedad()
 	var mod_upgrades: float = obtener_modificador_upgrades()
 	#retorna la formula de daño final
-	return damage * mod_ebriedad * (1.0 + mod_upgrades)
+	if Store.save[Store.DATA.BASE_ATK] == 0:
+		return damage * mod_ebriedad * (1.0 + mod_upgrades)
+	else:
+		return damage * mod_ebriedad * (1.0 + mod_upgrades) + (damage * Store.save[Store.DATA.BASE_ATK] / 10)
 
 
 #Obtener cooldown final, +20% de velocidad en rango ebrio
