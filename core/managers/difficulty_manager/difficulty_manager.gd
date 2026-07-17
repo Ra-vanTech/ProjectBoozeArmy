@@ -7,7 +7,7 @@ signal game_ended
 signal boss_spawned
 
 #A los 10 min aparece el boss 
-@export var boss_spawn_time: float = 600.0
+@export var boss_spawn_time: float = 0.0
 var _boss_spawn_emitted: bool = false
 
 @export var spawn_rate_curve: Curve

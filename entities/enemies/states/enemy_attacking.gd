@@ -35,3 +35,6 @@ func attempt_attack() -> bool:
 
 func on_timer_timeout():
 	state_machine.change_state("EnemyMovingState")
+
+func exit():
+	timer.stop()
