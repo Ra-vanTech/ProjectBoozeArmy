@@ -14,6 +14,3 @@ func update() -> void:
 	move_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	is_shooting = Input.is_action_just_pressed("shoot")
 	has_quit = Input.is_action_just_pressed("quit")
-	# IMPLEMENTACIÓN TEMPORAL
-	wants_spawn = Input.is_action_just_pressed("spawn_dwarf")
-	wants_despawn = Input.is_action_just_pressed("despawn_dwarf")

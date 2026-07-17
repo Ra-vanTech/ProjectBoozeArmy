@@ -30,12 +30,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
 
-	if input_component.wants_spawn:
-		dwarf_system.agregar_enano()
-
-	if input_component.wants_despawn:
-		dwarf_system.eliminar_enano()
-
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
 
