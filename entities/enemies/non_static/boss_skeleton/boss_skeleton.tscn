@@ -52,7 +52,7 @@ body = NodePath("../..")
 [node name="EnemyMovingState" type="Node" parent="StateMachine" unique_id=1963339245]
 script = ExtResource("4_eowuh")
 
-[node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1041609991]
+[node name="EnemyAttackState" type="Node" parent="StateMachine" unique_id=1041609991]
 script = ExtResource("5_f7lb4")
 
 [node name="EnemyDeadState" type="Node" parent="StateMachine" unique_id=450953433 node_paths=PackedStringArray("parent")]
