@@ -5,7 +5,8 @@ signal purchase_done
 const max_levels: Dictionary = {
 	Store.DATA.MAX_LVL: 0,
 	Store.DATA.STARTING_DWARVES: 10,
-	Store.DATA.BASE_ATK: 10,
+	Store.DATA.BASE_ATK: 50,
+	Store.DATA.BASE_ATK_SP: 10,
 	Store.DATA.BASE_SPD: 10,
 	Store.DATA.DMG_MAX_LVL: 0,
 	Store.DATA.ATK_SPEED_MAX_LVL: 100,
@@ -24,8 +25,9 @@ func _ready() -> void:
 	gold_container.text = "Oro: " + str(Store.save[Store.DATA.GOLD])
 	create_card(player_anchor, Store.DATA.MAX_LVL, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500, 1.1)
 	create_card(player_anchor, Store.DATA.STARTING_DWARVES, "Enanos iniciales", "Más enanos vienen a ayudarte", 2000, 2.1)
-	create_card(player_anchor, Store.DATA.BASE_ATK, "Fortaleza", "Incrementa el daño inicial (+10%)", 2000, 1.5)
-	create_card(player_anchor, Store.DATA.BASE_SPD, "Velocidad", "Incrementa la velocidad del jugador (+1 u/s)", 1750, 1.75)
+	create_card(player_anchor, Store.DATA.BASE_ATK, "Fortaleza", "Incrementa el daño inicial (+10%)", 1500, 1.5)
+	create_card(player_anchor, Store.DATA.BASE_ATK_SP, "Furia", "Los enanos atacan más rápido (+10%, pierde efectividad)", 1250, 1.3)
+	create_card(player_anchor, Store.DATA.BASE_SPD, "Velocidad", "Incrementa la velocidad del jugador (+1 u/s)", 1250, 1.5)
 
 	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, "Daño máximo", "Los enanos atacan con más fuerza", 1000, 1.2)
 	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque máxima", "Los enanos atacan más rápido", 1000, 1.2)
@@ -70,6 +72,7 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 	var check_availability = func() -> void:
 		cost_stored.cost = cost_stored.cost * pow(cost_increase, Store.save[store_idx] - Store.STARTING_VAL[store_idx])
 		if Store.save[Store.DATA.GOLD] < cost_stored.cost:
+			print(_title, " deshabilitado x pobre\ncuesta ", cost_stored.cost, " y tienes ", Store.save[Store.DATA.GOLD])
 			cost.disabled = true
 		if Store.save[store_idx] >= max_levels[store_idx] and max_levels[store_idx] != 0:
 			cost.disabled = true

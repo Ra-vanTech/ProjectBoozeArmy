@@ -60,6 +60,9 @@ func obtener_cooldown_final() -> float:
 	if is_instance_valid(game_manager):
 		cooldown *= game_manager.upgrade_manager.get_cooldown_speed()
 
+	if Store.save[Store.DATA.BASE_ATK_SP] > 0:
+		cooldown *= pow(0.9, Store.save[Store.DATA.BASE_ATK_SP])
+
 	#límite mínimo de cooldown
 	return max(cooldown, 0.3)
 
