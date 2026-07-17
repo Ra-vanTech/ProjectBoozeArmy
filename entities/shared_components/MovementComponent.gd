@@ -8,8 +8,6 @@ extends Node
 
 var direction: Vector2 = Vector2.ZERO
 
-@onready var calculated_speed: float = MOVEMENT_SPEED + Store.save[Store.DATA.BASE_SPD]
-
 
 func tick(delta: float) -> void:
 	if not BODY:
@@ -17,8 +15,8 @@ func tick(delta: float) -> void:
 	if delta == 0.0:
 		return
 
-	BODY.velocity.x = direction.x * calculated_speed
-	BODY.velocity.z = direction.y * calculated_speed
+	BODY.velocity.x = direction.x * MOVEMENT_SPEED
+	BODY.velocity.z = direction.y * MOVEMENT_SPEED
 
 	if not BODY.is_on_floor():
 		BODY.velocity += BODY.get_gravity() * delta * GRAVITY_MULTIPLIEAR

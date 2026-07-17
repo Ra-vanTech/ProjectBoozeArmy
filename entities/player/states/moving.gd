@@ -14,6 +14,7 @@ func tick(delta: float):
 
 
 func enter():
+	movement_component.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
 	# Animación de movimiento
 	pass
 
