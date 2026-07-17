@@ -24,8 +24,10 @@ func _ready() -> void:
 	create_card(player_anchor, Store.DATA.STARTING_DWARVES, "Enanos iniciales", "Más enanos vienen a ayudarte", 2000, 1.5)
 
 	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, "Daño máximo", "Los enanos atacan con más fuerza", 1000, 1.2)
-	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque", "Los enanos atacan más rápido", 1000, 1.2)
-	create_card(upgrade_anchor, Store.DATA.DWARF_LIMIT_MAX_LVL, "Enanos de apoyo", "Más enanos están dispuesto a unirse a ti", 2000, 1.3)
+	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque máxima", "Los enanos atacan más rápido", 1000, 1.2)
+	create_card(upgrade_anchor, Store.DATA.DWARF_LIMIT_MAX_LVL, "Enanos de apoyo máximos", "Más enanos están dispuesto a unirse a ti", 2000, 1.3)
+	create_card(upgrade_anchor, Store.DATA.DRUNKENNESS_MAX_LVL, "Alcoholismo máximo", "Reduce la pérdida de ebriedad por segundo", 5000, 2)
+	create_card(upgrade_anchor, Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL, "Reducción de vida máxima", "Los enemigos se debilitan", 3000, 1.5)
 	# for thingy in UpgradeManager.UpgradeType:
 	# 	print(thingy)
 	# pass

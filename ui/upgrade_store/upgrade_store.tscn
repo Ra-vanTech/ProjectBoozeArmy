@@ -24,13 +24,14 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer" unique_id=600540492]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Gold" type="Label" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1203902141]
 layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Panel" type="TabContainer" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1335433190]
-custom_minimum_size = Vector2(600, 300)
+custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
 current_tab = 0
 
@@ -64,7 +65,7 @@ theme_override_constants/separation = 25
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 18
 text = "Volver al menú"
 
 [node name="TransitionScreen" parent="." unique_id=2001532765 instance=ExtResource("2_fg3ft")]
