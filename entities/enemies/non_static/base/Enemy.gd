@@ -35,9 +35,10 @@ func _physics_process(delta: float) -> void:
 	_despawn_frames += 1
 	if _despawn_frames >= 30:
 		_despawn_frames = 0
-		var player := get_tree().get_first_node_in_group("player") as Node3D
-		if is_instance_valid(player) and global_position.distance_to(player.global_position) > DESPAWN_DISTANCE:
-			queue_free()
+		if can_spawn:
+			var player := get_tree().get_first_node_in_group("player") as Node3D
+			if is_instance_valid(player) and global_position.distance_to(player.global_position) > DESPAWN_DISTANCE:
+				queue_free()
 
 
 func damage(attack: Attack) -> void:
