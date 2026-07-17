@@ -68,6 +68,13 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 
 	var cost: Button = Button.new()
 	# Por alguna razón el precio solo se actualiza una vez
+	var update_price = func() -> void:
+		# Se usa una variable temporal pq si no creo que hace mal el cálculo del precio
+		var temp_exp = Store.save[store_idx] - Store.STARTING_VAL[store_idx]
+		var temp = _cost * pow(cost_increase, temp_exp)
+		cost_stored.cost = temp
+		print(_title, "\t", store_idx)
+		print(_cost, " * ", cost_increase, "^", temp_exp, " = ", cost_stored.cost)
 
 	var check_availability = func() -> void:
 		if Store.save[Store.DATA.GOLD] < cost_stored.cost:
@@ -79,20 +86,19 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 	purchase_done.connect(check_availability)
 
 	var purchase = func() -> void:
-		# Se usa una variable temporal pq si no creo que hace mal el cálculo del precio
-		var temp = cost_stored.cost * pow(cost_increase, (Store.save[store_idx] - Store.STARTING_VAL[store_idx]))
-		cost_stored.cost = temp
 		Store.save[Store.DATA.GOLD] -= cost_stored.cost
 		Store.save_data()
 		gold_container.text = str(Store.save[Store.DATA.GOLD])
 		Store.save[store_idx] += 1
+		update_price.call()
 		cost.text = "Comprar: " + _format_price(cost_stored.cost)
 		level_display.text = "Nivel actual: " + str(Store.save[store_idx])
 		purchase_done.emit()
 		# check_availability.call()
 
-	check_availability.call()
+	update_price.call()
 	cost.text = "Comprar: " + _format_price(cost_stored.cost)
+	check_availability.call()
 	cost.pressed.connect(purchase)
 
 	container.add_child(title)
