@@ -73,12 +73,9 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 		var temp_exp = Store.save[store_idx] - Store.STARTING_VAL[store_idx]
 		var temp = _cost * pow(cost_increase, temp_exp)
 		cost_stored.cost = temp
-		print(_title, "\t", store_idx)
-		print(_cost, " * ", cost_increase, "^", temp_exp, " = ", cost_stored.cost)
 
 	var check_availability = func() -> void:
 		if Store.save[Store.DATA.GOLD] < cost_stored.cost:
-			print(_title, " deshabilitado x pobre\ncuesta ", cost_stored.cost, " y tienes ", Store.save[Store.DATA.GOLD])
 			cost.disabled = true
 		if Store.save[store_idx] >= max_levels[store_idx] and max_levels[store_idx] != 0:
 			cost.disabled = true
