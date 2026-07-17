@@ -6,11 +6,13 @@
 [ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_eowuh"]
 [ext_resource type="Script" uid="uid://c24hygkkn2shv" path="res://entities/enemies/states/enemy_attacking.gd" id="5_f7lb4"]
 [ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_0mgot"]
+[ext_resource type="Script" uid="uid://cgegbmmiyx1b" path="res://entities/enemies/non_static/boss_skeleton/states/SummonState.gd" id="7_ngm65"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="7_o4f74"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_fwady"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_vbnoq"]
 [ext_resource type="Script" uid="uid://dvlj334lnxudv" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_ys7bp"]
 [ext_resource type="Script" uid="uid://bawgksh01xeer" path="res://entities/enemies/non_static/boss_skeleton/summon_timer.gd" id="11_ck56k"]
+[ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="12_ngm65"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.21568628, 0, 0, 1)
@@ -55,6 +57,11 @@ script = ExtResource("5_f7lb4")
 [node name="EnemyDeadState" type="Node" parent="StateMachine" unique_id=450953433 node_paths=PackedStringArray("parent")]
 script = ExtResource("6_0mgot")
 parent = NodePath("../..")
+
+[node name="EnemySummonState" type="Node" parent="StateMachine" unique_id=1642408781 node_paths=PackedStringArray("owner_body")]
+script = ExtResource("7_ngm65")
+summoned_enemy = ExtResource("12_ngm65")
+owner_body = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1757439371]
 mesh = SubResource("CylinderMesh_bqnfe")
