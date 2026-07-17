@@ -18,8 +18,8 @@ const max_levels: Dictionary = {
 func _ready() -> void:
 	$TransitionScreen/AnimationPlayer.play("fade_out")
 	gold_container.text = "Oro: " + str(Store.save[Store.DATA.GOLD])
-	create_card(player_anchor, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500, 1.1)
-	create_card(player_anchor, "Enanos iniciales", "Incrementa los enanos que se tienen al iniciar la partida", 2000, 1.5)
+	create_card(player_anchor, Store.DATA.MAX_LVL, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500, 1.1)
+	create_card(player_anchor, Store.DATA.STARTING_DWARVES, "Enanos iniciales", "Incrementa los enanos que se tienen al iniciar la partida", 2000, 1.5)
 	# for thingy in UpgradeManager.UpgradeType:
 	# 	print(thingy)
 	# pass
@@ -27,7 +27,7 @@ func _ready() -> void:
 
 # es como hacer html desde js puro, me cae mal
 # se me hace más fácil que hacer cada cuadro individualmente
-func create_card(anchor: HBoxContainer, _title: String, _description: String, _cost: int, cost_increase: float) -> void:
+func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _description: String, _cost: int, cost_increase: float) -> void:
 	var cost_stored: StoredPrice = StoredPrice.new()
 	cost_stored.cost = _cost
 
@@ -49,23 +49,31 @@ func create_card(anchor: HBoxContainer, _title: String, _description: String, _c
 	description.text = _description
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD
 
+	var level_display: Label = Label.new()
+	level_display.text = "Nivel actual: " + str(Store.save[store_idx])
+
 	var cost: Button = Button.new()
 	# Por alguna razón el precio solo se actualiza una vez
 
-	var check_affordability = func() -> void:
+	var check_availability = func() -> void:
 		if Store.save[Store.DATA.GOLD] < cost_stored.cost:
 			cost.disabled = true
+		if Store.save[store_idx] >= max_levels[store_idx] and max_levels[store_idx] != 0:
+			cost.disabled = true
+			cost.text = "MAX"
 
 	var purchase = func() -> void:
 		cost_stored.cost *= cost_increase
 		cost.text = "Comprar: " + _format_price(cost_stored.cost)
-		check_affordability.call()
+		check_availability.call()
 
 	cost.text = "Comprar: " + _format_price(cost_stored.cost)
+	check_availability.call()
 	cost.pressed.connect(purchase)
 
 	container.add_child(title)
 	container.add_child(description)
+	container.add_child(level_display)
 	container.add_child(cost)
 
 	center_container.add_child(container)
