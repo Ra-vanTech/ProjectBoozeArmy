@@ -18,6 +18,7 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(sobriety_damage)
 	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
+	%MovementComponent.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
 
 	if is_instance_valid(drunkeness):
 		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
