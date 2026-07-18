@@ -20,6 +20,7 @@ const max_levels: Dictionary = {
 @onready var gold_container: Label = $ColorRect/CenterContainer/VBoxContainer/Gold
 
 
+# TODO: Añadir mejoras de ebriedad máxima y ganancia de oro y experiencia
 func _ready() -> void:
 	$TransitionScreen/AnimationPlayer.play("fade_out")
 	gold_container.text = "Oro: " + str(Store.save[Store.DATA.GOLD])
