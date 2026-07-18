@@ -72,6 +72,7 @@ script = ExtResource("13_3nyjs")
 script = ExtResource("14_v4ycj")
 
 [node name="DifficultyManager" parent="GameManager" unique_id=974227039 instance=ExtResource("7_7120o")]
+game_time = 600.0
 
 [node name="MoneyManager" type="Node" parent="GameManager" unique_id=1253465866]
 script = ExtResource("5_ttbjd")
