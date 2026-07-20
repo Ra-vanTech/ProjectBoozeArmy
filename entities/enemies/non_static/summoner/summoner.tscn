@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c1iu7dkwwyhav" path="res://entities/enemies/non_static/base/Enemy.gd" id="1_f0b37"]
 [ext_resource type="Script" uid="uid://u7hnmfdjwvy3" path="res://core/managers/state/state_machine.gd" id="2_70o0h"]
 [ext_resource type="Script" uid="uid://kf7pxi2eewp6" path="res://entities/enemies/states/enemy_idle.gd" id="3_j4k8q"]
-[ext_resource type="Script" uid="uid://bx1x5sor0p4x8" path="res://entities/enemies/non_static/summoner/states/EnemySummoningState.gd" id="4_70o0h"]
 [ext_resource type="Script" uid="uid://ctgttb1wkoe43" path="res://entities/enemies/states/enemy_moving.gd" id="4_d54wy"]
+[ext_resource type="Script" uid="uid://b7l5l788dfa7o" path="res://entities/enemies/non_static/summoner/states/SummonState.gd" id="4_j4k8q"]
 [ext_resource type="Script" uid="uid://wag8aaj4twxs" path="res://entities/enemies/states/enemy_dead.gd" id="6_5778g"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="7_hvugo"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_qbgsr"]
@@ -44,7 +44,7 @@ script = ExtResource("3_j4k8q")
 body = NodePath("../..")
 
 [node name="EnemyAttackingState" type="Node" parent="StateMachine" unique_id=1700853998 node_paths=PackedStringArray("owner_body")]
-script = ExtResource("4_70o0h")
+script = ExtResource("4_j4k8q")
 summoned_enemy = ExtResource("12_i7twq")
 spawn_radius = 2.5
 summon_cooldown = 3.0
