@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="GameJamProject"
 run/main_scene="uid://b3h5y1ml8q3yi"
-config/features=PackedStringArray("4.7", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/image="uid://ceojmnsdgxhdl"
 config/icon="res://icon.svg"
 
