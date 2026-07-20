@@ -44,7 +44,7 @@ func _summon() -> void:
 
 func _random_position(origin: Vector3) -> Vector3:
 	var angle := randf() * TAU
-	var distance := randf_range(1.0, spawn_radius)
+	var distance := randf_range(2.0, spawn_radius)
 	return origin + Vector3(cos(angle) * distance, 0.0, sin(angle) * distance)
 
 func _on_timer_timeout() -> void:

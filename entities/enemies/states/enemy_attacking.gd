@@ -34,9 +34,7 @@ func attempt_attack() -> bool:
 
 
 func on_timer_timeout():
-	print("[TEST-BOSS-07] ATTACK cooldown terminó | cambiando a Moving")
 	state_machine.change_state("EnemyMovingState")
 
 func exit():
-	print("[TEST-BOSS-09] ", name, " interrumpido/salido — deteniendo timer interno")
 	timer.stop()
