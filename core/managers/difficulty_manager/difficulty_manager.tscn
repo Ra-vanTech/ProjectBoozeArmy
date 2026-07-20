@@ -24,6 +24,7 @@ point_count = 2
 
 [node name="DifficultyManager" type="Node" unique_id=974227039]
 script = ExtResource("1_yq6q2")
+boss_spawn_time = 600.0
 spawn_rate_curve = SubResource("Curve_yq6q2")
 spawn_amount_curve = SubResource("Curve_a48ao")
 health_multiplier_curve = SubResource("Curve_74atq")
