@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://c370qf4erflfd"]
+
+[ext_resource type="Script" uid="uid://51lw3r2o61tb" path="res://ui/upgrade_store/upgrade_store.gd" id="1_3xmje"]
+[ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_fg3ft"]
+
+[node name="UpgradeStore" type="CanvasLayer" unique_id=1972143535]
+script = ExtResource("1_3xmje")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1433934430]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13532597, 0.37639323, 0.40221816, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect" unique_id=1686092917]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer" unique_id=600540492]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Gold" type="Label" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1203902141]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Panel" type="TabContainer" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1335433190]
+custom_minimum_size = Vector2(900, 400)
+custom_maximum_size = Vector2(1000, -1)
+layout_mode = 2
+current_tab = 0
+
+[node name="Jugador" type="MarginContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel" unique_id=924756799]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador" unique_id=1133110748]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/ScrollContainer" unique_id=981700191]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Niveles" type="MarginContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel" unique_id=760376100]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Niveles" unique_id=607038139]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Niveles/ScrollContainer" unique_id=575258098]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Button" type="Button" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1975066751]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 18
+text = "Volver al menú"
+
+[node name="TransitionScreen" parent="." unique_id=2001532765 instance=ExtResource("2_fg3ft")]
+
+[node name="Timer" type="Timer" parent="TransitionScreen" unique_id=231132077]
+
+[connection signal="pressed" from="ColorRect/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="TransitionScreen/Timer" to="." method="_on_timer_timeout"]

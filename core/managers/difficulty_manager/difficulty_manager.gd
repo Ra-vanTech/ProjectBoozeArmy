@@ -3,6 +3,13 @@ extends Node
 
 signal game_ended
 
+#trigger de tiempo [es para el boss]
+signal boss_spawned
+
+#A los 10 min aparece el boss 
+@export var boss_spawn_time: float = 0.0
+var _boss_spawn_emitted: bool = false
+
 @export var spawn_rate_curve: Curve
 @export var spawn_amount_curve: Curve
 @export var health_multiplier_curve: Curve
@@ -35,11 +42,6 @@ func game_progress() -> float:
 	return 1.0 - (timer.time_left / game_time)
 
 
-# Con el escalado desactivado, todas las curvas se congelan en su valor inicial
-func _progress() -> float:
-	return game_progress() if scaling_enabled else 0.0
-
-
 func get_spawn_rate() -> float:
 	return spawn_rate_curve.sample(_progress())
 
@@ -70,7 +72,19 @@ func get_speed_mult() -> float:
 func add_time() -> void:
 	time_elapsed += 1
 	# print(time_elapsed)
+	# Garantiza que se dispare la señal una vez por partida.
+	if not _boss_spawn_emitted and time_elapsed >= boss_spawn_time:
+		_boss_spawn_emitted = true
+		boss_spawned.emit()
 
 
 func on_game_ended() -> void:
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	Store.data["gold"] += game_manager.money_manager.gold
+	Store.save_data()
 	game_ended.emit()
+
+
+# Con el escalado desactivado, todas las curvas se congelan en su valor inicial
+func _progress() -> float:
+	return game_progress() if scaling_enabled else 0.0

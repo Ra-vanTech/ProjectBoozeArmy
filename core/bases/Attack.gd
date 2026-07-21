@@ -27,7 +27,11 @@ static func modificador_upgrades(context: Node) -> float:
 
 
 static func danio_final(context: Node, base: float) -> float:
-	return base * modificador_ebriedad(context) * (1.0 + modificador_upgrades(context))
+	var danio: float = base * modificador_ebriedad(context) * (1.0 + modificador_upgrades(context))
+	# Bono permanente de ataque (mejoras persistentes de la tienda)
+	if Store.save[Store.DATA.BASE_ATK] != 0:
+		danio += base * Store.save[Store.DATA.BASE_ATK] / 10
+	return danio
 
 
 #Cooldown final, +20% de velocidad en rango ebrio, límite mínimo 0.3s
@@ -40,5 +44,9 @@ static func cooldown_final(context: Node, base: float) -> float:
 	var upgrade_manager: UpgradeManager = context.get_tree().get_first_node_in_group("upgrade_manager")
 	if is_instance_valid(upgrade_manager):
 		cooldown *= upgrade_manager.get_cooldown_speed()
+
+	# Bono permanente de velocidad de ataque (mejoras persistentes de la tienda)
+	if Store.save[Store.DATA.BASE_ATK_SP] > 0:
+		cooldown *= pow(0.9, Store.save[Store.DATA.BASE_ATK_SP])
 
 	return max(cooldown, 0.3)

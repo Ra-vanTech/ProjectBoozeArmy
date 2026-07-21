@@ -5,7 +5,6 @@ signal xp_gained(current_xp: int, required_xp: int)
 signal max_level_reached
 signal level_up(new_level: int)
 
-@export_range(1, 1000) var MAX_LEVEL = 10
 @export_range(10, 1000) var starting_xp_requirement = 10
 
 var max_level_signal_emitted := false
@@ -37,6 +36,8 @@ var current_xp: int:
 		if current_level < MAX_LEVEL:
 			xp_gained.emit(current_xp, _xp_for_level(current_level))
 var current_level: int = 1
+
+@onready var MAX_LEVEL = Store.save[Store.DATA.MAX_LVL]
 
 
 #formula para la experiencia

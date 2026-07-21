@@ -1,4 +1,4 @@
-class_name EnemyAttackingState
+class_name EnemyAttackState
 extends State
 
 @export var attack_cooldown: float = 1.0
@@ -35,3 +35,6 @@ func attempt_attack() -> bool:
 
 func on_timer_timeout():
 	state_machine.change_state("EnemyMovingState")
+
+func exit():
+	timer.stop()

@@ -4,8 +4,6 @@ extends Node3D
 signal enano_eliminado(enanos_id: int)
 signal ejercito_derrotado
 
-#configuracion (enanos iniciales, maximo de enanos y radio de aparición)
-@export var initial_dwarves: int = 3
 @export var max_dwarves: int = 10
 @export var formation_radius: float = 2.5
 #para agregar un nuevo tipo de enano, sin tocar el script
@@ -28,6 +26,9 @@ signal ejercito_derrotado
 @export var max_speed: float = 4.0
 
 var dwarves: Array[Node3D] = []
+
+#configuracion (enanos iniciales, maximo de enanos y radio de formacion)
+@onready var initial_dwarves: int = Store.save[Store.DATA.STARTING_DWARVES]
 
 
 # Called when the node enters the scene tree for the first time.

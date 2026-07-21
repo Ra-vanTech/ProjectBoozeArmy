@@ -10,29 +10,39 @@ enum UpgradeType {
 	ADD_DWARF,
 	SOBRIETY_REGEN,
 	ENEMY_HP,
+	MAX_DRUNKENNESS,
+	XP_BONUS,
+	COINS_BONUS,
 	ATTACK_RANGE,
 }
 
-# Aparecen como lista del 0 al 5 en orden
-## Permite limitar la cantidad de veces que una mejora se puede seleccionar.
-## Colocar 0 como límite hace que la mejora se pueda seleccionar infinitas veces
-@export var upgrade_limits: Dictionary = {
-	UpgradeType.DAMAGE: 10,
-	UpgradeType.ATTACK_SPEED: 10,
-	UpgradeType.ADD_DWARF: 0,
-	UpgradeType.SOBRIETY_REGEN: 1,
-	UpgradeType.ENEMY_HP: 9,
-	UpgradeType.ATTACK_RANGE: 5,
+var upgrade_descriptions: Dictionary = {
+	UpgradeType.DAMAGE: Descriptions.desc[Store.DATA.DMG_MAX_LVL],
+	UpgradeType.ATTACK_SPEED: Descriptions.desc[Store.DATA.ATK_SPEED_MAX_LVL],
+	UpgradeType.ADD_DWARF: Descriptions.desc[Store.DATA.DWARF_LIMIT_MAX_LVL],
+	UpgradeType.SOBRIETY_REGEN: Descriptions.desc[Store.DATA.DRUNKENNESS_MAX_LVL],
+	UpgradeType.ENEMY_HP: Descriptions.desc[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL],
+	UpgradeType.MAX_DRUNKENNESS: Descriptions.desc[Store.DATA.MAX_DRUNKENNESS_MAX_LVL],
+	UpgradeType.XP_BONUS: Descriptions.desc[Store.DATA.XP_BONUS_MAX_LVL],
+	UpgradeType.COINS_BONUS: Descriptions.desc[Store.DATA.COINS_BONUS_MAX_LVL],
+	# Mejora de partida sin dato persistente propio (aún): descripción local
+	UpgradeType.ATTACK_RANGE: Descriptions.item("Brazos Largos", "Los ataques cubren más área (+15% alcance)", 5),
 }
-
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
 	UpgradeType.ATTACK_SPEED: 0,
 	UpgradeType.ADD_DWARF: 0,
 	UpgradeType.SOBRIETY_REGEN: 0,
 	UpgradeType.ENEMY_HP: 0,
+	UpgradeType.MAX_DRUNKENNESS: 0,
+	UpgradeType.XP_BONUS: 0,
+	UpgradeType.COINS_BONUS: 0,
 	UpgradeType.ATTACK_RANGE: 0,
 }
+
+
+func item(upgrade_name: String, description: String, max_lvl: int) -> Dictionary:
+	return { "name": upgrade_name, "desc": description, "max_lvl": max_lvl }
 
 
 #aqui viviran todos las formulas de las mejoras
@@ -47,9 +57,9 @@ func get_stack(type: UpgradeType) -> int:
 
 
 func is_below_limit(i: int) -> bool:
-	if upgrade_limits[i] <= 0:
+	if upgrade_descriptions[i].max_lvl <= 0:
 		return true
-	return _stacks[i] < upgrade_limits[i]
+	return _stacks[i] < upgrade_descriptions[i].max_lvl
 
 
 ## Retorna las mejoras filtradas para no traer las que ya llegaron a su nivel máximo
@@ -62,6 +72,13 @@ func get_upgrade_list() -> Array:
 			filtered.push_back(filtered.pick_random())
 	filtered.shuffle()
 	return filtered.slice(0, 3)
+
+
+func get_level(i: UpgradeType) -> String:
+	if _stacks[i] + 1 == upgrade_descriptions[i].max_lvl:
+		return "MAX"
+	else:
+		return "Nivel " + str(_stacks[i] + 1)
 
 
 # +20% de daño
@@ -83,6 +100,19 @@ func get_cooldown_speed() -> float:
 func get_enemy_hp() -> float:
 	var stacks: int = _stacks[UpgradeType.ENEMY_HP]
 	return pow(0.9, stacks)
+
+
+func get_drunkenness_bonus() -> float:
+	return 1.0 + (_stacks[UpgradeType.MAX_DRUNKENNESS] / 10)
+
+
+func get_xp_bonus() -> int:
+	# Como la experiencia es un entero la mitad de los puntos obtenidos se pierden
+	return _stacks[UpgradeType.XP_BONUS]
+
+
+func get_coin_bonus() -> float:
+	return 1.0 + (_stacks[UpgradeType.COINS_BONUS] / 10)
 
 
 # +15% de alcance de ataque por stack (multiplica el radio base)

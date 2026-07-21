@@ -18,6 +18,7 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(sobriety_damage)
 	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
+	%MovementComponent.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
 
 	if is_instance_valid(drunkeness):
 		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
@@ -29,12 +30,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
-
-	if input_component.wants_spawn:
-		dwarf_system.agregar_enano()
-
-	if input_component.wants_despawn:
-		dwarf_system.eliminar_enano()
 
 	if input_component.has_quit:
 		state_machine.change_state("PausedState")
@@ -64,6 +59,9 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 #estado de muerte
 func _on_ejercito_derrotado() -> void:
 	_is_dead = true
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	Store.save[Store.DATA.GOLD] += game_manager.money_manager.gold
+	Store.save_data()
 	state_machine.change_state("DeadState")
 
 
