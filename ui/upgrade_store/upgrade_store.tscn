@@ -43,7 +43,10 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 metadata/_tab_index = 0
 
-[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador" unique_id=981700191]
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador" unique_id=1133110748]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/ScrollContainer" unique_id=981700191]
 layout_mode = 2
 theme_override_constants/separation = 25
 alignment = 1

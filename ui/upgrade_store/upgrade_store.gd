@@ -3,19 +3,27 @@ extends CanvasLayer
 signal purchase_done
 
 const max_levels: Dictionary = {
+	#
 	Store.DATA.MAX_LVL: 0,
 	Store.DATA.STARTING_DWARVES: 10,
 	Store.DATA.BASE_ATK: 50,
 	Store.DATA.BASE_ATK_SP: 10,
 	Store.DATA.BASE_SPD: 10,
+	Store.DATA.MAX_DRUNKENNESS: 900,
+	Store.DATA.XP_BONUS: 100,
+	Store.DATA.COINS_BONUS: 0,
+	#
 	Store.DATA.DMG_MAX_LVL: 0,
 	Store.DATA.ATK_SPEED_MAX_LVL: 100,
 	Store.DATA.DWARF_LIMIT_MAX_LVL: 0,
 	Store.DATA.DRUNKENNESS_MAX_LVL: 10,
 	Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL: 20,
+	Store.DATA.MAX_DRUNKENNESS_MAX_LVL: 0,
+	Store.DATA.XP_BONUS_MAX_LVL: 0,
+	Store.DATA.COINS_BONUS_MAX_LVL: 0,
 }
 
-@onready var player_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/Container
+@onready var player_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/ScrollContainer/Container
 @onready var upgrade_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Niveles/Container
 @onready var gold_container: Label = $ColorRect/CenterContainer/VBoxContainer/Gold
 
@@ -29,6 +37,7 @@ func _ready() -> void:
 	create_card(player_anchor, Store.DATA.BASE_ATK, "Fortaleza", "Incrementa el daño inicial (+10%)", 1500, 1.5)
 	create_card(player_anchor, Store.DATA.BASE_ATK_SP, "Furia", "Los enanos atacan más rápido (+10%, pierde efectividad)", 1250, 1.3)
 	create_card(player_anchor, Store.DATA.BASE_SPD, "Velocidad", "Incrementa la velocidad del jugador (+1 u/s)", 1250, 1.5)
+	create_card(player_anchor, Store.DATA.MAX_DRUNKENNESS, "Alcoholismo", "Incrementa la ebriedad máxima (+10)", 3000, 1.5)
 
 	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, "Daño máximo", "Los enanos atacan con más fuerza", 1000, 1.2)
 	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque máxima", "Los enanos atacan más rápido", 1000, 1.2)
@@ -65,7 +74,10 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD
 
 	var level_display: Label = Label.new()
-	level_display.text = "Nivel actual: " + str(Store.save[store_idx])
+	if max_levels[store_idx] == 0:
+		level_display.text = "Nivel actual: " + str(Store.save[store_idx]) + " / ∞" # Poner símbolo de infinito cuando lo encuentre
+	else:
+		level_display.text = "Nivel actual: " + str(Store.save[store_idx]) + " / " + str(max_levels[store_idx])
 
 	var cost: Button = Button.new()
 	# Por alguna razón el precio solo se actualiza una vez
