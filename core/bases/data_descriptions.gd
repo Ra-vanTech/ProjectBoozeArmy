@@ -5,7 +5,7 @@ static var desc: Dictionary = {
 	Store.DATA.ATK_SPEED_MAX_LVL: item("Agilidad", "Los enanos atacan más rápido (+15%)", Store.save[Store.DATA.ATK_SPEED_MAX_LVL]),
 	Store.DATA.DWARF_LIMIT_MAX_LVL: item("Compañía", "Un enano se une a tu causa", Store.save[Store.DATA.DWARF_LIMIT_MAX_LVL]),
 	Store.DATA.DRUNKENNESS_MAX_LVL: item("Fiesta", "La ebriedad por segundo aumenta (+1/s)", Store.save[Store.DATA.DRUNKENNESS_MAX_LVL]),
-	Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL: item("Sangrado", "La salud máxima de los enemigos se reduce", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
+	Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL: item("Sangrado", "La salud máxima de los enemigos se reduce (-10%, pierde efectividad)", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
 	Store.DATA.MAX_DRUNKENNESS_MAX_LVL: item("Resistencia", "La ebriedad máxima incrementa (+10%)", Store.save[Store.DATA.MAX_DRUNKENNESS_MAX_LVL]),
 	Store.DATA.XP_BONUS_MAX_LVL: item("Intelecto", "Se obtiene más experiencia de los enemigos (+10%)", Store.save[Store.DATA.XP_BONUS_MAX_LVL]),
 	Store.DATA.COINS_BONUS_MAX_LVL: item("Saqueo", "Se obtiene más oro de los enemigos (+10%)", Store.save[Store.DATA.COINS_BONUS]),
