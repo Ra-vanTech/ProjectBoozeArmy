@@ -39,7 +39,10 @@ func obtener_daño_final() -> float:
 	var mod_ebriedad: float = obtener_modificador_ebriedad()
 	var mod_upgrades: float = obtener_modificador_upgrades()
 	#retorna la formula de daño final
-	return damage * mod_ebriedad * (1.0 + mod_upgrades)
+	if Store.save[Store.DATA.BASE_ATK] == 0:
+		return damage * mod_ebriedad * (1.0 + mod_upgrades)
+	else:
+		return damage * mod_ebriedad * (1.0 + mod_upgrades) + (damage * Store.save[Store.DATA.BASE_ATK] / 10)
 
 
 #Obtener cooldown final, +20% de velocidad en rango ebrio
@@ -56,6 +59,9 @@ func obtener_cooldown_final() -> float:
 	# Modificador de upgrade
 	if is_instance_valid(game_manager):
 		cooldown *= game_manager.upgrade_manager.get_cooldown_speed()
+
+	if Store.save[Store.DATA.BASE_ATK_SP] > 0:
+		cooldown *= pow(0.9, Store.save[Store.DATA.BASE_ATK_SP])
 
 	#límite mínimo de cooldown
 	return max(cooldown, 0.3)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bei5x5cram187"]
 
-[ext_resource type="Script" uid="uid://cqugwoiugfu1c" path="res://ui/menu_screen/main_menu.gd" id="1_ngvfb"]
+[ext_resource type="Script" uid="uid://cm7qv0gffnct0" path="res://ui/menu_screen/main_menu.gd" id="1_ngvfb"]
 [ext_resource type="PackedScene" uid="uid://dbrcyi1sal6eg" path="res://Escena1_BoozeArmy.tscn" id="2_1fuq6"]
 [ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="3_hxi57"]
 
@@ -44,6 +44,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Jugar"
 
+[node name="UpgradeButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=46467936]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Mejoras"
+
 [node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=1645365634]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
@@ -59,6 +64,7 @@ text = "Salir"
 [node name="WaitTimer" type="Timer" parent="TransitionScreen" unique_id=1328306511]
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="TransitionScreen/WaitTimer" to="." method="_on_wait_timer_timeout"]

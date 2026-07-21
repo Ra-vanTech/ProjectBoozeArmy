@@ -25,6 +25,8 @@ var timer: Timer
 
 
 func _ready() -> void:
+	max_drunkeness += Store.save[Store.DATA.MAX_DRUNKENNESS] * 10
+	print(max_drunkeness)
 	drunkeness = starting_drunkeness
 	timer = Timer.new()
 	timer.wait_time = 1.0
@@ -48,6 +50,7 @@ func calculate_damage_multiplier() -> float:
 	else:
 		# permite crecimiento de daño adicional
 		# no es un bono tan grande, según mi calculadora una ebriedad de 1000 solo daría un bono adicional de 0.54
+		# Volví a hacer el cálculo y no sé qué hice pero me da algo totalmente diferente
 		return 1.3 + pow(drunkeness - 100, 0.25) / 10.0
 
 
@@ -61,3 +64,5 @@ func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 		# Sin el tope, 2+ stacks volvían la tasa positiva y la ebriedad subía
 		# sola al máximo para siempre, anulando el sistema de riesgo.
 		drunkeness_per_second = mini(drunkeness_per_second + 1, 0)
+	if type == UpgradeManager.UpgradeType.MAX_DRUNKENNESS:
+		max_drunkeness *= 1.1

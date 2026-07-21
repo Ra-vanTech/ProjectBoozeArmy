@@ -75,6 +75,7 @@ script = ExtResource("13_3nyjs")
 script = ExtResource("14_v4ycj")
 
 [node name="DifficultyManager" parent="GameManager" unique_id=974227039 instance=ExtResource("7_7120o")]
+game_time = 600.0
 
 [node name="MoneyManager" type="Node" parent="GameManager" unique_id=1253465866]
 script = ExtResource("5_ttbjd")
@@ -155,22 +156,22 @@ script = ExtResource("9_3cxb1")
 enemy = ExtResource("19_ynm0c")
 spawn_delay = 120.0
 
-[node name="WorldWrap" type="Node" parent="." unique_id=458171826]
+[node name="WorldWrap" type="Node" parent="." unique_id=1197835886]
 script = ExtResource("22_wwrap")
 
-[node name="Landmarks" type="Node3D" parent="." unique_id=66249822]
+[node name="Landmarks" type="Node3D" parent="." unique_id=335339933]
 
-[node name="CasaRoja" parent="Landmarks" unique_id=1319646208 instance=ExtResource("23_house")]
+[node name="CasaRoja" parent="Landmarks" unique_id=1944643363 instance=ExtResource("23_house")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
 color = Color(0.78, 0.22, 0.18, 1)
 label_text = "CASA ROJA"
 
-[node name="CasaAzul" parent="Landmarks" unique_id=1127700278 instance=ExtResource("23_house")]
+[node name="CasaAzul" parent="Landmarks" unique_id=1448722916 instance=ExtResource("23_house")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 30)
 color = Color(0.2, 0.4, 0.8, 1)
 label_text = "CASA AZUL"
 
-[node name="Taberna" parent="Landmarks" unique_id=1636366745 instance=ExtResource("23_house")]
+[node name="Taberna" parent="Landmarks" unique_id=205017971 instance=ExtResource("23_house")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 55)
 color = Color(0.85, 0.65, 0.2, 1)
 label_text = "TABERNA"

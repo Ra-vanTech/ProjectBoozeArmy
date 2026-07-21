@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8gc2l04piclc"]
 
-[ext_resource type="Script" uid="uid://biig7ms6tftlf" path="res://ui/settings/settings.gd" id="1_bjc66"]
+[ext_resource type="Script" uid="uid://diijd40rpsqie" path="res://ui/settings/settings.gd" id="1_bjc66"]
 [ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_hrs25"]
 
 [node name="Settings" type="CanvasLayer" unique_id=1749118228]

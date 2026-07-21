@@ -42,11 +42,6 @@ func game_progress() -> float:
 	return 1.0 - (timer.time_left / game_time)
 
 
-# Con el escalado desactivado, todas las curvas se congelan en su valor inicial
-func _progress() -> float:
-	return game_progress() if scaling_enabled else 0.0
-
-
 func get_spawn_rate() -> float:
 	return spawn_rate_curve.sample(_progress())
 
@@ -84,4 +79,12 @@ func add_time() -> void:
 
 
 func on_game_ended() -> void:
+	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	Store.data["gold"] += game_manager.money_manager.gold
+	Store.save_data()
 	game_ended.emit()
+
+
+# Con el escalado desactivado, todas las curvas se congelan en su valor inicial
+func _progress() -> float:
+	return game_progress() if scaling_enabled else 0.0
