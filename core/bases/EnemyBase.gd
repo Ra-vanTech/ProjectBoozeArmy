@@ -8,3 +8,5 @@ extends CharacterBody3D
 #valor xp por tipo
 # esqueleto: 5 | smile: 8 | murcielago: 4 | Invocador 10
 @export var xp_value: int = 0
+
+@export var can_spawn: bool = true

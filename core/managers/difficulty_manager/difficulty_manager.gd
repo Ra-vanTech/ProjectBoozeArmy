@@ -3,6 +3,13 @@ extends Node
 
 signal game_ended
 
+#trigger de tiempo [es para el boss]
+signal boss_spawned
+
+#A los 10 min aparece el boss 
+@export var boss_spawn_time: float = 0.0
+var _boss_spawn_emitted: bool = false
+
 @export var spawn_rate_curve: Curve
 @export var spawn_amount_curve: Curve
 @export var health_multiplier_curve: Curve
@@ -65,6 +72,10 @@ func get_speed_mult() -> float:
 func add_time() -> void:
 	time_elapsed += 1
 	# print(time_elapsed)
+	# Garantiza que se dispare la señal una vez por partida.
+	if not _boss_spawn_emitted and time_elapsed >= boss_spawn_time:
+		_boss_spawn_emitted = true
+		boss_spawned.emit()
 
 
 func on_game_ended() -> void:
