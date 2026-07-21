@@ -32,23 +32,24 @@ const max_levels: Dictionary = {
 func _ready() -> void:
 	$TransitionScreen/AnimationPlayer.play("fade_out")
 	gold_container.text = "Oro: " + str(Store.save[Store.DATA.GOLD])
-	create_card(player_anchor, Store.DATA.MAX_LVL, "Nivel máximo", "Incrementa el nivel máximo del jugador", 500, 1.1)
-	create_card(player_anchor, Store.DATA.STARTING_DWARVES, "Enanos iniciales", "Más enanos vienen a ayudarte", 2000, 2.1)
-	create_card(player_anchor, Store.DATA.BASE_ATK, "Fortaleza", "Incrementa el daño inicial (+10%)", 1500, 1.5)
-	create_card(player_anchor, Store.DATA.BASE_ATK_SP, "Furia", "Los enanos atacan más rápido (+10%, pierde efectividad)", 1250, 1.3)
-	create_card(player_anchor, Store.DATA.BASE_SPD, "Velocidad", "Incrementa la velocidad del jugador (+1 u/s)", 1250, 1.5)
-	create_card(player_anchor, Store.DATA.MAX_DRUNKENNESS, "Alcoholismo", "Incrementa la ebriedad máxima (+10)", 3000, 1.5)
-	create_card(player_anchor, Store.DATA.XP_BONUS, "Sabiduría", "Incrementa la ganancia de experiencia (+1)", 3000, 1.5)
-	create_card(player_anchor, Store.DATA.COINS_BONUS, "Saqueador", "Incrementa el oro obtenido", 750, 1.3)
 
-	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, "Daño máximo", "Los enanos atacan con más fuerza", 1000, 1.2)
-	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque máxima", "Los enanos atacan más rápido", 1000, 1.2)
-	create_card(upgrade_anchor, Store.DATA.DWARF_LIMIT_MAX_LVL, "Enanos de apoyo máximos", "Más enanos están dispuesto a unirse a ti", 2000, 1.3)
-	create_card(upgrade_anchor, Store.DATA.DRUNKENNESS_MAX_LVL, "Alcoholismo máximo", "Reduce la pérdida de ebriedad por segundo", 5000, 2)
-	create_card(upgrade_anchor, Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL, "Reducción de vida máxima", "Los enemigos se debilitan", 3000, 1.5)
-	create_card(upgrade_anchor, Store.DATA.MAX_DRUNKENNESS_MAX_LVL, "Hígado de acero", "Incrementa la ebriedad máxima (+10%)", 2500, 1.5)
-	create_card(upgrade_anchor, Store.DATA.XP_BONUS_MAX_LVL, "Intelecto", "Incrementa la experiencia obtenida (+10%)", 2500, 1.5)
-	create_card(upgrade_anchor, Store.DATA.COINS_BONUS_MAX_LVL, "Codicia", "Incrementa el oro obtenido (+10%)", 2500, 1.5)
+	create_card(player_anchor, Store.DATA.MAX_LVL, 500, 1.1)
+	create_card(player_anchor, Store.DATA.STARTING_DWARVES, 2000, 2.1)
+	create_card(player_anchor, Store.DATA.BASE_ATK, 1500, 1.5)
+	create_card(player_anchor, Store.DATA.BASE_ATK_SP, 1250, 1.3)
+	create_card(player_anchor, Store.DATA.BASE_SPD, 1250, 1.5)
+	create_card(player_anchor, Store.DATA.MAX_DRUNKENNESS, 3000, 1.5)
+	create_card(player_anchor, Store.DATA.XP_BONUS, 3000, 1.5)
+	create_card(player_anchor, Store.DATA.COINS_BONUS, 750, 1.3)
+
+	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, 1000, 1.2)
+	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, 1000, 1.2)
+	create_card(upgrade_anchor, Store.DATA.DWARF_LIMIT_MAX_LVL, 2000, 1.3)
+	create_card(upgrade_anchor, Store.DATA.DRUNKENNESS_MAX_LVL, 5000, 2)
+	create_card(upgrade_anchor, Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL, 3000, 1.5)
+	create_card(upgrade_anchor, Store.DATA.MAX_DRUNKENNESS_MAX_LVL, 2500, 1.5)
+	create_card(upgrade_anchor, Store.DATA.XP_BONUS_MAX_LVL, 2500, 1.5)
+	create_card(upgrade_anchor, Store.DATA.COINS_BONUS_MAX_LVL, 2500, 1.5)
 	# for thingy in UpgradeManager.UpgradeType:
 	# 	print(thingy)
 	# pass
@@ -56,7 +57,7 @@ func _ready() -> void:
 
 # es como hacer html desde js puro, me cae mal
 # se me hace más fácil que hacer cada cuadro individualmente
-func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _description: String, _cost: int, cost_increase: float) -> void:
+func create_card(anchor: HBoxContainer, store_idx: int, _cost: int, cost_increase: float) -> void:
 	var cost_stored: StoredPrice = StoredPrice.new()
 	cost_stored.cost = _cost
 
@@ -71,11 +72,11 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 	container.alignment = BoxContainer.ALIGNMENT_CENTER
 
 	var title: Label = Label.new()
-	title.text = _title
+	title.text = Descriptions.desc[store_idx].name
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD
 
 	var description: Label = Label.new()
-	description.text = _description
+	description.text = Descriptions.desc[store_idx].desc
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD
 
 	var level_display: Label = Label.new()
@@ -91,6 +92,7 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 		var temp_exp = Store.save[store_idx] - Store.STARTING_VAL[store_idx]
 		var temp = _cost * pow(cost_increase, temp_exp)
 		cost_stored.cost = temp
+		cost.text = "Comprar: " + _format_price(cost_stored.cost)
 
 	var check_availability = func() -> void:
 		if Store.save[Store.DATA.GOLD] < cost_stored.cost:
@@ -106,13 +108,14 @@ func create_card(anchor: HBoxContainer, store_idx: int, _title: String, _descrip
 		gold_container.text = str(Store.save[Store.DATA.GOLD])
 		Store.save[store_idx] += 1
 		update_price.call()
-		cost.text = "Comprar: " + _format_price(cost_stored.cost)
-		level_display.text = "Nivel actual: " + str(Store.save[store_idx])
+		if max_levels[store_idx] == 0:
+			level_display.text = "Nivel actual: " + str(Store.save[store_idx]) + " / ∞" # Poner símbolo de infinito cuando lo encuentre
+		else:
+			level_display.text = "Nivel actual: " + str(Store.save[store_idx]) + " / " + str(max_levels[store_idx])
 		purchase_done.emit()
 		# check_availability.call()
 
 	update_price.call()
-	cost.text = "Comprar: " + _format_price(cost_stored.cost)
 	check_availability.call()
 	cost.pressed.connect(purchase)
 
