@@ -10,24 +10,17 @@ enum UpgradeType {
 	ADD_DWARF,
 	SOBRIETY_REGEN,
 	ENEMY_HP,
+	MAX_DRUNKENNESS,
+	XP_BONUS,
+	COINS_BONUS,
 }
 
 var upgrade_descriptions: Dictionary = {
-	UpgradeType.DAMAGE: item("+20% Daño", "Los enanos atacan con más fuerza.", Store.save[Store.DATA.DMG_MAX_LVL]),
-	UpgradeType.ATTACK_SPEED: item("+15% Vel. ataque", "Los enanos atacan más rápido", Store.save[Store.DATA.ATK_SPEED_MAX_LVL]),
-	UpgradeType.ADD_DWARF: item("+1 Enano", "Un enano se une al ejercito", Store.save[Store.DATA.DWARF_LIMIT_MAX_LVL]),
-	UpgradeType.SOBRIETY_REGEN: item("+1 Ebriedad/s", "La ebriedad cae más lento", Store.save[Store.DATA.DRUNKENNESS_MAX_LVL]),
-	UpgradeType.ENEMY_HP: item("-10% HP de Enemigo", "Los enemigos se debilitan", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
-}
-# Aparecen como lista del 0 al 4 en orden
-## Permite limitar la cantidad de veces que una mejora se puede seleccionar.
-## Colocar 0 como límite hace que la mejora se pueda seleccionar infinitas veces
-var upgrade_limits: Dictionary = {
-	UpgradeType.DAMAGE: Store.save[Store.DATA.DMG_MAX_LVL],
-	UpgradeType.ATTACK_SPEED: Store.save[Store.DATA.ATK_SPEED_MAX_LVL],
-	UpgradeType.ADD_DWARF: Store.save[Store.DATA.DWARF_LIMIT_MAX_LVL],
-	UpgradeType.SOBRIETY_REGEN: Store.save[Store.DATA.DRUNKENNESS_MAX_LVL],
-	UpgradeType.ENEMY_HP: Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL],
+	UpgradeType.DAMAGE: Descriptions.desc[Store.DATA.DMG_MAX_LVL],
+	UpgradeType.ATTACK_SPEED: Descriptions.desc[Store.DATA.ATK_SPEED_MAX_LVL],
+	UpgradeType.ADD_DWARF: Descriptions.desc[Store.DATA.DWARF_LIMIT_MAX_LVL],
+	UpgradeType.SOBRIETY_REGEN: Descriptions.desc[Store.DATA.DRUNKENNESS_MAX_LVL],
+	UpgradeType.ENEMY_HP: Descriptions.desc[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL],
 }
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
@@ -54,9 +47,9 @@ func get_stack(type: UpgradeType) -> int:
 
 
 func is_below_limit(i: int) -> bool:
-	if upgrade_limits[i] <= 0:
+	if upgrade_descriptions[i].max_lvl <= 0:
 		return true
-	return _stacks[i] < upgrade_limits[i]
+	return _stacks[i] < upgrade_descriptions[i].max_lvl
 
 
 ## Retorna las mejoras filtradas para no traer las que ya llegaron a su nivel máximo
@@ -72,7 +65,7 @@ func get_upgrade_list() -> Array:
 
 
 func get_level(i: UpgradeType) -> String:
-	if _stacks[i] + 1 == upgrade_limits[i]:
+	if _stacks[i] + 1 == upgrade_descriptions[i].max_lvl:
 		return "MAX"
 	else:
 		return "Nivel " + str(_stacks[i] + 1)
