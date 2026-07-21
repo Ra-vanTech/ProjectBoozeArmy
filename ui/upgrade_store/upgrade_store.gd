@@ -24,7 +24,7 @@ const max_levels: Dictionary = {
 }
 
 @onready var player_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/ScrollContainer/Container
-@onready var upgrade_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Niveles/Container
+@onready var upgrade_anchor: HBoxContainer = $ColorRect/CenterContainer/VBoxContainer/Panel/Niveles/ScrollContainer/Container
 @onready var gold_container: Label = $ColorRect/CenterContainer/VBoxContainer/Gold
 
 
@@ -38,12 +38,17 @@ func _ready() -> void:
 	create_card(player_anchor, Store.DATA.BASE_ATK_SP, "Furia", "Los enanos atacan más rápido (+10%, pierde efectividad)", 1250, 1.3)
 	create_card(player_anchor, Store.DATA.BASE_SPD, "Velocidad", "Incrementa la velocidad del jugador (+1 u/s)", 1250, 1.5)
 	create_card(player_anchor, Store.DATA.MAX_DRUNKENNESS, "Alcoholismo", "Incrementa la ebriedad máxima (+10)", 3000, 1.5)
+	create_card(player_anchor, Store.DATA.XP_BONUS, "Sabiduría", "Incrementa la ganancia de experiencia (+1)", 3000, 1.5)
+	create_card(player_anchor, Store.DATA.COINS_BONUS, "Saqueador", "Incrementa el oro obtenido", 750, 1.3)
 
 	create_card(upgrade_anchor, Store.DATA.DMG_MAX_LVL, "Daño máximo", "Los enanos atacan con más fuerza", 1000, 1.2)
 	create_card(upgrade_anchor, Store.DATA.ATK_SPEED_MAX_LVL, "Velocidad de ataque máxima", "Los enanos atacan más rápido", 1000, 1.2)
 	create_card(upgrade_anchor, Store.DATA.DWARF_LIMIT_MAX_LVL, "Enanos de apoyo máximos", "Más enanos están dispuesto a unirse a ti", 2000, 1.3)
 	create_card(upgrade_anchor, Store.DATA.DRUNKENNESS_MAX_LVL, "Alcoholismo máximo", "Reduce la pérdida de ebriedad por segundo", 5000, 2)
 	create_card(upgrade_anchor, Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL, "Reducción de vida máxima", "Los enemigos se debilitan", 3000, 1.5)
+	create_card(upgrade_anchor, Store.DATA.MAX_DRUNKENNESS_MAX_LVL, "Hígado de acero", "Incrementa la ebriedad máxima (+10%)", 2500, 1.5)
+	create_card(upgrade_anchor, Store.DATA.XP_BONUS_MAX_LVL, "Intelecto", "Incrementa la experiencia obtenida (+10%)", 2500, 1.5)
+	create_card(upgrade_anchor, Store.DATA.COINS_BONUS_MAX_LVL, "Codicia", "Incrementa el oro obtenido (+10%)", 2500, 1.5)
 	# for thingy in UpgradeManager.UpgradeType:
 	# 	print(thingy)
 	# pass
