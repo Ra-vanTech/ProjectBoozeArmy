@@ -31,7 +31,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Panel" type="TabContainer" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1335433190]
-custom_minimum_size = Vector2(600, 400)
+custom_minimum_size = Vector2(900, 400)
+custom_maximum_size = Vector2(1000, -1)
 layout_mode = 2
 current_tab = 0
 
@@ -47,6 +48,7 @@ metadata/_tab_index = 0
 layout_mode = 2
 
 [node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Jugador/ScrollContainer" unique_id=981700191]
+custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 theme_override_constants/separation = 25
 alignment = 1
@@ -60,7 +62,11 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 metadata/_tab_index = 1
 
-[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Niveles" unique_id=575258098]
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Niveles" unique_id=607038139]
+layout_mode = 2
+
+[node name="Container" type="HBoxContainer" parent="ColorRect/CenterContainer/VBoxContainer/Panel/Niveles/ScrollContainer" unique_id=575258098]
+custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 theme_override_constants/separation = 25
 
