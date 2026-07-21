@@ -7,7 +7,7 @@ static var desc: Dictionary = {
 	Store.DATA.DRUNKENNESS_MAX_LVL: item("Fiesta", "La ebriedad por segundo aumenta (+1/s)", Store.save[Store.DATA.DRUNKENNESS_MAX_LVL]),
 	Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL: item("Sangrado", "La salud máxima de los enemigos se reduce (-10%, pierde efectividad)", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
 	Store.DATA.MAX_DRUNKENNESS_MAX_LVL: item("Resistencia", "La ebriedad máxima incrementa (+10%)", Store.save[Store.DATA.MAX_DRUNKENNESS_MAX_LVL]),
-	Store.DATA.XP_BONUS_MAX_LVL: item("Intelecto", "Se obtiene más experiencia de los enemigos (+10%)", Store.save[Store.DATA.XP_BONUS_MAX_LVL]),
+	Store.DATA.XP_BONUS_MAX_LVL: item("Intelecto", "Se obtiene más experiencia de los enemigos (+1)", Store.save[Store.DATA.XP_BONUS_MAX_LVL]),
 	Store.DATA.COINS_BONUS_MAX_LVL: item("Saqueo", "Se obtiene más oro de los enemigos (+10%)", Store.save[Store.DATA.COINS_BONUS]),
 	#
 	# Las mejoras del jugador no necesitan que se les señale el nivel máximo, ya que solo es para usarse en el gestor de mejoras

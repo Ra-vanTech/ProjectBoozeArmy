@@ -21,6 +21,9 @@ var upgrade_descriptions: Dictionary = {
 	UpgradeType.ADD_DWARF: Descriptions.desc[Store.DATA.DWARF_LIMIT_MAX_LVL],
 	UpgradeType.SOBRIETY_REGEN: Descriptions.desc[Store.DATA.DRUNKENNESS_MAX_LVL],
 	UpgradeType.ENEMY_HP: Descriptions.desc[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL],
+	UpgradeType.MAX_DRUNKENNESS: Descriptions.desc[Store.DATA.MAX_DRUNKENNESS_MAX_LVL],
+	UpgradeType.XP_BONUS: Descriptions.desc[Store.DATA.XP_BONUS_MAX_LVL],
+	UpgradeType.COINS_BONUS: Descriptions.desc[Store.DATA.COINS_BONUS_MAX_LVL],
 }
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
@@ -28,6 +31,9 @@ var _stacks: Dictionary = {
 	UpgradeType.ADD_DWARF: 0,
 	UpgradeType.SOBRIETY_REGEN: 0,
 	UpgradeType.ENEMY_HP: 0,
+	UpgradeType.MAX_DRUNKENNESS: 0,
+	UpgradeType.XP_BONUS: 0,
+	UpgradeType.COINS_BONUS: 0,
 }
 
 
@@ -90,3 +96,16 @@ func get_cooldown_speed() -> float:
 func get_enemy_hp() -> float:
 	var stacks: int = _stacks[UpgradeType.ENEMY_HP]
 	return pow(0.9, stacks)
+
+
+func get_drunkenness_bonus() -> float:
+	return 1.0 + (_stacks[UpgradeType.MAX_DRUNKENNESS] / 10)
+
+
+func get_xp_bonus() -> int:
+	# Como la experiencia es un entero la mitad de los puntos obtenidos se pierden
+	return _stacks[UpgradeType.XP_BONUS]
+
+
+func get_coin_bonus() -> float:
+	return 1.0 + (_stacks[UpgradeType.COINS_BONUS] / 10)
