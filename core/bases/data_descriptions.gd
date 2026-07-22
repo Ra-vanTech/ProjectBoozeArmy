@@ -1,4 +1,5 @@
 class_name Descriptions
+extends Object
 
 static var desc: Dictionary = {
 	Store.DATA.DMG_MAX_LVL: item("Resaca (no sé)", "Los enanos hacen más daño (+20%)", Store.save[Store.DATA.DMG_MAX_LVL]),
@@ -8,7 +9,7 @@ static var desc: Dictionary = {
 	Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL: item("Sangrado", "La salud máxima de los enemigos se reduce (-10%, pierde efectividad)", Store.save[Store.DATA.ENEMY_HP_REDUCTION_MAX_LVL]),
 	Store.DATA.MAX_DRUNKENNESS_MAX_LVL: item("Resistencia", "La ebriedad máxima incrementa (+10%)", Store.save[Store.DATA.MAX_DRUNKENNESS_MAX_LVL]),
 	Store.DATA.XP_BONUS_MAX_LVL: item("Intelecto", "Se obtiene más experiencia de los enemigos (+1)", Store.save[Store.DATA.XP_BONUS_MAX_LVL]),
-	Store.DATA.COINS_BONUS_MAX_LVL: item("Saqueo", "Se obtiene más oro de los enemigos (+10%)", Store.save[Store.DATA.COINS_BONUS]),
+	Store.DATA.COINS_BONUS_MAX_LVL: item("Saqueo", "Se obtiene más oro de los enemigos (+10%)", Store.save[Store.DATA.COINS_BONUS_MAX_LVL]),
 	#
 	# Las mejoras del jugador no necesitan que se les señale el nivel máximo, ya que solo es para usarse en el gestor de mejoras
 	Store.DATA.MAX_LVL: item("Sabiduría", "Incrementa el nivel máximo", 0),
