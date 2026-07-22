@@ -26,7 +26,7 @@ var timer: Timer
 
 func _ready() -> void:
 	max_drunkeness += Store.save[Store.DATA.MAX_DRUNKENNESS] * 10
-	print(max_drunkeness)
+	# print(max_drunkeness)
 	drunkeness = starting_drunkeness
 	timer = Timer.new()
 	timer.wait_time = 1.0
