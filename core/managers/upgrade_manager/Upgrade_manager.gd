@@ -37,6 +37,13 @@ var _stacks: Dictionary = {
 }
 
 
+func _ready() -> void:
+	for desc in upgrade_descriptions:
+		print(upgrade_descriptions[desc].name)
+		print(Descriptions.desc[desc + 1].max_lvl)
+		print(Store.save[desc + 1])
+
+
 func item(upgrade_name: String, description: String, max_lvl: int) -> Dictionary:
 	return { "name": upgrade_name, "desc": description, "max_lvl": max_lvl }
 
