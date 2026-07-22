@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cw8esn2n7uhug" path="res://entities/player/dwarves/scripts/dwarf_system.gd" id="13_46esb"]
 [ext_resource type="PackedScene" uid="uid://dm5vvemdw14ff" path="res://entities/player/dwarves/scenes/enano_guerrero.tscn" id="14_6i5mt"]
 [ext_resource type="PackedScene" uid="uid://muuepog8h6pe" path="res://entities/player/dwarves/scenes/enano_cervecero.tscn" id="15_7saof"]
+[ext_resource type="Script" path="res://entities/shared_components/AttackComponent.gd" id="16_atkcp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ucsmf"]
 
@@ -30,9 +31,12 @@ height = 1.0
 height = 2.5
 radius = 2.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_atkcp"]
+radius = 3.75
+
 [node name="Player_test" type="CharacterBody3D" unique_id=54499108 groups=["player"]]
 collision_layer = 10
-collision_mask = 5
+collision_mask = 1
 script = ExtResource("1_87kod")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=990134174]
@@ -94,5 +98,19 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupRadius" unique_id=2117406073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 shape = SubResource("CylinderShape3D_46esb")
+
+[node name="AttackRange" type="Area3D" parent="." unique_id=1521500354]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange" unique_id=2117406074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_atkcp")
+
+[node name="AttackComponent" type="Node" parent="." unique_id=1521500355 node_paths=PackedStringArray("attack_area")]
+unique_name_in_owner = true
+script = ExtResource("16_atkcp")
+attack_area = NodePath("../AttackRange")
 
 [connection signal="body_entered" from="PickupRadius" to="." method="_on_pickup_radius_body_entered"]
