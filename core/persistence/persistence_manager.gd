@@ -77,6 +77,30 @@ func _ready() -> void:
 	load_data()
 
 
+# Convierte un Dictionary con llaves DATA (enum/int) a uno con llaves string,
+# listo para pasar a JSON.stringify(). Uso: _dict_to_json_ready(save)
+func _dict_to_json(source: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for data_key in source:
+		var key_name: String = DATA.keys()[data_key]
+		result[key_name] = source[data_key]
+	return result
+
+
+# Convierte de vuelta un Dictionary con llaves string (recién parseado de JSON)
+#a uno con llaves DATA (enum/int). Ignora y reporta claves que ya no existan		
+
+func json_to_dict(source: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for key_name in source:
+		if DATA.keys().has(key_name):
+			var data_key: int = DATA[key_name]
+			result[data_key] = source[key_name]
+		else:
+			push_warning("[SaveSystem] Clave desconocida en el save, ignorada: " + str(key_name))
+	return result
+
+
 func save_data() -> void:
 	print(save, " (save start)")
 	# Lo considero bueno por que si no se cargan los datos al cargar los que estaban en
