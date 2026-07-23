@@ -7,7 +7,7 @@ const max_levels: Dictionary = {
 	Store.DATA.MAX_LVL: 0,
 	Store.DATA.STARTING_DWARVES: 10,
 	Store.DATA.BASE_ATK: 50,
-	Store.DATA.BASE_ATK_SP: 10,
+	Store.DATA.BASE_ATK_SP: 25,
 	Store.DATA.BASE_SPD: 10,
 	Store.DATA.MAX_DRUNKENNESS: 900,
 	Store.DATA.XP_BONUS: 100,
