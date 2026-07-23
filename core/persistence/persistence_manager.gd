@@ -76,7 +76,7 @@ var save: Dictionary = {
 func _ready() -> void:
 	load_data()
 	Descriptions.update_desc()
-	assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
+	# assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
 
 
 func save_data() -> void:

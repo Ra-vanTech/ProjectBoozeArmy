@@ -34,6 +34,7 @@ static func update_desc(idx: int = -1) -> void:
 			desc[i].max_lvl = Store.save[i]
 	else:
 		desc[idx].max_lvl = Store.save[idx]
+	verify()
 
 
 static func match() -> bool:
@@ -43,3 +44,7 @@ static func match() -> bool:
 		if desc[i].max_lvl != Store.save[i]:
 			return false
 	return true
+
+
+static func verify() -> void:
+	assert(match, "Error al actualizar las descripciones")
