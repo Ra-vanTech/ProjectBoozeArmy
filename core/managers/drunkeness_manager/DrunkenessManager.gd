@@ -63,6 +63,11 @@ func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 		# La mejora "reduce la caída de ebriedad", como máximo la detiene (0).
 		# Sin el tope, 2+ stacks volvían la tasa positiva y la ebriedad subía
 		# sola al máximo para siempre, anulando el sistema de riesgo.
-		drunkeness_per_second = mini(drunkeness_per_second + 1, 0)
+
+		# La reducción de caída de ebriedad llegando a valores positivos es intencional
+		# Aunque efectivamente anula el sistema de riesgo, la ebriedad máxima puede incrementar mucho
+		# Por esto, considero que es mejor poder hacer que se gane ebriedad por segundo para obtener
+		# el bono de daño que viene con incrementar la ebriedad máxima más rápido
+		drunkeness_per_second += 1
 	if type == UpgradeManager.UpgradeType.MAX_DRUNKENNESS:
 		max_drunkeness *= 1.1
