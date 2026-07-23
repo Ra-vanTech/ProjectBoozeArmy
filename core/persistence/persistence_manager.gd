@@ -130,11 +130,25 @@ func save_data() -> void:
 
 
 func load_data() -> void:
-	if FileAccess.file_exists(DATA_PATH):
-		var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
-		var extracted_data: Dictionary = file.get_var()
-		print(extracted_data, " (extracted)")
-		for i in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
-			if save.has(i):
-				save[i] = extracted_data[i]
-		file.close()
+	if not FileAccess.file_exists(DATA_PATH):
+		return
+	
+	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
+	var json_text: String = file.get_as_text()
+	file.close()
+
+	var parsed: Variant = JSON.parse_string(json_text)
+	if parsed == null or typeof(parsed) != TYPE_DICTIONARY:
+		push_error("[SaveSystem] el archivo de guardado esta corrupto o tine un formato inesperado")
+		return
+		
+	var payload: Dictionary = parsed
+	if not payload.has("version") or not payload.has("data"):
+		push_error("[SaveSystem] El archivo de guardado no tiene el formato esperado (faltan 'version' o 'data'). Se usarán los valores por defecto.")
+		return
+	
+
+	var extracted_data: Dictionary = json_to_dict(payload["data"])
+	for data_key in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
+		if save.has(data_key):
+				save[data_key] = extracted_data[data_key]
