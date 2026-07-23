@@ -26,6 +26,8 @@ enum DATA {
 }
 
 const DATA_PATH: String = "user://data.json"
+const DATA_PATH_TMP: String = DATA_PATH + ".tmp"
+const SAVE_VERSION: int = 1
 const STARTING_VAL: Dictionary = {
 	DATA.GOLD: 0,
 	#
@@ -103,14 +105,27 @@ func json_to_dict(source: Dictionary) -> Dictionary:
 
 func save_data() -> void:
 	print(save, " (save start)")
-	# Lo considero bueno por que si no se cargan los datos al cargar los que estaban en
-	# el archivo y no en save o tenian valores distintos se eliminan/sobreescriben
-	# NOTA: los sigue sobreescribiendo, alch no entiendo
-	# NOTA: no es buena idea por que tambien sobreescribe los datos actuales, por lo que no se puede guardar nada
-	# load_data()
-	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.WRITE)
-	file.store_var(save)
+	var payload: Dictionary = {
+		"version": SAVE_VERSION,
+		"data": _dict_to_json(save)
+	}
+	var json_text: String = JSON.stringify(payload, "\t")
+
+	#se escribe en un archivo temporal antes de guardar completamente 
+	var file: FileAccess = FileAccess.open(DATA_PATH_TMP, FileAccess.WRITE)
+	if file == null:
+		push_error("[SaveSystem] No se pudo abrir el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(FileAccess.get_open_error()))
+		return
+
+	file.store_string(json_text)
 	file.close()
+
+	#se hace una copia del archivo temporal para guardarlo permanentemente SOLO si el temporal termino bien 
+	var rename_error: int = DirAccess.rename_absolute(DATA_PATH_TMP, DATA_PATH)
+	if rename_error != OK:
+		push_error("[SaveSystem] No se pudo renombrar el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(rename_error))
+		return
+
 	print(save, " (save end)")
 
 
