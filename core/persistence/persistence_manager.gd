@@ -27,7 +27,7 @@ enum DATA {
 
 const DATA_PATH: String = "user://data.json"
 const STARTING_VAL: Dictionary = {
-	DATA.GOLD: 0,
+	DATA.GOLD: 9999999999999999,
 	#
 	# Mejoras por partida
 	DATA.DMG_MAX_LVL: 5,
@@ -75,6 +75,8 @@ var save: Dictionary = {
 
 func _ready() -> void:
 	load_data()
+	Descriptions.update_desc()
+	assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
 
 
 func save_data() -> void:
@@ -87,6 +89,7 @@ func save_data() -> void:
 	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.WRITE)
 	file.store_var(save)
 	file.close()
+	Descriptions.update_desc()
 	print(save, " (save end)")
 
 
