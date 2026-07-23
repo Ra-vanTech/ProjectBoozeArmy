@@ -27,7 +27,7 @@ enum DATA {
 
 const DATA_PATH: String = "user://data.json"
 const STARTING_VAL: Dictionary = {
-	DATA.GOLD: 9999999999999999,
+	DATA.GOLD: 0,
 	#
 	# Mejoras por partida
 	DATA.DMG_MAX_LVL: 5,
@@ -80,7 +80,7 @@ func _ready() -> void:
 
 
 func save_data() -> void:
-	print(save, " (save start)")
+	# print(save, " (save start)")
 	# Lo considero bueno por que si no se cargan los datos al cargar los que estaban en
 	# el archivo y no en save o tenian valores distintos se eliminan/sobreescriben
 	# NOTA: los sigue sobreescribiendo, alch no entiendo
@@ -90,7 +90,7 @@ func save_data() -> void:
 	file.store_var(save)
 	file.close()
 	Descriptions.update_desc()
-	print(save, " (save end)")
+	# print(save, " (save end)")
 
 
 func load_data() -> void:
