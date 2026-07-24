@@ -9,5 +9,6 @@ var has_quit: bool = false
 # Se separa este del componente de movimiento para poder utilizar el de movimiento cuando se quiera implementar con enemigos
 func update() -> void:
 	move_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	move_direction = Joystick.get_direction()
+	if Joystick.get_direction() != Vector2.ZERO:
+		move_direction = Joystick.get_direction()
 	has_quit = Input.is_action_just_pressed("quit")
