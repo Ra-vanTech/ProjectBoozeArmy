@@ -1,6 +1,10 @@
 # Llamado Store en el cargado automático
 extends Node
 
+signal save_completed(success: bool)
+signal load_completed(success: bool)
+
+
 enum DATA {
 	GOLD,
 
@@ -115,6 +119,7 @@ func save_data() -> void:
 	var file: FileAccess = FileAccess.open(DATA_PATH_TMP, FileAccess.WRITE)
 	if file == null:
 		push_error("[SaveSystem] No se pudo abrir el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(FileAccess.get_open_error()))
+		save_completed.emit(false)
 		return
 
 	file.store_string(json_text)
@@ -124,9 +129,11 @@ func save_data() -> void:
 	var rename_error: int = DirAccess.rename_absolute(DATA_PATH_TMP, DATA_PATH)
 	if rename_error != OK:
 		push_error("[SaveSystem] No se pudo renombrar el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(rename_error))
+		save_completed.emit(false)
 		return
 
 	print(save, " (save end)")
+	save_completed.emit(true)
 
 
 func load_data() -> void:
@@ -140,11 +147,13 @@ func load_data() -> void:
 	var parsed: Variant = JSON.parse_string(json_text)
 	if parsed == null or typeof(parsed) != TYPE_DICTIONARY:
 		push_error("[SaveSystem] el archivo de guardado esta corrupto o tine un formato inesperado")
+		load_completed.emit(false)
 		return
 		
 	var payload: Dictionary = parsed
 	if not payload.has("version") or not payload.has("data"):
 		push_error("[SaveSystem] El archivo de guardado no tiene el formato esperado (faltan 'version' o 'data'). Se usarán los valores por defecto.")
+		load_completed.emit(false)
 		return
 	
 
@@ -152,3 +161,5 @@ func load_data() -> void:
 	for data_key in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
 		if save.has(data_key):
 				save[data_key] = extracted_data[data_key]
+
+	load_completed.emit(true)
