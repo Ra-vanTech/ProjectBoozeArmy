@@ -67,7 +67,7 @@ func create_card(anchor: HBoxContainer, store_idx: int, _cost: int, cost_increas
 	var center_container: CenterContainer = CenterContainer.new()
 
 	var container: VBoxContainer = VBoxContainer.new()
-	container.custom_maximum_size = Vector2(150, -1)
+	container.custom_minimum_size = Vector2(150, -1)
 	container.add_theme_constant_override("separation", 15)
 	container.alignment = BoxContainer.ALIGNMENT_CENTER
 
