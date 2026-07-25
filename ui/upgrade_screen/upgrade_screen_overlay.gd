@@ -3,6 +3,7 @@ extends CanvasLayer
 
 var delta_level: int = 0
 var obtained_level: int = 0
+var is_needed: bool = false
 var has_selected: bool = true
 var _opciones_actuales: Array = []
 
@@ -22,7 +23,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	while delta_level > 0 and has_selected:
+	while delta_level > 0 and has_selected and is_needed:
 		if visible == false:
 			visible = true
 		has_selected = false
@@ -37,13 +38,15 @@ func _process(_delta: float) -> void:
 			botones[i].text = data["name"] + "\n" + lvl + "\n" + data["desc"]
 
 		# delta_level -= 1
-	if delta_level <= 0:
+	if delta_level <= 0 and is_needed:
 		visible = false
+		is_needed = false
 		get_tree().paused = false
 
 
 func _on_level_up(new_level: int) -> void:
 	delta_level += 1
+	is_needed = true
 	obtained_level = new_level
 
 	get_tree().paused = true
