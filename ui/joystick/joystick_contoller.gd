@@ -17,6 +17,7 @@ static func get_direction() -> Vector2:
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if auto_hide and direction == Vector2.ZERO:
 		visible = false
 
