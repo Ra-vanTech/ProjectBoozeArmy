@@ -117,6 +117,14 @@ target_look = NodePath("..")
 [node name="BlurLayer" parent="Player_test/Camera3D" unique_id=179839882 instance=ExtResource("11_e78ft")]
 layer = 0
 
+[node name="joystick" type="CanvasLayer" parent="Player_test/Camera3D" unique_id=1378938629]
+
+[node name="Control" parent="Player_test/Camera3D/joystick" unique_id=255778147 instance=ExtResource("12_xd26j")]
+offset_left = 184.0
+offset_top = 749.0
+offset_right = -888.0
+offset_bottom = 181.0
+
 [node name="DeathScreenOverlay" parent="Player_test/Camera3D" unique_id=618409675 instance=ExtResource("4_gecc1")]
 layer = 2
 visible = false
@@ -131,14 +139,6 @@ layer = 2
 [node name="MainUI" type="CanvasLayer" parent="Player_test/Camera3D" unique_id=923662318]
 
 [node name="MainUi" parent="Player_test/Camera3D/MainUI" unique_id=1531797009 instance=ExtResource("5_7d05b")]
-
-[node name="joystick" type="CanvasLayer" parent="Player_test/Camera3D" unique_id=1378938629]
-
-[node name="Control" parent="Player_test/Camera3D/joystick" unique_id=255778147 instance=ExtResource("12_xd26j")]
-offset_left = 184.0
-offset_top = 749.0
-offset_right = -888.0
-offset_bottom = 181.0
 
 [node name="CameraPosition" type="Node3D" parent="Player_test" unique_id=843975097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.999999, 4.5)
