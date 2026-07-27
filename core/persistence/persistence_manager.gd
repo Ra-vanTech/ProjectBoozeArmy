@@ -1,6 +1,10 @@
 # Llamado Store en el cargado automático
 extends Node
 
+signal save_completed(success: bool)
+signal load_completed(success: bool)
+
+
 enum DATA {
 	GOLD,
 
@@ -26,6 +30,8 @@ enum DATA {
 }
 
 const DATA_PATH: String = "user://data.json"
+const DATA_PATH_TMP: String = DATA_PATH + ".tmp"
+const SAVE_VERSION: int = 1
 const STARTING_VAL: Dictionary = {
 	DATA.GOLD: 0,
 	#
@@ -79,26 +85,83 @@ func _ready() -> void:
 	# assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
 
 
+# Convierte un Dictionary con llaves DATA (enum/int) a uno con llaves string,
+# listo para pasar a JSON.stringify(). Uso: _dict_to_json_ready(save)
+func _dict_to_json(source: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for data_key in source:
+		var key_name: String = DATA.keys()[data_key]
+		result[key_name] = source[data_key]
+	return result
+
+
+# Convierte de vuelta un Dictionary con llaves string (recién parseado de JSON)
+#a uno con llaves DATA (enum/int). Ignora y reporta claves que ya no existan		
+
+func json_to_dict(source: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for key_name in source:
+		if DATA.keys().has(key_name):
+			var data_key: int = DATA[key_name]
+			result[data_key] = source[key_name]
+		else:
+			push_warning("[SaveSystem] Clave desconocida en el save, ignorada: " + str(key_name))
+	return result
+
+
 func save_data() -> void:
-	# print(save, " (save start)")
-	# Lo considero bueno por que si no se cargan los datos al cargar los que estaban en
-	# el archivo y no en save o tenian valores distintos se eliminan/sobreescriben
-	# NOTA: los sigue sobreescribiendo, alch no entiendo
-	# NOTA: no es buena idea por que tambien sobreescribe los datos actuales, por lo que no se puede guardar nada
-	# load_data()
-	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.WRITE)
-	file.store_var(save)
+	print(save, " (save start)")
+	var payload: Dictionary = {
+		"version": SAVE_VERSION,
+		"data": _dict_to_json(save)
+	}
+	var json_text: String = JSON.stringify(payload, "\t")
+
+	#se escribe en un archivo temporal antes de guardar completamente 
+	var file: FileAccess = FileAccess.open(DATA_PATH_TMP, FileAccess.WRITE)
+	if file == null:
+		push_error("[SaveSystem] No se pudo abrir el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(FileAccess.get_open_error()))
+		save_completed.emit(false)
+		return
+
+	file.store_string(json_text)
 	file.close()
-	Descriptions.update_desc()
-	# print(save, " (save end)")
+
+	#se hace una copia del archivo temporal para guardarlo permanentemente SOLO si el temporal termino bien 
+	var rename_error: int = DirAccess.rename_absolute(DATA_PATH_TMP, DATA_PATH)
+	if rename_error != OK:
+		push_error("[SaveSystem] No se pudo renombrar el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(rename_error))
+		save_completed.emit(false)
+		return
+
+	print(save, " (save end)")
+	save_completed.emit(true)
 
 
 func load_data() -> void:
-	if FileAccess.file_exists(DATA_PATH):
-		var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
-		var extracted_data: Dictionary = file.get_var()
-		print(extracted_data, " (extracted)")
-		for i in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
-			if save.has(i):
-				save[i] = extracted_data[i]
-		file.close()
+	if not FileAccess.file_exists(DATA_PATH):
+		return
+	
+	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
+	var json_text: String = file.get_as_text()
+	file.close()
+
+	var parsed: Variant = JSON.parse_string(json_text)
+	if parsed == null or typeof(parsed) != TYPE_DICTIONARY:
+		push_error("[SaveSystem] el archivo de guardado esta corrupto o tine un formato inesperado")
+		load_completed.emit(false)
+		return
+		
+	var payload: Dictionary = parsed
+	if not payload.has("version") or not payload.has("data"):
+		push_error("[SaveSystem] El archivo de guardado no tiene el formato esperado (faltan 'version' o 'data'). Se usarán los valores por defecto.")
+		load_completed.emit(false)
+		return
+	
+
+	var extracted_data: Dictionary = json_to_dict(payload["data"])
+	for data_key in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
+		if save.has(data_key):
+				save[data_key] = extracted_data[data_key]
+
+	load_completed.emit(true)

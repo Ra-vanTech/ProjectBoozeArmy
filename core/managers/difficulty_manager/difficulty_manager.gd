@@ -23,6 +23,8 @@ var time_elapsed: int = 0
 
 
 func _ready() -> void:
+	Store.save_completed.connect(_on_save_completed)
+	
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = game_time
@@ -80,9 +82,14 @@ func add_time() -> void:
 
 func on_game_ended() -> void:
 	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
-	Store.data["gold"] += game_manager.money_manager.gold
+	Store.data[Store.DATA.GOLD] += game_manager.money_manager.gold
 	Store.save_data()
 	game_ended.emit()
+
+
+func _on_save_completed(success: bool) -> void:
+	if not success:
+		push_error("[DifficultyManager] El guardado de oro al finalizar el tiempo de la run falló.")
 
 
 # Con el escalado desactivado, todas las curvas se congelan en su valor inicial
