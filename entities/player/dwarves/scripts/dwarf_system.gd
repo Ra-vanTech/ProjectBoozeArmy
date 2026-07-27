@@ -8,7 +8,6 @@ signal ejercito_derrotado
 @export var formation_radius: float = 2.5
 #para agregar un nuevo tipo de enano, sin tocar el script
 @export var enano_scenes: Array[PackedScene] = []
-
 # Movimiento de enjambre: los enanos ya no ocupan puntos fijos, se agrupan
 # solos hacia el centro (el jugador) empujándose entre sí, como en Vampire
 # Survivors. Todo se calcula en coordenadas locales del contenedor, así que
@@ -20,7 +19,7 @@ signal ejercito_derrotado
 @export var separation_distance: float = 1.4
 @export var separation_strength: float = 14.0
 ## Radio alrededor del jugador que dejan libre
-@export var player_clearance: float = 1.2
+@export var player_clearance: float = 1.75
 ## Deriva aleatoria para que el grupo se sienta vivo
 @export var wander_strength: float = 2.0
 @export var max_speed: float = 4.0
@@ -41,40 +40,6 @@ func _ready() -> void:
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 	else:
 		push_error("[DwarfSystem] No se encontró UpgradeManager en la escena")
-
-
-func agregar_enano() -> void:
-	if dwarves.size() >= max_dwarves:
-		return
-	if enano_scenes.is_empty():
-		push_error("[DwarfSystem] No hay escenas de enano asignadas en enano_scenes")
-		return
-	var escena: PackedScene = enano_scenes[randi() % enano_scenes.size()]
-	var enano: EnanoBase = escena.instantiate()
-	add_child(enano)
-	# Aparece en un punto aleatorio del anillo; el enjambre lo acomoda solo
-	var angle: float = randf() * TAU
-	enano.position = Vector3(cos(angle), 0, sin(angle)) * formation_radius
-	dwarves.append(enano)
-	#print para probar upgrade +1 enano
-	# print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
-
-
-func eliminar_enano() -> void:
-	# Elimina el último enano del array (llamar cuando el jugador recibe daño)
-	if dwarves.size() == 0:
-		return
-	var enano_id: int = dwarves.size() - 1
-	var enano: Node3D = dwarves.pop_back()
-	# Feedback visual: sin esto los enanos desaparecían en silencio y no se
-	# entendía cuándo el jugador recibía daño
-	CombatVFX.hit_particles(self, enano.global_position, Color(0.9, 0.2, 0.2))
-	CombatVFX.floating_text(self, enano.global_position, "-1 enano", Color(1, 0.3, 0.3))
-	enano.queue_free()
-	enano_eliminado.emit(enano_id)
-
-	if dwarves.size() == 0:
-		_sin_enanos()
 
 
 func _physics_process(delta: float) -> void:
@@ -113,6 +78,40 @@ func _physics_process(delta: float) -> void:
 		enano.velocity = vel
 		enano.position += vel * delta
 		enano.position.y = 0.0
+
+
+func agregar_enano() -> void:
+	if dwarves.size() >= max_dwarves:
+		return
+	if enano_scenes.is_empty():
+		push_error("[DwarfSystem] No hay escenas de enano asignadas en enano_scenes")
+		return
+	var escena: PackedScene = enano_scenes[randi() % enano_scenes.size()]
+	var enano: EnanoBase = escena.instantiate()
+	add_child(enano)
+	# Aparece en un punto aleatorio del anillo; el enjambre lo acomoda solo
+	var angle: float = randf() * TAU
+	enano.position = Vector3(cos(angle), 0, sin(angle)) * formation_radius
+	dwarves.append(enano)
+	#print para probar upgrade +1 enano
+	# print("[DwarfSystem] Enano agregado: ", enano.get_script().get_global_name(), " | Total: ", dwarves.size())
+
+
+func eliminar_enano() -> void:
+	# Elimina el último enano del array (llamar cuando el jugador recibe daño)
+	if dwarves.size() == 0:
+		return
+	var enano_id: int = dwarves.size() - 1
+	var enano: Node3D = dwarves.pop_back()
+	# Feedback visual: sin esto los enanos desaparecían en silencio y no se
+	# entendía cuándo el jugador recibía daño
+	CombatVFX.hit_particles(self, enano.global_position, Color(0.9, 0.2, 0.2))
+	CombatVFX.floating_text(self, enano.global_position, "-1 enano", Color(1, 0.3, 0.3))
+	enano.queue_free()
+	enano_eliminado.emit(enano_id)
+
+	if dwarves.size() == 0:
+		_sin_enanos()
 
 
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
