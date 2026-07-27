@@ -2,9 +2,13 @@
 .godot/
 *.translation
 
-# ─── Godot 4 — Archivos generados automáticamente ───────────────────────────
-*.uid
-*.import
+# ─── Godot 4 — NO ignorar .uid ni .import ────────────────────────────────────
+# Desde Godot 4.4 los archivos .gd.uid forman parte del proyecto y DEBEN
+# versionarse. project.godot, .tscn y .tres referencian recursos por uid://; si
+# los .uid se ignoran, cada máquina regenera un UID distinto al abrir el editor
+# y esas referencias dejan de resolver (autoloads vacíos, scripts desasignados).
+# Lo mismo aplica a los .import, que fijan el UID de cada asset importado.
+# Solo la caché regenerable de .godot/ debe ignorarse.
 
 # ─── Godot 4 — Exports y builds ──────────────────────────────────────────────
 /export/
@@ -19,6 +23,9 @@
 
 # ─── Android ─────────────────────────────────────────────────────────────────
 /android/
+
+# ─── Herramientas ────────────────────────────────────────────────────────────
+__pycache__/
 
 # ─── Editores ─────────────────────────────────────────────────────────────────
 .vscode/
