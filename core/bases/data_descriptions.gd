@@ -10,6 +10,7 @@ static var desc: Dictionary = {
 	Store.DATA.MAX_DRUNKENNESS_MAX_LVL: item("Resistencia", "La ebriedad máxima incrementa (+10%)", -1),
 	Store.DATA.XP_BONUS_MAX_LVL: item("Intelecto", "Se obtiene más experiencia de los enemigos (+1)", -1),
 	Store.DATA.COINS_BONUS_MAX_LVL: item("Saqueo", "Se obtiene más oro de los enemigos (+10%)", -1),
+	Store.DATA.REACH_MAX_LVL: item("Brazos Largos", "Los ataques cubren más área (+15% alcance)", -1),
 	#
 	# Las mejoras del jugador no necesitan que se les señale el nivel máximo, ya que solo es para usarse en el gestor de mejoras
 	Store.DATA.MAX_LVL: item("Sabiduría", "Incrementa el nivel máximo", 0),

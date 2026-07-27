@@ -26,7 +26,7 @@ var upgrade_descriptions: Dictionary = {
 	UpgradeType.XP_BONUS: Descriptions.desc[Store.DATA.XP_BONUS_MAX_LVL],
 	UpgradeType.COINS_BONUS: Descriptions.desc[Store.DATA.COINS_BONUS_MAX_LVL],
 	# Mejora de partida sin dato persistente propio (aún): descripción local
-	UpgradeType.ATTACK_RANGE: Descriptions.item("Brazos Largos", "Los ataques cubren más área (+15% alcance)", 5),
+	UpgradeType.ATTACK_RANGE: Descriptions.desc[Store.DATA.REACH_MAX_LVL],
 }
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
@@ -41,17 +41,11 @@ var _stacks: Dictionary = {
 }
 
 
-func _ready() -> void:
-	for desc in upgrade_descriptions:
-		print(upgrade_descriptions[desc].name)
-		print("Nivel máximo obtenido: ", Descriptions.desc[desc + 1].max_lvl)
-		print("Nivel máximo esperado: ", Store.save[desc + 1])
-
-
-func item(upgrade_name: String, description: String, max_lvl: int) -> Dictionary:
-	return { "name": upgrade_name, "desc": description, "max_lvl": max_lvl }
-
-
+# func _ready() -> void:
+# 	for desc in upgrade_descriptions:
+# 		print(upgrade_descriptions[desc].name)
+# 		print("Nivel máximo obtenido: ", Descriptions.desc[desc + 1].max_lvl)
+# 		print("Nivel máximo esperado: ", Store.save[desc + 1])
 #aqui viviran todos las formulas de las mejoras
 func apply_upgrade(type: UpgradeType) -> void:
 	_stacks[type] += 1
