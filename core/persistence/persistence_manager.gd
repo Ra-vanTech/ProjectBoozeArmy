@@ -91,7 +91,7 @@ func json_to_dict(source: Dictionary) -> Dictionary:
 	for key_name in source:
 		if DATA.keys().has(key_name):
 			var data_key: int = DATA[key_name]
-			result[data_key] = source[key_name]
+			result[data_key] = source[key_name] as int
 		else:
 			push_warning("[SaveSystem] Clave desconocida en el save, ignorada: " + str(key_name))
 	return result
