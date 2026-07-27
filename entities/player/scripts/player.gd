@@ -18,7 +18,7 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(sobriety_damage)
 	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
-	
+
 	%MovementComponent.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
 
 	if is_instance_valid(drunkeness):
@@ -54,7 +54,7 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 		timer.start()
 	else:
 		timer.stop()
-	print("El estado critico del jugador ha cambiado a: ", is_critical)
+	# print("El estado critico del jugador ha cambiado a: ", is_critical)
 
 
 #estado de muerte

@@ -40,8 +40,8 @@ static func update_desc(idx: int = -1) -> void:
 
 static func match() -> bool:
 	for i in desc:
-		print(desc[i].name)
-		print("Obtenido: " + str(desc[i].max_lvl) + "\tEsperado: " + str(Store.save[i]))
+		# print(desc[i].name)
+		# print("Obtenido: " + str(desc[i].max_lvl) + "\tEsperado: " + str(Store.save[i]))
 		if desc[i].max_lvl != Store.save[i]:
 			return false
 	return true

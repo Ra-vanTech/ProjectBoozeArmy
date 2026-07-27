@@ -101,7 +101,7 @@ func json_to_dict(source: Dictionary) -> Dictionary:
 
 
 func save_data() -> void:
-	print(save, " (save start)")
+	# print(save, " (save start)")
 	var payload: Dictionary = {
 		"version": SAVE_VERSION,
 		"data": _dict_to_json(save),
@@ -153,8 +153,6 @@ func load_data() -> void:
 	for data_key in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
 		if save.has(data_key):
 			save[data_key] = extracted_data[data_key]
-
-	print(extracted_data)
 
 	load_completed.emit(true)
 
