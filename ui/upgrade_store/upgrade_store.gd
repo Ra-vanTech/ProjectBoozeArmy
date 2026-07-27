@@ -7,7 +7,7 @@ const max_levels: Dictionary = {
 	Store.DATA.MAX_LVL: 0,
 	Store.DATA.STARTING_DWARVES: 10,
 	Store.DATA.BASE_ATK: 50,
-	Store.DATA.BASE_ATK_SP: 10,
+	Store.DATA.BASE_ATK_SP: 25,
 	Store.DATA.BASE_SPD: 10,
 	Store.DATA.MAX_DRUNKENNESS: 900,
 	Store.DATA.XP_BONUS: 100,
@@ -107,7 +107,7 @@ func create_card(anchor: HBoxContainer, store_idx: int, _cost: int, cost_increas
 		Store.save_data()
 		gold_container.text = str(Store.save[Store.DATA.GOLD])
 		Store.save[store_idx] += 1
-		Descriptions.desc[store_idx] = Store.save[store_idx]
+		# Descriptions.update_desc(store_idx)
 		update_price.call()
 		if max_levels[store_idx] == 0:
 			level_display.text = "Nivel actual: " + str(Store.save[store_idx]) + " / ∞" # Poner símbolo de infinito cuando lo encuentre

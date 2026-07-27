@@ -81,6 +81,8 @@ var save: Dictionary = {
 
 func _ready() -> void:
 	load_data()
+	Descriptions.update_desc()
+	# assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
 
 
 # Convierte un Dictionary con llaves DATA (enum/int) a uno con llaves string,

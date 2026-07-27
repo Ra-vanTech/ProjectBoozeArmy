@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://lumdxsakywn"]
+
+[ext_resource type="Texture2D" uid="uid://7w68pj2qpkc5" path="res://assets/joystick/joystick_circle.svg" id="1_afn7c"]
+[ext_resource type="Script" uid="uid://c2kec870o0xpu" path="res://ui/joystick/joystick_contoller.gd" id="1_iv86l"]
+[ext_resource type="Texture2D" uid="uid://bmms4p57s30hi" path="res://assets/joystick/joystick_dot.svg" id="2_iv86l"]
+
+[node name="Control" type="Control" unique_id=255778147]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1072.0
+offset_bottom = -568.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iv86l")
+
+[node name="JoystickCircle" type="Sprite2D" parent="." unique_id=1280766589]
+position = Vector2(40, 40)
+texture = ExtResource("1_afn7c")
+
+[node name="JoystickDot" type="Sprite2D" parent="." unique_id=615076717]
+position = Vector2(40, 40)
+texture = ExtResource("2_iv86l")
