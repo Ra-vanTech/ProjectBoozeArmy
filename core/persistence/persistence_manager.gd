@@ -4,7 +4,6 @@ extends Node
 signal save_completed(success: bool)
 signal load_completed(success: bool)
 
-
 enum DATA {
 	GOLD,
 
@@ -85,21 +84,10 @@ func _ready() -> void:
 	# assert(Descriptions.match(), "Error al asignar los niveles máximos en Descriptions")
 
 
-# Convierte un Dictionary con llaves DATA (enum/int) a uno con llaves string,
-# listo para pasar a JSON.stringify(). Uso: _dict_to_json_ready(save)
-func _dict_to_json(source: Dictionary) -> Dictionary:
-	var result: Dictionary = {}
-	for data_key in source:
-		var key_name: String = DATA.keys()[data_key]
-		result[key_name] = source[data_key]
-	return result
-
-
 # Convierte de vuelta un Dictionary con llaves string (recién parseado de JSON)
-#a uno con llaves DATA (enum/int). Ignora y reporta claves que ya no existan		
-
+#a uno con llaves DATA (enum/int). Ignora y reporta claves que ya no existan
 func json_to_dict(source: Dictionary) -> Dictionary:
-	var result: Dictionary = {}
+	var result: Dictionary = { }
 	for key_name in source:
 		if DATA.keys().has(key_name):
 			var data_key: int = DATA[key_name]
@@ -113,11 +101,11 @@ func save_data() -> void:
 	print(save, " (save start)")
 	var payload: Dictionary = {
 		"version": SAVE_VERSION,
-		"data": _dict_to_json(save)
+		"data": _dict_to_json(save),
 	}
 	var json_text: String = JSON.stringify(payload, "\t")
 
-	#se escribe en un archivo temporal antes de guardar completamente 
+	#se escribe en un archivo temporal antes de guardar completamente
 	var file: FileAccess = FileAccess.open(DATA_PATH_TMP, FileAccess.WRITE)
 	if file == null:
 		push_error("[SaveSystem] No se pudo abrir el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(FileAccess.get_open_error()))
@@ -127,7 +115,7 @@ func save_data() -> void:
 	file.store_string(json_text)
 	file.close()
 
-	#se hace una copia del archivo temporal para guardarlo permanentemente SOLO si el temporal termino bien 
+	#se hace una copia del archivo temporal para guardarlo permanentemente SOLO si el temporal termino bien
 	var rename_error: int = DirAccess.rename_absolute(DATA_PATH_TMP, DATA_PATH)
 	if rename_error != OK:
 		push_error("[SaveSystem] No se pudo renombrar el archivo temporal: " + DATA_PATH_TMP + ", error: " + str(rename_error))
@@ -141,7 +129,7 @@ func save_data() -> void:
 func load_data() -> void:
 	if not FileAccess.file_exists(DATA_PATH):
 		return
-	
+
 	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
 	var json_text: String = file.get_as_text()
 	file.close()
@@ -151,17 +139,28 @@ func load_data() -> void:
 		push_error("[SaveSystem] el archivo de guardado esta corrupto o tine un formato inesperado")
 		load_completed.emit(false)
 		return
-		
+
 	var payload: Dictionary = parsed
 	if not payload.has("version") or not payload.has("data"):
 		push_error("[SaveSystem] El archivo de guardado no tiene el formato esperado (faltan 'version' o 'data'). Se usarán los valores por defecto.")
 		load_completed.emit(false)
 		return
-	
 
 	var extracted_data: Dictionary = json_to_dict(payload["data"])
 	for data_key in extracted_data: # Así no borra datos que aún no se hayan guardado al hacer la carga de datos
 		if save.has(data_key):
-				save[data_key] = extracted_data[data_key]
+			save[data_key] = extracted_data[data_key]
+
+	print(extracted_data)
 
 	load_completed.emit(true)
+
+
+# Convierte un Dictionary con llaves DATA (enum/int) a uno con llaves string,
+# listo para pasar a JSON.stringify(). Uso: _dict_to_json_ready(save)
+func _dict_to_json(source: Dictionary) -> Dictionary:
+	var result: Dictionary = { }
+	for data_key in source:
+		var key_name: String = DATA.keys()[data_key]
+		result[key_name] = source[data_key]
+	return result
