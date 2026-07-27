@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c370qf4erflfd"]
 
-[ext_resource type="Script" uid="uid://51lw3r2o61tb" path="res://ui/upgrade_store/upgrade_store.gd" id="1_3xmje"]
+[ext_resource type="Script" uid="uid://du4ximr24k4a6" path="res://ui/upgrade_store/upgrade_store.gd" id="1_3xmje"]
 [ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_fg3ft"]
 
 [node name="UpgradeStore" type="CanvasLayer" unique_id=1972143535]
@@ -32,7 +32,6 @@ size_flags_horizontal = 4
 
 [node name="Panel" type="TabContainer" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1335433190]
 custom_minimum_size = Vector2(900, 400)
-custom_maximum_size = Vector2(1000, -1)
 layout_mode = 2
 current_tab = 0
 
