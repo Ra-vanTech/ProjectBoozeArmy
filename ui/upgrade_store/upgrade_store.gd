@@ -63,8 +63,10 @@ func create_card(anchor: HBoxContainer, store_idx: int, _cost: int, cost_increas
 
 	var bg: PanelContainer = PanelContainer.new()
 	bg.custom_minimum_size = Vector2(200, -1)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var center_container: CenterContainer = CenterContainer.new()
+	center_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var container: VBoxContainer = VBoxContainer.new()
 	container.custom_minimum_size = Vector2(150, -1)
