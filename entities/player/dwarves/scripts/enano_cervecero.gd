@@ -18,3 +18,5 @@ func _generar_ebriedad() -> void:
 		push_error("[EnanoCervecero] No se encontro el gestor de juego en el árbol")
 		return
 	game_manager.add_drunkeness(EBRIEDAD_SEGUNDO)
+	# Texto pequeño sobre el cervecero para que se vea de dónde sale la ebriedad
+	CombatVFX.floating_text(self, global_position, "+%d" % EBRIEDAD_SEGUNDO, Color(0.4, 0.9, 0.3), 72)

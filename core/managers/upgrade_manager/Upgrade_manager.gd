@@ -13,6 +13,7 @@ enum UpgradeType {
 	MAX_DRUNKENNESS,
 	XP_BONUS,
 	COINS_BONUS,
+	ATTACK_RANGE,
 }
 
 var upgrade_descriptions: Dictionary = {
@@ -24,6 +25,8 @@ var upgrade_descriptions: Dictionary = {
 	UpgradeType.MAX_DRUNKENNESS: Descriptions.desc[Store.DATA.MAX_DRUNKENNESS_MAX_LVL],
 	UpgradeType.XP_BONUS: Descriptions.desc[Store.DATA.XP_BONUS_MAX_LVL],
 	UpgradeType.COINS_BONUS: Descriptions.desc[Store.DATA.COINS_BONUS_MAX_LVL],
+	# Mejora de partida sin dato persistente propio (aún): descripción local
+	UpgradeType.ATTACK_RANGE: Descriptions.item("Brazos Largos", "Los ataques cubren más área (+15% alcance)", 5),
 }
 var _stacks: Dictionary = {
 	UpgradeType.DAMAGE: 0,
@@ -34,6 +37,7 @@ var _stacks: Dictionary = {
 	UpgradeType.MAX_DRUNKENNESS: 0,
 	UpgradeType.XP_BONUS: 0,
 	UpgradeType.COINS_BONUS: 0,
+	UpgradeType.ATTACK_RANGE: 0,
 }
 
 
@@ -116,3 +120,9 @@ func get_xp_bonus() -> int:
 
 func get_coin_bonus() -> float:
 	return 1.0 + (_stacks[UpgradeType.COINS_BONUS] / 10)
+
+
+# +15% de alcance de ataque por stack (multiplica el radio base)
+func get_range_multiplier() -> float:
+	var stacks: int = _stacks[UpgradeType.ATTACK_RANGE]
+	return pow(1.15, stacks)

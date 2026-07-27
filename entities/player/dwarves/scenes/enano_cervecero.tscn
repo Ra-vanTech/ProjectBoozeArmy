@@ -12,11 +12,11 @@ height = 1.55
 albedo_color = Color(0.4, 0.06666667, 0.24313726, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oppef"]
-radius = 1.5
+radius = 3.75
 
 [node name="EnanoCervecero" type="CharacterBody3D" unique_id=1614007922]
-collision_layer = 3
-collision_mask = 5
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_8275o")
 damage = 7.5
 cooldown_base = 1.5

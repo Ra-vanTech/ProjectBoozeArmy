@@ -5,6 +5,11 @@ extends Node
 signal sobriety_critical_changed(is_critical: bool)
 signal drunkeness_changes(change)
 
+# Umbrales de zona compartidos por daño (EnanoBase), cámara y UI para que
+# todos los sistemas lean la misma definición de "sobrio" y "ebrio"
+const ZONA_SOBRIA: int = 30
+const ZONA_EBRIA: int = 70
+
 @export var starting_drunkeness: int = 50
 @export var max_drunkeness: int = 100
 
