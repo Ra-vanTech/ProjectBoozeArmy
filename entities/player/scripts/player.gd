@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	state_machine.tick(delta)
 
 	if input_component.has_quit:
-		state_machine.change_state("PausedState")
+		request_pause()
 
 
 func sobriety_damage() -> void:
@@ -69,7 +69,16 @@ func _on_ejercito_derrotado() -> void:
 func _on_pause_screen_overlay_game_resumed() -> void:
 	state_machine.change_state("IdleState")
 
+func request_pause() -> void:
+	state_machine.change_state("PausedState")
 
 func _on_pickup_radius_body_entered(body: Node3D) -> void:
 	if body.has_method("pickup"):
 		body.pickup()
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED:
+			if not get_tree().paused:
+				request_pause()
