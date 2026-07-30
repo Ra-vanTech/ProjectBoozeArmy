@@ -75,3 +75,10 @@ func request_pause() -> void:
 func _on_pickup_radius_body_entered(body: Node3D) -> void:
 	if body.has_method("pickup"):
 		body.pickup()
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED:
+			if not get_tree().paused:
+				request_pause()
