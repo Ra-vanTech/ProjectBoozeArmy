@@ -60,8 +60,11 @@ func _on_sobriety_critical_changed(is_critical: bool) -> void:
 #estado de muerte
 func _on_ejercito_derrotado() -> void:
 	_is_dead = true
+	# El oro de la partida solo se acumula si el gestor sigue vivo; sin el guard
+	# la muerte reventaba en vez de mostrar la pantalla de fin
 	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
-	Store.save[Store.DATA.GOLD] += game_manager.money_manager.gold
+	if is_instance_valid(game_manager):
+		Store.save[Store.DATA.GOLD] += game_manager.money_manager.gold
 	Store.save_data()
 	state_machine.change_state("DeadState")
 

@@ -125,7 +125,6 @@ func save_data() -> void:
 		save_completed.emit(false)
 		return
 
-	print(save, " (save end)")
 	save_completed.emit(true)
 
 
@@ -134,6 +133,10 @@ func load_data() -> void:
 		return
 
 	var file: FileAccess = FileAccess.open(DATA_PATH, FileAccess.READ)
+	if file == null:
+		push_error("[SaveSystem] No se pudo abrir el archivo de guardado: " + DATA_PATH + ", error: " + str(FileAccess.get_open_error()))
+		load_completed.emit(false)
+		return
 	var json_text: String = file.get_as_text()
 	file.close()
 

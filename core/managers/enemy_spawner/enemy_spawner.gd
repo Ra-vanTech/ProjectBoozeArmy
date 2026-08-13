@@ -28,6 +28,9 @@ func _ready() -> void:
 
 
 func spawn_enemy() -> void:
+	if not is_instance_valid(game_manager):
+		timer.stop()
+		return
 	if game_manager.game_ended:
 		timer.stop()
 		return

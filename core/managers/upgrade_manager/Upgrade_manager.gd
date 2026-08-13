@@ -63,9 +63,15 @@ func is_below_limit(i: int) -> bool:
 	return _stacks[i] < upgrade_descriptions[i].max_lvl
 
 
-## Retorna las mejoras filtradas para no traer las que ya llegaron a su nivel máximo
+## Retorna las mejoras filtradas para no traer las que ya llegaron a su nivel máximo.
+## Puede devolver menos de 3 (incluso 0, si todas están al máximo); quien la
+## consuma debe adaptarse a la cantidad recibida.
 func get_upgrade_list() -> Array:
 	var filtered: Array = _stacks.keys().filter(is_below_limit)
+	if filtered.is_empty():
+		# Sin mejoras disponibles: antes se rellenaba con pick_random() sobre un
+		# array vacío, que devuelve null y reventaba al pintar los botones
+		return []
 	if len(filtered) < 3:
 		# Repite mejoras para asegurar que siempre hayan 3 elementos, si esto no se hace da error de fuera del límite
 		# También es posible añadir otro diccionario de mejoras más débiles pero sin límite
@@ -104,7 +110,9 @@ func get_enemy_hp() -> float:
 
 
 func get_drunkenness_bonus() -> float:
-	return 1.0 + (_stacks[UpgradeType.MAX_DRUNKENNESS] / 10)
+	# 10.0 y no 10: con divisor entero la división se truncaba a 0 y la mejora
+	# no hacía nada (max_lvl es 5, nunca se llegaba a 10 stacks)
+	return 1.0 + (_stacks[UpgradeType.MAX_DRUNKENNESS] / 10.0)
 
 
 func get_xp_bonus() -> int:
@@ -113,7 +121,8 @@ func get_xp_bonus() -> int:
 
 
 func get_coin_bonus() -> float:
-	return 1.0 + (_stacks[UpgradeType.COINS_BONUS] / 10)
+	# Mismo caso que get_drunkenness_bonus: el divisor debe ser float
+	return 1.0 + (_stacks[UpgradeType.COINS_BONUS] / 10.0)
 
 
 # +15% de alcance de ataque por stack (multiplica el radio base)

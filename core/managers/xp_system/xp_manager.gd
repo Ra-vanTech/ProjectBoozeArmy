@@ -8,7 +8,9 @@ signal level_up(new_level: int)
 @export_range(10, 1000) var starting_xp_requirement = 10
 
 var max_level_signal_emitted := false
-# TODO: Arreglar error en el que aunque se suban varios niveles a la vez, solo se obtiene una mejora
+# El while de abajo emite level_up una vez por nivel subido. Que solo se
+# obtuviera una mejora al subir varios de golpe era culpa del consumidor
+# (UpgradeScreenOverlay descartaba los niveles siguientes); ya encola cada uno.
 var current_xp: int:
 	set(input):
 		if current_level >= MAX_LEVEL:
