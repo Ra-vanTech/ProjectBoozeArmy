@@ -180,7 +180,9 @@ static func _malla_arco(arc_deg: float, color: Color) -> Mesh:
 ## Pinta el MeshInstance3D del objetivo de blanco por un instante para que
 ## se lea el impacto (estilo Vampire Survivors).
 static func hit_flash(target: Node3D) -> void:
-	var mesh := target.get_node_or_null("MeshInstance3D") as MeshInstance3D
+	# VisualRef y no get_node_or_null("MeshInstance3D"): así sigue funcionando
+	# cuando los placeholders se sustituyan por modelos importados
+	var mesh := VisualRef.obtener(target)
 	if mesh == null or mesh.material_override != null:
 		return
 	mesh.material_override = _material_flash()

@@ -28,20 +28,21 @@ No vuelvas a añadir `*.uid` ni `*.import` al `.gitignore`, y no "arregles" un
 autoload reasignando el script a mano: eso genera un UID nuevo y rompe el
 proyecto para el resto del equipo.
 
-## Si trabajas en una rama sin mergear (léelo antes de mergear)
+## Conflictos en archivos `.uid`
 
-Las ramas activas (`experimental`, `developer`, `feat/persistence`,
-`feat/Boos-esqueleto`, …) se crearon cuando los `.uid` todavía estaban ignorados.
-Cada una arrastra los UIDs que **tu** máquina generó en su momento, así que al
-traer este fix vas a ver conflictos en archivos `.uid`.
+Todas las ramas del equipo están integradas en `main` (ver el tag
+`convergencia-equipo`), pero si recuperas una rama vieja verás conflictos en los
+`.uid`, porque se crearon cuando todavía estaban ignorados y cada máquina generó
+los suyos.
 
-**La regla es simple: en cualquier conflicto sobre un `.uid`, se toma siempre la
-versión de `main`.** Los UIDs de `main` son los que coinciden con lo que ya
-referencian los `.tscn` commiteados; los de tu rama son regeneraciones locales.
-Quedarte con "los tuyos" reintroduce el bug para todo el equipo.
+**La regla: gana siempre el `.uid` versionado en `main`.** Es tentador enunciarla
+como "gana lo que referencian los `.tscn`", pero eso falla justo cuando hace
+falta: al integrar `feat/summoner` y `feat/Boos-esqueleto` aparecieron scripts
+con **dos UIDs distintos en circulación a la vez** — `slime`/`skeleton`/`bat`
+usaban uno y `summoner`/`boss_skeleton` otro. Cuando las escenas se contradicen
+entre sí no hay nada que "ganar"; el `.uid` versionado es la referencia.
 
 ```bash
-git checkout tu-rama
 git merge main
 # resolver TODOS los conflictos de .uid con la versión de main:
 git checkout --theirs -- '*.uid'   # 'theirs' = main durante un merge
@@ -56,12 +57,43 @@ rm -rf .godot && godot --headless --import
 python3 tools/audit_uids.py   # debe reportar 0 referencias rotas
 ```
 
-Si tu rama **añade** scripts nuevos que no existen en `main`, sus `.uid` no dan
-conflicto y se commitean tal cual: son legítimos. Ojo con un caso concreto:
-`core/persistence/persistence_manager.gd` vive en `origin/feat/persistence` pero su
-`.uid` ya está versionado en `main` (`uid://c83jokc7wbbyn`). Al mergear, conserva
-ese UID — no dejes que Godot lo regenere, o el autoload `Store` volverá a aparecer
-con la ruta vacía, que es exactamente el problema que estamos cerrando.
+Los `.uid` de scripts que tu rama **añade** y no existen en `main` no dan
+conflicto y se commitean tal cual: son legítimos.
+
+## Meter assets (sustituir los placeholders)
+
+Todo lo que se ve ahora son primitivas de Godot (cápsulas, cilindros, cajas)
+puestas a mano. Para que cambiarlas por arte real no rompa nada:
+
+**Dónde van los archivos.** `assets/` está dividido en `models/`, `textures/`,
+`materials/`, `audio/sfx`, `audio/music` y `fonts/`. Los formatos binarios
+(`.png`, `.glb`, `.blend`, `.ogg`, `.ttf`…) van por Git LFS, ya configurado en
+`.gitattributes`.
+
+**Los `.import` NO van a LFS.** Son texto de ~1 KB y contienen el `uid://` del
+recurso; si acaban en LFS, quien clone sin LFS configurado recibe un puntero en
+lugar del UID y vuelve a romperse el proyecto igual que antes del fix de UIDs.
+Tampoco deben ir al `.gitignore`. Se commitean junto al asset, siempre.
+
+**Marca la malla como `%Visual`.** El flash de golpe y la embestida de los enanos
+necesitan encontrar la malla de la entidad. Hoy funciona porque los placeholders
+tienen un hijo llamado `MeshInstance3D`, pero un modelo importado la deja anidada
+y con otro nombre, y la búsqueda fallaría **en silencio** (sin error: el efecto
+simplemente desaparece). Al sustituir un placeholder, marca la `MeshInstance3D`
+del modelo como nombre único `Visual` (botón derecho → *Access as Unique Name*).
+
+`core/bases/visual_ref.gd` resuelve en cascada — `%Visual`, luego un hijo
+`MeshInstance3D`, luego la primera malla en profundidad — así que el proyecto
+funciona durante toda la transición, con placeholders y con modelos mezclados.
+Marcar `%Visual` es lo que garantiza que se elija la malla correcta y no la
+primera que aparezca.
+
+**El modelo que rota es un `@export`.** `MovementComponent.MODEL` se asigna desde
+el inspector, no por nombre: al cambiar el placeholder hay que reasignarlo.
+
+**Importación.** Las texturas nuevas entran comprimidas para VRAM y con mipmaps
+por defecto (`[importer_defaults]` en `project.godot`), que es lo que quiere el
+renderer móvil. No hace falta tocarlo asset por asset.
 
 ## Auditoría de UIDs
 

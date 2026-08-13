@@ -21,7 +21,7 @@ var _lunge_tween: Tween
 
 @onready var attack_range: Area3D = %AttackRange
 @onready var state_machine: StateMachine = %StateMachine
-@onready var mesh: MeshInstance3D = get_node_or_null("MeshInstance3D")
+@onready var mesh: MeshInstance3D = VisualRef.obtener(self)
 
 
 func _ready() -> void:

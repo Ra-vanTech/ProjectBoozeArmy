@@ -39,6 +39,17 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[importer_defaults]
+
+; Valores por defecto al importar assets nuevos, para no depender de que cada
+; quien los ajuste a mano. Las texturas entran comprimidas para VRAM (con
+; etc2_astc ya activado en [rendering]) y con mipmaps, que en una cámara
+; cenital evitan el aliasing al alejarse y además abaratan el muestreo.
+texture={
+"compress/mode": 2,
+"mipmaps/generate": true
+}
+
 [global_group]
 
 death_screen=""
