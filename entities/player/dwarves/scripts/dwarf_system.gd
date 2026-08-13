@@ -35,7 +35,7 @@ func _ready() -> void:
 	for i in range(initial_dwarves):
 		agregar_enano()
 
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrade_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrade_manager):
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 	else:

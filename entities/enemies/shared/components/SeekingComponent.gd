@@ -12,7 +12,7 @@ var player: Player = null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func tick() -> void:
 	if not is_instance_valid(player):
-		player = get_tree().get_first_node_in_group("player") as Player
+		player = Services.player as Player
 	
 	if not is_instance_valid(player):
 		direction = Vector2.ZERO

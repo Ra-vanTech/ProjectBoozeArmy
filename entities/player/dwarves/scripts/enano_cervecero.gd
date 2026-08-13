@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _generar_ebriedad() -> void:
-	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	var game_manager: GameManager = Services.game_manager
 	if not is_instance_valid(game_manager):
 		push_error("[EnanoCervecero] No se encontro el gestor de juego en el árbol")
 		return

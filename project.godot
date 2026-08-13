@@ -26,6 +26,7 @@ run/max_fps=60
 [autoload]
 
 Store="*res://core/persistence/persistence_manager.gd"
+Services="*res://core/services.gd"
 VFXPool="*res://vfx/vfx_pool.gd"
 
 [display]

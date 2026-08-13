@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		_despawn_frames = 0
 		if can_spawn:
 			if not is_instance_valid(_player):
-				_player = get_tree().get_first_node_in_group("player") as Node3D
+				_player = Services.player
 			if is_instance_valid(_player) and global_position.distance_squared_to(_player.global_position) > DESPAWN_DISTANCE * DESPAWN_DISTANCE:
 				queue_free()
 

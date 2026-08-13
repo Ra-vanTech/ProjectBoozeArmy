@@ -6,7 +6,7 @@ extends Node3D
 
 var _boss_spawned: bool = false
 
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 
 func _ready() -> void:
     game_manager.difficulty_manager.boss_spawned.connect(_spawn_boss)
@@ -17,7 +17,7 @@ func _spawn_boss() -> void:
         return
     _boss_spawned = true
 
-    var player := get_tree().get_first_node_in_group("player") as Node3D
+    var player := Services.player
     var origin: Vector3 = player.global_position if is_instance_valid(player) else global_position
 
     var boss := boss_scene.instantiate() as Node3D

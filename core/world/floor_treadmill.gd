@@ -15,7 +15,7 @@ var _player: Node3D
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(_player):
-		_player = get_tree().get_first_node_in_group("player") as Node3D
+		_player = Services.player
 		if not is_instance_valid(_player):
 			return
 	global_position.x = _player.global_position.x

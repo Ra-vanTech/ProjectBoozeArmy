@@ -28,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 	_frames = 0
 
 	if not is_instance_valid(_player):
-		_player = get_tree().get_first_node_in_group("player") as Node3D
+		_player = Services.player
 		if not is_instance_valid(_player):
 			return
 	var p: Vector3 = _player.global_position

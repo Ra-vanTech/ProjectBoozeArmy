@@ -14,7 +14,7 @@ extends CanvasLayer
 var _niveles_pendientes: Array[int] = []
 var _opciones_actuales: Array = []
 
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 @onready var _level_label: Label = $CenterContainer/PanelContainer/VBoxContainer/LevelLabel
 @onready var _button_1: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option1
 @onready var _button_2: Button = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Option2

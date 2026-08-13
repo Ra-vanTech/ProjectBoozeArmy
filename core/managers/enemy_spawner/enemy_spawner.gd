@@ -22,7 +22,7 @@ var timer: Timer
 var spawn_cooldown: float = 3.0
 var spawn_amount: int = 1
 
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 
 
 func _ready() -> void:
@@ -47,7 +47,7 @@ func spawn_enemy() -> void:
 			return
 
 	# Aparición relativa al jugador (si existe); si no, respecto al spawner
-	var player: Node3D = get_tree().get_first_node_in_group("player") as Node3D
+	var player: Node3D = Services.player
 	var origin: Vector3 = player.global_position if is_instance_valid(player) else global_position
 
 	# Los enemigos cuelgan del spawner; se descuenta el Timer, que es hijo suyo

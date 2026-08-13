@@ -37,7 +37,7 @@ func _ready() -> void:
 		_range_shape = collision.shape
 		_alcance_base = _range_shape.radius
 	_actualizar_alcance()
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrade_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrade_manager):
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 
@@ -49,7 +49,7 @@ func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 
 func _actualizar_alcance() -> void:
 	var mult: float = 1.0
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrade_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrade_manager):
 		mult = upgrade_manager.get_range_multiplier()
 	_alcance = _alcance_base * mult
@@ -64,11 +64,11 @@ func _physics_process(delta: float) -> void:
 # Metodos de calculo de daño (fórmulas compartidas en Attack, también las usa
 # el AttackComponent del personaje central)
 func obtener_daño_final() -> float:
-	return Attack.danio_final(self, damage)
+	return Attack.danio_final(damage)
 
 
 func obtener_cooldown_final() -> float:
-	return Attack.cooldown_final(self, cooldown_base)
+	return Attack.cooldown_final(cooldown_base)
 
 
 # Acciones base

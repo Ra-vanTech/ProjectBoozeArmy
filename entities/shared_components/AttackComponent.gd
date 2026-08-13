@@ -34,11 +34,11 @@ func _ready() -> void:
 		_range_shape = collision.shape
 		_alcance_base = _range_shape.radius
 	_actualizar_alcance()
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrade_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrade_manager):
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 	# Fase inicial aleatoria para no sincronizarse con los enanos
-	_cooldown_objetivo = Attack.cooldown_final(self, cooldown_base)
+	_cooldown_objetivo = Attack.cooldown_final(cooldown_base)
 	_cooldown = randf_range(0.0, _cooldown_objetivo)
 
 
@@ -49,7 +49,7 @@ func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
 
 func _actualizar_alcance() -> void:
 	var mult: float = 1.0
-	var upgrade_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrade_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrade_manager):
 		mult = upgrade_manager.get_range_multiplier()
 	_alcance = _alcance_base * mult
@@ -69,7 +69,7 @@ func _physics_process(delta: float) -> void:
 	if enemies_in_range.is_empty():
 		return
 	_cooldown = 0.0
-	_cooldown_objetivo = Attack.cooldown_final(self, cooldown_base)
+	_cooldown_objetivo = Attack.cooldown_final(cooldown_base)
 	_slash(_closest_enemy())
 
 
@@ -82,7 +82,7 @@ func _purgar_invalidos() -> void:
 func _slash(target: Node3D) -> void:
 	if not is_instance_valid(target):
 		return
-	var danio: float = Attack.danio_final(self, damage)
+	var danio: float = Attack.danio_final(damage)
 	var dir: Vector3 = target.global_position - body.global_position
 	dir.y = 0.0
 	dir = dir.normalized()

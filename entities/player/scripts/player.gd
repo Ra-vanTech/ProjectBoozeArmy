@@ -4,10 +4,18 @@ extends CharacterBody3D
 var timer: Timer
 var _is_dead: bool = false
 
-@onready var drunkeness: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager # aquí también es más fácil acceder solo al gestor de estado
+@onready var drunkeness: DrunkenessManager = Services.drunkeness
 @onready var state_machine: StateMachine = %StateMachine
 @onready var input_component: InputComponent = %InputComponent
 @onready var dwarf_system: DwarfSystem = %DwarfContainer
+
+
+func _enter_tree() -> void:
+	Services.registrar_player(self)
+
+
+func _exit_tree() -> void:
+	Services.dar_de_baja(self)
 
 
 func _ready() -> void:
@@ -62,9 +70,9 @@ func _on_ejercito_derrotado() -> void:
 	_is_dead = true
 	# El oro de la partida solo se acumula si el gestor sigue vivo; sin el guard
 	# la muerte reventaba en vez de mostrar la pantalla de fin
-	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
-	if is_instance_valid(game_manager):
-		Store.save[Store.DATA.GOLD] += game_manager.money_manager.gold
+	var money_manager: MoneyManager = Services.money
+	if is_instance_valid(money_manager):
+		Store.save[Store.DATA.GOLD] += money_manager.gold
 	Store.save_data()
 	state_machine.change_state("DeadState")
 

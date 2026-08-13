@@ -3,7 +3,7 @@ extends Label
 
 var current_level: int = 1
 
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 
 
 func _ready() -> void:

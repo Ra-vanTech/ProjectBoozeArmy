@@ -24,7 +24,7 @@ func damage(attack: Attack) -> void:
 	if health <= 0:
 		_is_dead = true
 		#Se biusca en el banco en el momento de muerte, no en _ready
-		game_manager = get_tree().get_first_node_in_group("game_manager")
+		game_manager = Services.game_manager
 		# El oro se calcula dentro del guard: la fórmula consulta el gestor y
 		# antes se leía antes de validarlo, lo que reventaba al morir un enemigo
 		# si el GameManager no estaba en el árbol
