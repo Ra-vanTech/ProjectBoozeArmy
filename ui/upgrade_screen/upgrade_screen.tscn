@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://drcu8m0gidsud"]
 
-[ext_resource type="Script" uid="uid://evk63m4tjw1j" path="res://ui/upgrade_screen/upgrade_screen_overlay.gd" id="1_2cyii"]
+[ext_resource type="Script" uid="uid://cyk038kfy26dm" path="res://ui/upgrade_screen/upgrade_screen_overlay.gd" id="1_2cyii"]
 
 [node name="UpgradeScreen" type="CanvasLayer" unique_id=1525150392]
 script = ExtResource("1_2cyii")
