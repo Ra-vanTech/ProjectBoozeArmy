@@ -13,6 +13,9 @@ extends Node
 
 var enemies_in_range: Array[Node3D] = []
 var _cooldown: float = 0.0
+# Periodo del ciclo actual, recalculado al golpear en vez de cada frame
+# (Attack.cooldown_final hace dos búsquedas por grupo en cada llamada)
+var _cooldown_objetivo: float = 1.2
 var _alcance: float = 1.5
 var _alcance_base: float = 1.5
 var _range_shape: SphereShape3D
@@ -35,7 +38,8 @@ func _ready() -> void:
 	if is_instance_valid(upgrade_manager):
 		upgrade_manager.upgrade_applied.connect(_on_upgrade_applied)
 	# Fase inicial aleatoria para no sincronizarse con los enanos
-	_cooldown = randf_range(0.0, Attack.cooldown_final(self, cooldown_base))
+	_cooldown_objetivo = Attack.cooldown_final(self, cooldown_base)
+	_cooldown = randf_range(0.0, _cooldown_objetivo)
 
 
 func _on_upgrade_applied(type: UpgradeManager.UpgradeType) -> void:
@@ -54,14 +58,25 @@ func _actualizar_alcance() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	enemies_in_range = enemies_in_range.filter(func(e): return is_instance_valid(e))
 	if enemies_in_range.is_empty():
 		return
 	_cooldown += delta
-	if _cooldown < Attack.cooldown_final(self, cooldown_base):
+	if _cooldown < _cooldown_objetivo:
+		return
+	# La purga de referencias muertas solo hace falta al ir a golpear: antes se
+	# reconstruía el array entero (con una lambda nueva) en cada frame
+	_purgar_invalidos()
+	if enemies_in_range.is_empty():
 		return
 	_cooldown = 0.0
+	_cooldown_objetivo = Attack.cooldown_final(self, cooldown_base)
 	_slash(_closest_enemy())
+
+
+func _purgar_invalidos() -> void:
+	for i in range(enemies_in_range.size() - 1, -1, -1):
+		if not is_instance_valid(enemies_in_range[i]):
+			enemies_in_range.remove_at(i)
 
 
 func _slash(target: Node3D) -> void:
@@ -74,6 +89,9 @@ func _slash(target: Node3D) -> void:
 	var half_arc: float = deg_to_rad(arco_ataque_grados) * 0.5
 
 	for enemy in enemies_in_range:
+		# Un golpe anterior del mismo barrido puede haber matado a este enemigo
+		if not is_instance_valid(enemy):
+			continue
 		var to_enemy: Vector3 = enemy.global_position - body.global_position
 		to_enemy.y = 0.0
 		if to_enemy.length() > _alcance or dir.angle_to(to_enemy.normalized()) > half_arc:

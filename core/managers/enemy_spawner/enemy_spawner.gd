@@ -11,6 +11,13 @@ extends Node3D
 # aparecer incrustado en el piso provoca lanzamientos al cielo
 const SPAWN_HEIGHT: float = 1.5
 
+## Tope de enemigos vivos a la vez. En partidas largas el ritmo de aparición
+## baja hasta 0.05 s y varios por tanda, y nada impedía que la escena creciera
+## sin control hasta ahogar a un móvil de gama baja. Es una red de seguridad,
+## no una regla de diseño: el valor queda holgado para no alterar la dificultad
+## salvo en los casos extremos.
+@export var max_enemigos_vivos: int = 80
+
 var timer: Timer
 var spawn_cooldown: float = 3.0
 var spawn_amount: int = 1
@@ -43,7 +50,14 @@ func spawn_enemy() -> void:
 	var player: Node3D = get_tree().get_first_node_in_group("player") as Node3D
 	var origin: Vector3 = player.global_position if is_instance_valid(player) else global_position
 
-	for i in range(spawn_amount):
+	# Los enemigos cuelgan del spawner; se descuenta el Timer, que es hijo suyo
+	var vivos: int = get_child_count() - 1
+	var hueco: int = max_enemigos_vivos - vivos
+	if hueco <= 0:
+		timer.wait_time = maxf(0.05, game_manager.difficulty_manager.get_spawn_rate())
+		return
+
+	for i in range(mini(spawn_amount, hueco)):
 		var new_enemy = enemy.instantiate() as Enemy
 		new_enemy.COINS_DROPPED *= game_manager.difficulty_manager.get_money_mult()
 		new_enemy.speed_multiplier = game_manager.difficulty_manager.get_speed_mult()

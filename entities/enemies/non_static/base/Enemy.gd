@@ -10,6 +10,9 @@ var can_attack: bool = true
 var player_in_range: Node3D = null
 
 var _despawn_frames: int = 0
+# Cacheada para no buscar por grupo en cada comprobación de despawn: con
+# decenas de enemigos vivos esas búsquedas se acumulan
+var _player: Node3D
 
 @onready var hit_box_component: HitBoxComponent = %HitBoxComponent
 @onready var movement_component: MovementComponent = %MovementComponent
@@ -36,8 +39,9 @@ func _physics_process(delta: float) -> void:
 	if _despawn_frames >= 30:
 		_despawn_frames = 0
 		if can_spawn:
-			var player := get_tree().get_first_node_in_group("player") as Node3D
-			if is_instance_valid(player) and global_position.distance_to(player.global_position) > DESPAWN_DISTANCE:
+			if not is_instance_valid(_player):
+				_player = get_tree().get_first_node_in_group("player") as Node3D
+			if is_instance_valid(_player) and global_position.distance_squared_to(_player.global_position) > DESPAWN_DISTANCE * DESPAWN_DISTANCE:
 				queue_free()
 
 
