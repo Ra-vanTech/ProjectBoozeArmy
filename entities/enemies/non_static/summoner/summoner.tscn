@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_deqgg"]
 [ext_resource type="Script" uid="uid://yokxwme1cpbd" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_b1grh"]
 [ext_resource type="PackedScene" uid="uid://cblq8gdlr12ok" path="res://entities/enemies/non_static/skeleton/skeleton.tscn" id="12_i7twq"]
+[ext_resource type="Resource" path="res://assets/stats/enemies/summoner.tres" id="99_stats"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.63815874, 0.64392173, 0.21630475, 1)
@@ -30,9 +31,7 @@ radius = 5.0
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_f0b37")
-health = 30.0
-COINS_DROPPED = 100
-xp_value = 10
+stats = ExtResource("99_stats")
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true
@@ -83,7 +82,6 @@ unique_name_in_owner = true
 script = ExtResource("9_deqgg")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
-MOVEMENT_SPEED = 2.5
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
 [node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]

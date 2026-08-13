@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="8_q3dph"]
 [ext_resource type="Script" uid="uid://cet3rr2bu208v" path="res://entities/shared_components/MovementComponent.gd" id="9_qn1yt"]
 [ext_resource type="Script" uid="uid://yokxwme1cpbd" path="res://entities/enemies/shared/components/SeekingComponent.gd" id="10_qi564"]
+[ext_resource type="Resource" path="res://assets/stats/enemies/bat.tres" id="99_stats"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klafe"]
 albedo_color = Color(0.16211486, 0.20760602, 0.21626663, 1)
@@ -28,9 +29,7 @@ radius = 1.0
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_mmrme")
-health = 10.0
-COINS_DROPPED = 100
-xp_value = 4
+stats = ExtResource("99_stats")
 
 [node name="StateMachine" type="Node" parent="." unique_id=955776627 node_paths=PackedStringArray("initial_state")]
 unique_name_in_owner = true
@@ -77,7 +76,6 @@ unique_name_in_owner = true
 script = ExtResource("9_qn1yt")
 BODY = NodePath("..")
 MODEL = NodePath("../MeshInstance3D")
-MOVEMENT_SPEED = 6.0
 metadata/_custom_type_script = "uid://cet3rr2bu208v"
 
 [node name="SeekingComponent" type="Node3D" parent="." unique_id=330104297]

@@ -22,10 +22,31 @@ var _player: Node3D
 
 
 func _ready() -> void:
+	aplicar_stats()
 	if movement_component:
+		if stats != null:
+			movement_component.MOVEMENT_SPEED = stats.movement_speed
 		movement_component.MOVEMENT_SPEED *= speed_multiplier
+	_sincronizar_componentes()
+
+
+## Propaga vida y oro a los componentes que los consumen. Se llama al arrancar
+## y cada vez que el spawner reescala al enemigo.
+func _sincronizar_componentes() -> void:
 	hit_box_component.health_component.health = health
 	hit_box_component.health_component.COINS_DROPPED_DEFAULT = COINS_DROPPED
+
+
+## Escalado por dificultad y mejoras, aplicado por el spawner DESPUÉS de
+## añadirlo al árbol. Antes se hacía mutando los campos justo antes de
+## add_child; con las stats en un recurso eso ya no vale, porque _ready las
+## vuelca encima y borraría el escalado.
+func aplicar_escalado(mult_health: float, mult_coins: float, mult_speed: float) -> void:
+	health *= mult_health
+	COINS_DROPPED = roundi(COINS_DROPPED * mult_coins)
+	if movement_component:
+		movement_component.MOVEMENT_SPEED *= mult_speed
+	_sincronizar_componentes()
 
 
 # La lógica termina en move_and_slide(), por lo que debe correr en el paso

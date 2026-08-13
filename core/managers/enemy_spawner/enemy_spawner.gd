@@ -57,19 +57,21 @@ func spawn_enemy() -> void:
 		timer.wait_time = maxf(0.05, game_manager.difficulty_manager.get_spawn_rate())
 		return
 
+	var dificultad: DifficultyManager = game_manager.difficulty_manager
+	# Escalado de vida por dificultad (respeta scaling_enabled internamente) y
+	# modificador de mejoras (-10% de vida enemiga por stack)
+	var mult_health: float = dificultad.get_health_mult() * game_manager.upgrade_manager.get_enemy_hp()
+	var mult_coins: float = dificultad.get_money_mult()
+	var mult_speed: float = dificultad.get_speed_mult()
+
 	for i in range(mini(spawn_amount, hueco)):
 		var new_enemy = enemy.instantiate() as Enemy
-		new_enemy.COINS_DROPPED *= game_manager.difficulty_manager.get_money_mult()
-		new_enemy.speed_multiplier = game_manager.difficulty_manager.get_speed_mult()
-
-		# Escalado de vida por dificultad (respeta scaling_enabled internamente)
-		new_enemy.health *= game_manager.difficulty_manager.get_health_mult()
-		#Modificador de hp - enemigos -10% por stack
-		new_enemy.health *= game_manager.upgrade_manager.get_enemy_hp()
-
 		add_child(new_enemy)
 		# La posición se asigna tras add_child para que global_position sea fiable
 		new_enemy.global_position = _random_spawn_position(origin)
+		# El escalado va después de add_child: _ready vuelca las stats del tipo
+		# sobre los campos, así que aplicarlo antes se perdería
+		new_enemy.aplicar_escalado(mult_health, mult_coins, mult_speed)
 
 		# Conectar XP al morir, la señal pasa xp_value directamente a add_xp
 		# new_enemy.enemy_died.connect(game_manager.add_xp)

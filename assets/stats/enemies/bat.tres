@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://dksiqf7krafw5" path="res://core/bases/enemy_stats.gd" id="1_stats"]
+
+[resource]
+script = ExtResource("1_stats")
+nombre = "bat"
+health = 10.0
+speed_multiplier = 1.0
+movement_speed = 6.0
+coins_dropped = 100
+xp_value = 4
+can_spawn = true

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://dksiqf7krafw5" path="res://core/bases/enemy_stats.gd" id="1_stats"]
+
+[resource]
+script = ExtResource("1_stats")
+nombre = "slime"
+health = 50.0
+speed_multiplier = 1.0
+movement_speed = 2.0
+coins_dropped = 25
+xp_value = 8
+can_spawn = true
