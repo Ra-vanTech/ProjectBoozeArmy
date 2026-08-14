@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3d7yu5e0v6co"]
 
-[ext_resource type="Script" uid="uid://cmqoxxab3wdpt" path="res://entities/enemies/static_enemy/scripts/static_enemy.gd" id="1_d2yl7"]
+[ext_resource type="Script" uid="uid://cmqoxxab3wdpt" path="res://entities/enemies/static_enemy/static_enemy.gd" id="1_d2yl7"]
 [ext_resource type="Script" uid="uid://iin3yxgmowr1" path="res://entities/shared_components/HealthComponent.gd" id="2_d2yl7"]
 [ext_resource type="Script" uid="uid://ccuyrq1cbmgww" path="res://entities/shared_components/HitBoxComponent.gd" id="3_wt7mu"]
 

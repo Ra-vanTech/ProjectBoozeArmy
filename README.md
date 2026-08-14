@@ -65,10 +65,34 @@ conflicto y se commitean tal cual: son legítimos.
 Todo lo que se ve ahora son primitivas de Godot (cápsulas, cilindros, cajas)
 puestas a mano. Para que cambiarlas por arte real no rompa nada:
 
-**Dónde van los archivos.** `assets/` está dividido en `models/`, `textures/`,
-`materials/`, `audio/sfx`, `audio/music` y `fonts/`. Los formatos binarios
-(`.png`, `.glb`, `.blend`, `.ogg`, `.ttf`…) van por Git LFS, ya configurado en
-`.gitattributes`.
+**Una carpeta por entidad.** Cada cosa del juego tiene su carpeta con todo lo
+suyo dentro — escena, script y, cuando llegue, su modelo:
+
+```
+entities/enemies/bat/          bat.tscn, bat.gd…      → aquí va bat.glb
+entities/player/dwarves/enano_guerrero/
+entities/weapons/projectile/
+```
+
+Antes esto estaba repartido entre subcarpetas `scenes/` y `scripts/` en unos
+sitios y plano en otros, así que meter el arte de un enemigo obligaba a tocar
+tres directorios. Al añadir contenido nuevo, sigue el patrón: carpeta propia,
+nombre igual al de la entidad.
+
+**Dónde va cada cosa.** Los assets compartidos entre entidades (texturas de
+terreno, fuentes, música, materiales comunes) van a `assets/`, dividido en
+`models/`, `textures/`, `materials/`, `audio/sfx`, `audio/music` y `fonts/`. Lo
+que pertenece a una sola entidad va en su carpeta. Las estadísticas viven
+aparte, en `assets/stats/enemies/`, a propósito: así se compara el balance de
+todos los tipos de un vistazo sin abrir cinco escenas.
+
+Los formatos binarios (`.png`, `.glb`, `.blend`, `.ogg`, `.ttf`…) van por Git
+LFS, ya configurado en `.gitattributes`.
+
+**Un enemigo nuevo no necesita código.** Duplica la carpeta de uno existente,
+crea su `.tres` en `assets/stats/enemies/` y asígnalo al campo *Stats* de la
+raíz de la escena. Vida, oro, XP, velocidad y si puede aparecer por el spawner
+salen de ahí.
 
 **Los `.import` NO van a LFS.** Son texto de ~1 KB y contienen el `uid://` del
 recurso; si acaban en LFS, quien clone sin LFS configurado recibe un puntero en
@@ -107,5 +131,21 @@ python3 tools/audit_uids.py
 
 Devuelve código de salida 1 si hay referencias rotas, así que sirve tal cual en un
 hook de pre-commit o en CI. También lista `.uid` huérfanos (sin archivo dueño), que
-son informativos: Godot los ignora, y varios corresponden a scripts que viven en
-ramas todavía sin mergear.
+son informativos: Godot los ignora.
+
+## Verificar que todas las escenas cargan
+
+```bash
+godot --headless --script tools/verificar_escenas.gd
+```
+
+Carga todos los `.tscn` y `.tres` del proyecto y falla si alguno no abre.
+Cubre el punto ciego de `audit_uids.py`: ese solo comprueba los `uid://`, y una
+ruta `res://` que apunta a un archivo movido no la detecta. Pásalo siempre
+después de mover o renombrar archivos.
+
+Los dos juntos son la red mínima antes de subir cambios estructurales:
+
+```bash
+python3 tools/audit_uids.py && godot --headless --script tools/verificar_escenas.gd
+```
