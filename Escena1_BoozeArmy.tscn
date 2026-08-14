@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" path="res://core/world/landmark_house.tscn" id="23_house"]
 [ext_resource type="Script" uid="uid://ches5snjvquke" path="res://core/managers/boss_manager/boss_spawner.gd" id="25_27eqb"]
 [ext_resource type="PackedScene" uid="uid://bt0pd0816x7hp" path="res://entities/enemies/boss_skeleton/boss_skeleton.tscn" id="26_xd26j"]
+[ext_resource type="Script" uid="uid://c2oin4bqw1rnd" path="res://core/precalentador.gd" id="99_precal"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ged5l"]
 
@@ -189,5 +190,8 @@ label_text = "TABERNA"
 [node name="BossSpawner" type="Node3D" parent="." unique_id=615860575]
 script = ExtResource("25_27eqb")
 boss_scene = ExtResource("26_xd26j")
+
+[node name="Precalentador" type="Node" parent="."]
+script = ExtResource("99_precal")
 
 [connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]

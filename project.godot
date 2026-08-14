@@ -16,41 +16,25 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="ProjectBoozeArmy"
 run/main_scene="uid://b3h5y1ml8q3yi"
-config/features=PackedStringArray("4.6", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
+run/max_fps=60
 boot_splash/image="uid://ceojmnsdgxhdl"
 config/icon="res://icon.svg"
-; Tope de fotogramas: sin esto el juego intenta seguir el refresco del panel
-; (90 Hz en el MotoG24), quemando GPU y batería para nada
-run/max_fps=60
 
 [autoload]
 
 Store="*res://core/persistence/persistence_manager.gd"
 Services="*res://core/services.gd"
 Events="*res://core/events.gd"
+Precarga="*res://core/precarga.gd"
 VFXPool="*res://vfx/vfx_pool.gd"
 
 [display]
 
-; Resolución de render fija a 720p y escalada al panel: en gama baja el coste
-; de pintar a la resolución nativa (1600x720 en el MotoG24) es el mayor gasto
-; de GPU del juego. "expand" evita barras negras mostrando algo más de mundo
-; en pantallas más anchas, en vez de deformar la imagen.
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-
-[importer_defaults]
-
-; Valores por defecto al importar assets nuevos, para no depender de que cada
-; quien los ajuste a mano. Las texturas entran comprimidas para VRAM (con
-; etc2_astc ya activado en [rendering]) y con mipmaps, que en una cámara
-; cenital evitan el aliasing al alejarse y además abaratan el muestreo.
-texture={
-"compress/mode": 2,
-"mipmaps/generate": true
-}
 
 [global_group]
 
@@ -61,6 +45,13 @@ spawner=""
 drunkeness=""
 upgrade_manager=""
 game_manager=""
+
+[importer_defaults]
+
+texture={
+"compress/mode": 2,
+"mipmaps/generate": true
+}
 
 [input]
 
@@ -104,10 +95,6 @@ pointing/emulate_touch_from_mouse=true
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-; Sombra direccional a 2048 en vez de 4096: con una cámara ortográfica cenital
-; y sombras suaves la diferencia no se aprecia, pero ahorra memoria de vídeo y
-; una pasada de render cara en GPU integrada.
 lights_and_shadows/directional_shadow/size=2048
 lights_and_shadows/directional_shadow/size.mobile=1024
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality.mobile=0

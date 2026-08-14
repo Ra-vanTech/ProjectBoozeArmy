@@ -68,6 +68,19 @@ static func _material_slash() -> StandardMaterial3D:
 	return _mat_slash
 
 
+## Colores con los que se piden partículas en el juego. Los usa la precarga
+## para estrenar un material por cada uno: se cachean por color, así que uno
+## sin calentar seguiría compilando su shader en pleno combate.
+static func colores_particulas() -> Array[Color]:
+	return [COLOR_DANIO, Color(0.9, 0.2, 0.2)]
+
+
+## Expuesto para la precarga: el flash se aplica como material_override y si no
+## se estrena antes, el primer golpe paga la compilación.
+static func material_flash_compartido() -> StandardMaterial3D:
+	return _material_flash()
+
+
 static func _material_flash() -> StandardMaterial3D:
 	if _mat_flash == null:
 		_mat_flash = StandardMaterial3D.new()
