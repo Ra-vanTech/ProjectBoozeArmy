@@ -3,6 +3,12 @@ extends CanvasLayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	visible = false
+	Events.jugador_muerto.connect(_on_jugador_muerto)
+
+
+func _on_jugador_muerto() -> void:
+	visible = true
 
 
 func _on_quit_button_pressed() -> void:

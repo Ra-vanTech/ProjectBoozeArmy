@@ -27,6 +27,7 @@ run/max_fps=60
 
 Store="*res://core/persistence/persistence_manager.gd"
 Services="*res://core/services.gd"
+Events="*res://core/events.gd"
 VFXPool="*res://vfx/vfx_pool.gd"
 
 [display]
@@ -53,12 +54,10 @@ texture={
 
 [global_group]
 
-death_screen=""
 bank=""
 player=""
 enemy=""
 spawner=""
-pause_screen=""
 drunkeness=""
 upgrade_manager=""
 game_manager=""

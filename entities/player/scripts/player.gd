@@ -26,6 +26,9 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(sobriety_damage)
 	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
+	# Antes venía de una conexión cableada en la escena principal, desde la
+	# señal game_resumed de la propia pantalla de pausa
+	Events.reanudacion_solicitada.connect(_on_reanudacion_solicitada)
 
 	%MovementComponent.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
 
@@ -77,7 +80,7 @@ func _on_ejercito_derrotado() -> void:
 	state_machine.change_state("DeadState")
 
 
-func _on_pause_screen_overlay_game_resumed() -> void:
+func _on_reanudacion_solicitada() -> void:
 	state_machine.change_state("IdleState")
 
 func request_pause() -> void:

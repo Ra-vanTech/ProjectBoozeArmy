@@ -191,4 +191,3 @@ script = ExtResource("25_27eqb")
 boss_scene = ExtResource("26_xd26j")
 
 [connection signal="game_ended" from="GameManager/DifficultyManager" to="GameManager" method="_on_difficulty_manager_game_ended"]
-[connection signal="game_resumed" from="Player_test/Camera3D/PauseScreenOverlay" to="Player_test" method="_on_pause_screen_overlay_game_resumed"]
