@@ -81,7 +81,7 @@ func add_time() -> void:
 
 
 func on_game_ended() -> void:
-	var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+	var game_manager: GameManager = Services.game_manager
 	Store.data[Store.DATA.GOLD] += game_manager.money_manager.gold
 	Store.save_data()
 	game_ended.emit()

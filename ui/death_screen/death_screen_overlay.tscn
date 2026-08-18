@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://drklkyspyef1v" path="res://ui/death_screen/death_screen_overlay.gd" id="1_fxgi5"]
 [ext_resource type="PackedScene" uid="uid://y3x718oqi51u" path="res://ui/transitions/black_fade_in_out/transition_screen.tscn" id="2_a3w8d"]
 
-[node name="DeathScreenOverlay" type="CanvasLayer" unique_id=618409675 groups=["death_screen"]]
+[node name="DeathScreenOverlay" type="CanvasLayer" unique_id=618409675]
 script = ExtResource("1_fxgi5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2125003277]

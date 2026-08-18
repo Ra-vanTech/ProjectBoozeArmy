@@ -1,16 +1,21 @@
 extends CanvasLayer
 
-signal game_resumed
-
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	visible = false
+	Events.pausa_cambiada.connect(_on_pausa_cambiada)
+
+
+func _on_pausa_cambiada(en_pausa: bool) -> void:
+	visible = en_pausa
 
 
 func _on_quit_button_pressed() -> void:
 	# get_tree().paused = false
-	var money_manager: MoneyManager = get_tree().get_first_node_in_group("game_manager").money_manager
-	Store.save[Store.DATA.GOLD] += money_manager.gold
+	var money_manager: MoneyManager = Services.money
+	if is_instance_valid(money_manager):
+		Store.save[Store.DATA.GOLD] += money_manager.gold
 	Store.save_data()
 	$TransitionScreen.show()
 	$TransitionScreen/AnimationPlayer.play("fade_in")
@@ -18,12 +23,7 @@ func _on_quit_button_pressed() -> void:
 
 
 func _on_continue_button_pressed() -> void:
-	game_resumed.emit()
-
-
-func _visibility_changed():
-	pass
-	visible = false
+	Events.reanudacion_solicitada.emit()
 
 
 func _on_timer_timeout() -> void:

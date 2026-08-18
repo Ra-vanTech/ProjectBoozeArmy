@@ -12,13 +12,26 @@ extends Node
 # ocurre cuando cambia de celda, así que el costo por frame es ínfimo.
 
 @export var world_size: float = 150.0
+## Cada cuántos frames de física se revisa el envoltorio. Los nodos envueltos
+## son decorados lejanos (casas, drops): reposicionarlos 15 veces por segundo
+## es imperceptible y evita recorrer el grupo entero en cada frame.
+const FRAMES_ENTRE_REVISIONES: int = 4
+
+var _player: Node3D
+var _frames: int = 0
 
 
 func _physics_process(_delta: float) -> void:
-	var player := get_tree().get_first_node_in_group("player") as Node3D
-	if not is_instance_valid(player):
+	_frames += 1
+	if _frames < FRAMES_ENTRE_REVISIONES:
 		return
-	var p: Vector3 = player.global_position
+	_frames = 0
+
+	if not is_instance_valid(_player):
+		_player = Services.player
+		if not is_instance_valid(_player):
+			return
+	var p: Vector3 = _player.global_position
 
 	for node in get_tree().get_nodes_in_group("world_wrapped"):
 		var n3d := node as Node3D

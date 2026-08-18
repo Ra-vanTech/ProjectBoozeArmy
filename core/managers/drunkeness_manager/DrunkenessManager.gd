@@ -40,7 +40,7 @@ func _ready() -> void:
 	timer.timeout.connect(_tick)
 	timer.start()
 
-	var upgrades_manager: UpgradeManager = get_tree().get_first_node_in_group("upgrade_manager")
+	var upgrades_manager: UpgradeManager = Services.upgrades
 	if is_instance_valid(upgrades_manager):
 		upgrades_manager.upgrade_applied.connect(_on_upgrade_applied)
 

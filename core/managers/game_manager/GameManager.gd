@@ -10,6 +10,16 @@ extends Node
 var game_ended: bool = false
 
 
+# El registro va en _enter_tree y no en _ready: así cualquier @onready del
+# resto de la escena ya lo encuentra disponible
+func _enter_tree() -> void:
+	Services.registrar_game_manager(self)
+
+
+func _exit_tree() -> void:
+	Services.dar_de_baja(self)
+
+
 # Métodos utilizados para facilitar el acceso a las variables de cada gestor
 func add_gold(input: int) -> void:
 	money_manager.gold += input

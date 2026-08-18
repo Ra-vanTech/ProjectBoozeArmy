@@ -1,9 +1,9 @@
 class_name DeadState
 extends State
 
-@onready var death_screen: CanvasLayer = get_tree().get_first_node_in_group("death_screen")
-
 
 func enter():
 	get_tree().paused = true
-	death_screen.visible = true
+	# La pantalla se muestra sola al oír el evento: antes este estado la
+	# buscaba por grupo y le cambiaba el visible a mano
+	Events.jugador_muerto.emit()

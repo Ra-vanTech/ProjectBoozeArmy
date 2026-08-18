@@ -1,0 +1,98 @@
+class_name Player
+extends CharacterBody3D
+
+var timer: Timer
+var _is_dead: bool = false
+
+@onready var drunkeness: DrunkenessManager = Services.drunkeness
+@onready var state_machine: StateMachine = %StateMachine
+@onready var input_component: InputComponent = %InputComponent
+@onready var dwarf_system: DwarfSystem = %DwarfContainer
+
+
+func _enter_tree() -> void:
+	Services.registrar_player(self)
+
+
+func _exit_tree() -> void:
+	Services.dar_de_baja(self)
+
+
+func _ready() -> void:
+	get_tree().paused = false
+	timer = Timer.new()
+	timer.wait_time = 1.0
+	timer.one_shot = false
+	add_child(timer)
+	timer.timeout.connect(sobriety_damage)
+	dwarf_system.ejercito_derrotado.connect(_on_ejercito_derrotado)
+	# Antes venía de una conexión cableada en la escena principal, desde la
+	# señal game_resumed de la propia pantalla de pausa
+	Events.reanudacion_solicitada.connect(_on_reanudacion_solicitada)
+
+	%MovementComponent.MOVEMENT_SPEED += Store.save[Store.DATA.BASE_SPD]
+
+	if is_instance_valid(drunkeness):
+		drunkeness.sobriety_critical_changed.connect(_on_sobriety_critical_changed)
+		# Establece el estado inicial del timer sin depender del orden de emisión
+		# de señales (p. ej. si la ebriedad inicial es 0, arranca en crítico)
+		_on_sobriety_critical_changed(drunkeness.drunkeness == 0)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	state_machine.tick(delta)
+
+	if input_component.has_quit:
+		request_pause()
+
+
+func sobriety_damage() -> void:
+	var chance = randi_range(0, 2)
+	if chance == 1:
+		damage()
+
+
+func damage():
+	if _is_dead:
+		return
+	dwarf_system.eliminar_enano()
+
+
+#Cambia el estado del timer cuando la sobriedad del jugador es critica
+func _on_sobriety_critical_changed(is_critical: bool) -> void:
+	if is_critical:
+		timer.start()
+	else:
+		timer.stop()
+	# print("El estado critico del jugador ha cambiado a: ", is_critical)
+
+
+#estado de muerte
+func _on_ejercito_derrotado() -> void:
+	_is_dead = true
+	# El oro de la partida solo se acumula si el gestor sigue vivo; sin el guard
+	# la muerte reventaba en vez de mostrar la pantalla de fin
+	var money_manager: MoneyManager = Services.money
+	if is_instance_valid(money_manager):
+		Store.save[Store.DATA.GOLD] += money_manager.gold
+	Store.save_data()
+	state_machine.change_state("DeadState")
+
+
+func _on_reanudacion_solicitada() -> void:
+	state_machine.change_state("IdleState")
+
+func request_pause() -> void:
+	state_machine.change_state("PausedState")
+
+func _on_pickup_radius_body_entered(body: Node3D) -> void:
+	if body.has_method("pickup"):
+		body.pickup()
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED:
+			if not get_tree().paused:
+				request_pause()

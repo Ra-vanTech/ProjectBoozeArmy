@@ -1,7 +1,7 @@
 class_name Bank
 extends Label
 
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 
 
 # Called when the node enters the scene tree for the first time.

@@ -8,9 +8,15 @@ extends MeshInstance3D
 # horizontalmente no afecta a la física.
 
 
+# La referencia al jugador se cachea: buscarla por grupo en cada frame de
+# física es un coste innecesario, y el jugador no cambia durante la partida
+var _player: Node3D
+
+
 func _physics_process(_delta: float) -> void:
-	var player := get_tree().get_first_node_in_group("player") as Node3D
-	if not is_instance_valid(player):
-		return
-	global_position.x = player.global_position.x
-	global_position.z = player.global_position.z
+	if not is_instance_valid(_player):
+		_player = Services.player
+		if not is_instance_valid(_player):
+			return
+	global_position.x = _player.global_position.x
+	global_position.z = _player.global_position.z

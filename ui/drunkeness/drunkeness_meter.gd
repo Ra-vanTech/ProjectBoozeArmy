@@ -9,10 +9,10 @@ const COLOR_EBRIO := Color(1.0, 0.85, 0.3)
 # Último valor recibido, para mostrar la tendencia (▲ subiendo / ▼ bajando)
 var _previous: int = -1
 
-@onready var drunkeness_manager: DrunkenessManager = get_tree().get_first_node_in_group("game_manager").drunkeness_manager
+@onready var drunkeness_manager: DrunkenessManager = Services.drunkeness
 
 
-# @onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager") # aquí la verdad es más fácil usar el gestor de ebriedad directamente pero noc
+# @onready var game_manager: GameManager = Services.game_manager # aquí la verdad es más fácil usar el gestor de ebriedad directamente pero noc
 func _ready() -> void:
 	drunkeness_manager.drunkeness_changes.connect(on_drunkeness_changed)
 	on_drunkeness_changed(drunkeness_manager.drunkeness)

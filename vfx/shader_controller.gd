@@ -19,7 +19,7 @@ var blur_size: Vector2
 @onready var blur_layer_x: ShaderMaterial = $BlurLayer/x_blur.material
 @onready var blur_layer_y: ShaderMaterial = $BlurLayer/y_blur.material
 @onready var blur_layer: ShaderMaterial = $BlurLayer/blur.material
-@onready var game_manager: GameManager = get_tree().get_first_node_in_group("game_manager")
+@onready var game_manager: GameManager = Services.game_manager
 
 
 func _physics_process(delta: float) -> void:

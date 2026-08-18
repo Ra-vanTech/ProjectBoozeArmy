@@ -20,6 +20,9 @@ func play_transition() -> void:
 func _on_play_button_pressed() -> void:
 	selected_button = "start"
 	play_transition()
+	# La lectura de disco se solapa con el fade: es tiempo muerto y así el
+	# nivel arranca con todo en memoria
+	Precarga.precargar_recursos()
 
 
 func _on_upgrade_button_pressed() -> void:

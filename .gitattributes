@@ -38,4 +38,9 @@
 *.dylib filter=lfs diff=lfs merge=lfs -text
 # Godot binary resources
 *.res  filter=lfs diff=lfs merge=lfs -text
-*.import filter=lfs diff=lfs merge=lfs -text
+
+# Los .import NO van a LFS: son texto de ~1 KB y contienen el uid:// del
+# recurso. Si alguien clona sin LFS configurado recibe un puntero en lugar del
+# uid y el proyecto se rompe igual que antes del fix de UIDs (ver README).
+# Tampoco deben ir a .gitignore: sin ellos Godot regenera los UIDs.
+*.import -filter -diff -merge text
